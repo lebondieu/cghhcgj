@@ -61,20 +61,7 @@ ExamPopUpController::ContentView::ContentView(Responder * parentResponder) :
     AppsContainer * container = AppsContainer::sharedAppsContainer();
     if (controller->isActivatingExamMode()) {
       container->reset();
-      switch ((int)preferences->colorOfLED()) {
-        case 0:
-          Ion::LED::setColor(KDColorWhite);
-          break;
-        case 1:
-          Ion::LED::setColor(KDColorGreen);
-          break;
-        case 2:
-          Ion::LED::setColor(KDColorBlue);
-          break;
-        case 3:
-          Ion::LED::setColor(KDColorYellow);
-          break;
-      }
+      Ion::LED::setColor(GlobalPreferences::sharedGlobalPreferences()->ledColor());
       Ion::LED::setBlinking(1000, 0.1f);
     } else {
       Ion::LED::setColor(KDColorBlack);
