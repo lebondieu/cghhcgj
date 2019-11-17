@@ -5,7 +5,7 @@ namespace Settings {
 
 // TODO: factorize most parts of the final models with main_controller_prompt_beta and main_controller_prompt_update
 //sub-sub-menus
-constexpr SettingsMessageTree s_ledColorChildren[4] = {SettingsMessageTree(I18n::Message::ColorWhite), SettingsMessageTree(I18n::Message::ColorGreen), SettingsMessageTree(I18n::Message::ColorBlue), SettingsMessageTree(I18n::Message::ColorYellow)};
+constexpr SettingsMessageTree s_ledColorChildren[3] = {SettingsMessageTree(I18n::Message::Red), SettingsMessageTree(I18n::Message::Green), SettingsMessageTree(I18n::Message::Blue)};
 constexpr SettingsMessageTree s_contributorsChildren[5] = {SettingsMessageTree(I18n::Message::QuentinGuidee), SettingsMessageTree(I18n::Message::DannySimmons), SettingsMessageTree(I18n::Message::JoachimLeFournis), SettingsMessageTree(I18n::Message::JeanBaptisteBoric), SettingsMessageTree(I18n::Message::MaximeFriess)};
 
 //sub-menus
@@ -13,7 +13,7 @@ constexpr SettingsMessageTree s_modelAngleChildren[3] = {SettingsMessageTree(I18
 constexpr SettingsMessageTree s_modelEditionModeChildren[2] = {SettingsMessageTree(I18n::Message::Edition2D), SettingsMessageTree(I18n::Message::EditionLinear)};
 constexpr SettingsMessageTree s_modelFloatDisplayModeChildren[4] = {SettingsMessageTree(I18n::Message::Decimal), SettingsMessageTree(I18n::Message::Scientific), SettingsMessageTree(I18n::Message::Engineering), SettingsMessageTree(I18n::Message::SignificantFigures)};
 constexpr SettingsMessageTree s_modelComplexFormatChildren[3] = {SettingsMessageTree(I18n::Message::Real), SettingsMessageTree(I18n::Message::Cartesian), SettingsMessageTree(I18n::Message::Polar)};
-constexpr SettingsMessageTree s_modelExamChildren[2] = {SettingsMessageTree(I18n::Message::LEDColor, s_ledColorChildren, 4), SettingsMessageTree(I18n::Message::ActivateExamMode)};
+constexpr SettingsMessageTree s_modelExamChildren[2] = {SettingsMessageTree(I18n::Message::LEDColor, s_ledColorChildren, 3), SettingsMessageTree(I18n::Message::ActivateExamMode)};
 #ifdef USERNAME
 constexpr SettingsMessageTree s_modelAboutChildren[6] = {SettingsMessageTree(I18n::Message::Username), SettingsMessageTree(I18n::Message::SoftwareVersion), SettingsMessageTree(I18n::Message::CustomSoftwareVersion), SettingsMessageTree(I18n::Message::SerialNumber), SettingsMessageTree(I18n::Message::FccId), SettingsMessageTree(I18n::Message::Contributors, s_contributorsChildren, 5)};
 #else
