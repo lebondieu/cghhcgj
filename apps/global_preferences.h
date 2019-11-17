@@ -16,6 +16,8 @@ public:
   void setExamMode(ExamMode examMode) { m_examMode = examMode; }
   bool showPopUp() const { return m_showPopUp; }
   void setShowPopUp(bool showPopUp) { m_showPopUp = showPopUp; }
+  KDColor ledColor() const {return m_ledColor; }
+  void setLedColor(KDColor ledColor) {m_ledColor = ledColor; }
   int brightnessLevel() const { return m_brightnessLevel; }
   void setBrightnessLevel(int brightnessLevel);
   constexpr static int NumberOfBrightnessStates = 15;
@@ -24,11 +26,13 @@ private:
     m_language(I18n::Language::EN),
     m_examMode(ExamMode::Deactivate),
     m_showPopUp(true),
-    m_brightnessLevel(Ion::Backlight::MaxBrightness) {}
+    m_brightnessLevel(Ion::Backlight::MaxBrightness),
+    m_ledColor(KDColor::RGB888(0, 0, 255)) {}
   I18n::Language m_language;
   ExamMode m_examMode;
   bool m_showPopUp;
   int m_brightnessLevel;
+  KDColor m_ledColor;
 };
 
 #endif
