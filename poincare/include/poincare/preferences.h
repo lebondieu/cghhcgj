@@ -36,12 +36,6 @@ public:
     Radian = 1,
     Gradian = 2
   };
-  enum class LEDColor {
-    White = 0,
-    Green = 1,
-    Blue = 2,
-    Yellow = 3
-  };
   Preferences();
   static Preferences * sharedPreferences();
   AngleUnit angleUnit() const { return m_angleUnit; }
@@ -54,15 +48,13 @@ public:
   void setComplexFormat(Preferences::ComplexFormat complexFormat) { m_complexFormat = complexFormat; }
   uint8_t numberOfSignificantDigits() const { return m_numberOfSignificantDigits; }
   void setNumberOfSignificantDigits(uint8_t numberOfSignificantDigits) { m_numberOfSignificantDigits = numberOfSignificantDigits; }
-  LEDColor colorOfLED() const { return m_colorOfLED; }
-  void setColorOfLED(LEDColor color) { m_colorOfLED = color; }
+
 private:
   AngleUnit m_angleUnit;
   PrintFloatMode m_displayMode;
   EditionMode m_editionMode;
   ComplexFormat m_complexFormat;
   uint8_t m_numberOfSignificantDigits;
-  LEDColor m_colorOfLED;
 };
 
 }
