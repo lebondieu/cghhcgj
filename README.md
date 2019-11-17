@@ -12,7 +12,7 @@
 
 ## About
 
-Omega is an extension to Numworks' Epsilon, the OS that runs on their calculator, which brings many features to it. Omega is for people who want to add features to the calculator, but cannot because they have been rejected by Numworks (and for reasons that are 100% understandable!). For example, there is no point in having a Dark Mode on the calculator, but it's fun, so we would add it into Omega! In short, Omega is a kind of Jailbreak on Epsilon.
+Omega is an extension to Numworks' Epsilon, the OS that runs on their calculator, which brings many features to it. Omega is for people who want to add features to the calculator, but cannot because they have been rejected by Numworks (and for reasons that are 100% understandable!). For example, there is no point in having a Dark Mode on the calculator, but it's fun, so we would add it into Omega!
 
 ## Some new features
 - Adding symbolic calculation back into the calculator
@@ -28,41 +28,66 @@ The main new features are listed [here](https://github.com/Omega-Numworks/Omega/
 
 First of all, follow **step 1** [here](https://www.numworks.com/resources/engineering/software/build/). Then:
 
-### For **n0100**:
+<details>
+  <summary><b>Model n0100</b></summary>
+
 ```
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
+git checkout omega-master
 make MODEL=n0100 clean
 make MODEL=n0100 USERNAME="{Your name, max 15 characters}" -j4
 make MODEL=n0100 epsilon_flash
 ```
 
-<!-- Alternatively, you can use [Omega Installer](https://github.com/Omega-Numworks/installer) `BETA` -->
+Important: Don't forget the `--recursive` tag, because Omega relies on submodules.
+Also, you can change the number of processes that run in parallel during the build by changing the value of the `-j` flag.
+  
+</details>
 
-### For **n0110**:
+<details>
+  <summary><b>Model n0110</b></summary>
+
 ```
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
+git checkout omega-master
 make clean
 make USERNAME="{Your name, max 15 characters}" -j4
 make epsilon_flash
 ```
 
-### Building **bin files**:
+Important: Don't forget the `--recursive` tag, because Omega relies on submodules.
+Also, you can change the number of processes that run in parallel during the build by changing the value of the `-j` flag.
+  
+</details>
 
-These can be used to distribute omega [so that it can be flashed by anyone](https://ti-planet.github.io/webdfu_numworks/).
+<details>
+  <summary><b>Bin files</b></summary>
+  
+These can be used to distribute Omega (so that it can be flashed by anyone with [Webdfu_Numworks](https://ti-planet.github.io/webdfu_numworks/)).
+
 ```
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
+git checkout omega-master
 make clean
 make MODEL=n0100 USERNAME="" -j8
 make MODEL=n0100 USERNAME="" binpack -j8
 make USERNAME="" -j8
 make USERNAME="" binpack -j8
 ```
-### Building the **web simulator** (works under linux):
 
+Important: Don't forget the `--recursive` tag, because Omega relies on submodules.
+Also, you can change the number of processes that run in parallel during the build by changing the value of the `-j` flag.
+  
+</details>
+
+<details>
+  <summary><b>Web simulator</b></summary>
+  
 First, install emsdk :
+
 ```
 git clone https://github.com/emscripten-core/emsdk.git
 cd emsdk
@@ -72,19 +97,25 @@ source emsdk_env.sh
 ```
 
 Then, compile Omega :
+
 ```
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
+git checkout omega-master
 make clean
 make PLATFORM=simulator TARGET=web USERNAME="{Your name, max 15 characters}" -j4
 ```
 
 The simulator is now in `output/release/simulator/web/simulator.zip`
 
-
 Important: Don't forget the `--recursive` tag, because Omega relies on submodules.
 Also, you can change the number of processes that run in parallel during the build by changing the value of the `-j` flag.
-<!-- ## Contribute -->
+
+</details>
+
+## Contributing
+
+To contribute, please refer to the [Wiki](https://github.com/Omega-Numworks/Omega/wiki/Contributing)
 
 ## Related repositories
 

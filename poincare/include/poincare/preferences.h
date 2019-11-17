@@ -36,6 +36,12 @@ public:
     Radian = 1,
     Gradian = 2
   };
+  enum class SymbolMultiplication {
+    Cross = 0,
+    MiddleDot = 1,
+    Star = 2,
+    Auto = 3
+  };
   Preferences();
   static Preferences * sharedPreferences();
   AngleUnit angleUnit() const { return m_angleUnit; }
@@ -48,13 +54,15 @@ public:
   void setComplexFormat(Preferences::ComplexFormat complexFormat) { m_complexFormat = complexFormat; }
   uint8_t numberOfSignificantDigits() const { return m_numberOfSignificantDigits; }
   void setNumberOfSignificantDigits(uint8_t numberOfSignificantDigits) { m_numberOfSignificantDigits = numberOfSignificantDigits; }
-
+  SymbolMultiplication symbolofMultiplication() const {return m_symbolMultiplication;}
+  void setSymbolMultiplication(SymbolMultiplication symbolofMultiplication) {m_symbolMultiplication = symbolofMultiplication;}
 private:
   AngleUnit m_angleUnit;
   PrintFloatMode m_displayMode;
   EditionMode m_editionMode;
   ComplexFormat m_complexFormat;
   uint8_t m_numberOfSignificantDigits;
+  SymbolMultiplication m_symbolMultiplication; 
 };
 
 }

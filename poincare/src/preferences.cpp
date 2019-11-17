@@ -13,6 +13,8 @@ Preferences::Preferences() :
   m_editionMode(EditionMode::Edition2D),
   m_complexFormat(Preferences::ComplexFormat::Real),
   m_numberOfSignificantDigits(PrintFloat::k_numberOfPrintedSignificantDigits)
+  m_numberOfSignificantDigits(PrintFloat::k_numberOfPrintedSignificantDigits),
+  m_symbolMultiplication(Preferences::SymbolMultiplication::Cross)
 {}
 
 Preferences * Preferences::sharedPreferences() {
