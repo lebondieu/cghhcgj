@@ -2,7 +2,7 @@
 #define SETTINGS_EXAM_MODE_CONTROLLER_H
 
 #include "generic_sub_controller.h"
-#include "preferences_controller.h"
+#include "led_controller.h"
 
 namespace Settings {
 
@@ -16,9 +16,9 @@ public:
   void willDisplayCellForIndex(HighlightCell * cell, int index) override;
   int typeAtLocation(int i, int j) override;
 private:
+  LEDController m_LEDController;
   MessageTableCell m_examModeCell;
   MessageTableCellWithChevronAndMessage m_ledCell;
-  PreferencesController m_preferencesController;
 };
 
 }

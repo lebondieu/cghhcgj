@@ -13,7 +13,7 @@ namespace Settings {
 
 ExamModeController::ExamModeController(Responder * parentResponder) :
   GenericSubController(parentResponder),
-  m_preferencesController(this),
+  m_LEDController(this),
   m_examModeCell(I18n::Message::Default, KDFont::LargeFont),
   m_ledCell(KDFont::LargeFont, KDFont::SmallFont)
 {
@@ -34,7 +34,7 @@ bool ExamModeController::handleEvent(Ion::Events::Event event) {
       return true;
     }
     if (childLabel == I18n::Message::LEDColor) {
-      GenericSubController * subController = &m_preferencesController;
+      GenericSubController * subController = &m_LEDController;
       subController->setMessageTreeModel(m_messageTreeModel->children(selectedRow()));
       StackViewController * stack = stackController();
       stack->push(subController);
@@ -75,8 +75,6 @@ void ExamModeController::willDisplayCellForIndex(HighlightCell * cell, int index
   }
   if (thisLabel == I18n::Message::LEDColor) {
     MessageTableCellWithChevronAndMessage * myTextCell = (MessageTableCellWithChevronAndMessage *)cell;
-    I18n::Message message = (I18n::Message) m_messageTreeModel->children(index)->children((int)preferences->colorOfLED())->label();
-    myTextCell->setSubtitle(message);
   }
 }
 
