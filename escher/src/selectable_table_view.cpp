@@ -124,7 +124,8 @@ HighlightCell * SelectableTableView::selectedCell() {
 
 bool SelectableTableView::handleEvent(Ion::Events::Event event) {
   if (event == Ion::Events::Down) {
-    return selectCellAtLocation(selectedColumn(), selectedRow()+1);
+    return false;
+    //return selectCellAtLocation(selectedColumn(), selectedRow()+1); See this : https://github.com/Omega-Numworks/Omega/issues/85#issuecomment-562877414
   }
   if (event == Ion::Events::Up) {
     return selectCellAtLocation(selectedColumn(), selectedRow()-1);
