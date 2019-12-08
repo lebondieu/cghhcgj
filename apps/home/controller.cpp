@@ -68,6 +68,17 @@ bool Controller::handleEvent(Ion::Events::Event event) {
     return m_view.selectableTableView()->selectCellAtLocation(0,0);
   }
 
+  if (event == Ion::Events::Down){
+    int NumberOfIconsOnLastLine = numberOfIcons() % numberOfColumns()-1;
+    if(selectionDataSource()->selectedRow() != numberOfRows()-2){
+      return m_view.selectableTableView()->selectCellAtLocation(selectionDataSource()->selectedColumn(), selectionDataSource()->selectedRow()+1);
+    }else if(selectionDataSource()->selectedColumn() != 2){
+      return m_view.selectableTableView()->selectCellAtLocation(selectionDataSource()->selectedColumn(), selectionDataSource()->selectedRow()+1);
+    }else{
+      return m_view.selectableTableView()->selectCellAtLocation(NumberOfIconsOnLastLine, numberOfRows()-1);
+    }
+  }
+
   if (event == Ion::Events::Right && selectionDataSource()->selectedRow() < numberOfRows()) {
     return m_view.selectableTableView()->selectCellAtLocation(0, selectionDataSource()->selectedRow()+1);
   }
