@@ -89,6 +89,9 @@ int AboutController::reusableCellCount(int type) {
 }
 
 void AboutController::willDisplayCellForIndex(HighlightCell * cell, int index) {
+  if(index == 0){
+    m_examModeCell.setHighlighted(false);
+  }
   GenericSubController::willDisplayCellForIndex(cell, index);
   assert(index >= 0 && index < k_totalNumberOfCell);
   if (m_messageTreeModel->children(index)->label() == I18n::Message::Contributors) {
