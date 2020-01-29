@@ -90,7 +90,7 @@ int AboutController::reusableCellCount(int type) {
 
 void AboutController::willDisplayCellForIndex(HighlightCell * cell, int index) {
   if(index == 0){
-    m_examModeCell.setHighlighted(false);
+    m_fccIdCell.setHighlighted(false);
   }
   GenericSubController::willDisplayCellForIndex(cell, index);
   assert(index >= 0 && index < k_totalNumberOfCell);
@@ -103,7 +103,7 @@ void AboutController::willDisplayCellForIndex(HighlightCell * cell, int index) {
     static const char * mpVersion = MICROPY_VERSION_STRING;
     static const char * messages[] = {
 #ifdef USERNAME
-      Ion::username(),
+      Ion::username(), 
 #endif
       Ion::softwareVersion(),
       Ion::customSoftwareVersion(),
