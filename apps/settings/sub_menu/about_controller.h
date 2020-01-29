@@ -21,6 +21,7 @@ private:
 #else
   constexpr static int k_totalNumberOfCell = 6;
 #endif
+  MessageTableCell m_fccIdCell;
   ContributorsController m_contributorsController;
   MessageTableCellWithChevronAndMessage m_contributorsCell;
   MessageTableCellWithBuffer m_cells[k_totalNumberOfCell];
