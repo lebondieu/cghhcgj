@@ -170,7 +170,7 @@ const ToolboxMessageTree TurtleModuleChildren[] = {
 const ToolboxMessageTree timeModuleChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::PythonTimeCommandImportFrom, I18n::Message::PythonTimeFromImport, false),
   ToolboxMessageTree::Leaf(I18n::Message::PythonCommandImportTime, I18n::Message::PythonTimeImport, false),
-  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandTimeFunction, I18n::Message::PythonTimePrefix, false),
+  ToolboxMessageTree::Leaf(I18n::Message::PythonCommandTimeFunction, I18n::Message::PythonTimePrefix, false, I18n::Message::PythonCommandTimeFunctionWithoutArg),
   ToolboxMessageTree::Leaf(I18n::Message::PythonTimeCommandSleepDemo, I18n::Message::PythonTimeSleep, false, I18n::Message::PythonTimeCommandSleep),
   ToolboxMessageTree::Leaf(I18n::Message::PythonTimeCommandMonotonic, I18n::Message::PythonTimeMonotonic, false)
 };
