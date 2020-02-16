@@ -12,7 +12,7 @@ public:
   void drawRect(KDContext * ctx, KDRect rect) const override;
   void reloadCell() override { cell()->reloadCell(); }
   Responder * responder() override { return cell()->responder(); }
-  constexpr static KDCoordinate k_margin = 10;
+  constexpr static KDCoordinate k_margin = 0;
 private:
   int numberOfSubviews() const override;
   View * subviewAtIndex(int index) override;
