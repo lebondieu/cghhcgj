@@ -17,7 +17,7 @@ AbstractScrollableMultipleExpressionsView::ContentCell::ContentCell() :
 }
 
 KDColor AbstractScrollableMultipleExpressionsView::ContentCell::backgroundColor() const {
-  KDColor background = m_even ? KDColorWhite : Palette::BackgroundApps;
+  KDColor background = m_even ? Palette::CalculationBackgroundEven : Palette::CalculationBackgroundOdd;
   return background;
 }
 
@@ -51,7 +51,7 @@ void AbstractScrollableMultipleExpressionsView::ContentCell::reloadTextColor() {
   if (displayCenter()) {
     m_rightExpressionView.setTextColor(Palette::GreyVeryDark);
   } else {
-    m_rightExpressionView.setTextColor(KDColorBlack);
+    m_rightExpressionView.setTextColor(Palette::PrimaryText);
   }
 }
 
