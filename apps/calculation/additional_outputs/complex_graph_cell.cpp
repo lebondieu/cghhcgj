@@ -1,4 +1,5 @@
 #include "complex_graph_cell.h"
+#include <escher/palette.h>
 
 using namespace Shared;
 using namespace Poincare;
@@ -12,7 +13,7 @@ ComplexGraphView::ComplexGraphView(ComplexModel * complexModel) :
 }
 
 void ComplexGraphView::drawRect(KDContext * ctx, KDRect rect) const {
-  ctx->fillRect(rect, KDColorWhite);
+  ctx->fillRect(rect, Palette::BackgroundApps);
 
   // Draw grid, axes and graduations
   drawGrid(ctx, rect);
