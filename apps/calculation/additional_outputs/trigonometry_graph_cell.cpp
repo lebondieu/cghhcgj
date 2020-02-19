@@ -1,4 +1,5 @@
 #include "trigonometry_graph_cell.h"
+#include <escher/palette.h>
 
 using namespace Shared;
 using namespace Poincare;
@@ -14,7 +15,7 @@ TrigonometryGraphView::TrigonometryGraphView(TrigonometryModel * model) :
 void TrigonometryGraphView::drawRect(KDContext * ctx, KDRect rect) const {
   float s = std::sin(m_model->angle());
   float c = std::cos(m_model->angle());
-  ctx->fillRect(rect, KDColorWhite);
+  ctx->fillRect(rect, Palette::BackgroundApps);
   drawGrid(ctx, rect);
   drawAxes(ctx, rect);
   // Draw the circle
