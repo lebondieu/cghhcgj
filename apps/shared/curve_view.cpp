@@ -6,6 +6,7 @@
 #include <string.h>
 #include <cmath>
 #include <float.h>
+#include <escher/palette.h>
 
 using namespace Poincare;
 
@@ -256,7 +257,7 @@ void CurveView::drawLabel(KDContext * ctx, KDRect rect, float xPosition, float y
   KDPoint position = positionLabel(xCoordinate, yCoordinate, labelSize, horizontalPosition, verticalPosition);
   if (rect.intersects(KDRect(position, labelSize))) {
     // TODO: should we blend?
-    ctx->drawString(label, position, k_font, color, KDColorWhite);
+    ctx->drawString(label, position, k_font, color, Palette::BackgroundApps);
   }
 }
 
