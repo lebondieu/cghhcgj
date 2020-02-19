@@ -5,6 +5,7 @@
 #include "../../shared/scrollable_multiple_expressions_view.h"
 #include "../calculation.h"
 #include "expression_with_equal_sign_view.h"
+#include <escher/palette.h>
 
 namespace Calculation {
 
@@ -12,14 +13,14 @@ class ScrollableThreeExpressionsView : public Shared::AbstractScrollableMultiple
 public:
   ScrollableThreeExpressionsView(Responder * parentResponder) : Shared::AbstractScrollableMultipleExpressionsView(parentResponder, &m_contentCell), m_contentCell() {
     setMargins(Metric::CommonSmallMargin, Metric::CommonSmallMargin, Metric::CommonSmallMargin, Metric::CommonSmallMargin); // Left Right margins are already added by TableCell
-    setBackgroundColor(KDColorWhite);
+    setBackgroundColor(Palette::BackgroundApps);
   }
   void setCalculation(Calculation * calculation);
 private:
   class ContentCell : public Shared::AbstractScrollableMultipleExpressionsView::ContentCell {
   public:
     ContentCell() : m_leftExpressionView() {}
-    KDColor backgroundColor() const override { return KDColorWhite; }
+    KDColor backgroundColor() const override { return Palette::BackgroundApps; }
     void setEven(bool even) override { return; }
     ExpressionView * leftExpressionView() const override { return const_cast<ExpressionWithEqualSignView *>(&m_leftExpressionView); }
   private:
