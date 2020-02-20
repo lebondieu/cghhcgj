@@ -109,6 +109,27 @@ void LayoutCursor::addEmptyMatrixLayout() {
   m_layout = matrixLayout.childAtIndex(0);
   m_position = Position::Right;
 }
+/*HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  HorizontalLayout child2 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  HorizontalLayout child3 = HorizontalLayout::Builder(CodePointLayout::Builder('2'));
+  NthRootLayout newChild0 = NthRootLayout::Builder(child1);
+  NthRootLayout newChild1 = NthRootLayout::Builder(child1, child2);
+  NthRootLayout newChild2 = NthRootLayout::Builder(child1, child3);*/
+
+void LayoutCursor::addRoot() {
+  Preferences * preferences = Preferences::sharedPreferences();
+  switch((int)preferences->symbolofRoot()){
+    case 1:
+      addEmptyArgSquareRootLayout();
+      break;
+    case 2:
+      addEmptyRootLayout();
+      break;
+    default:
+      addEmptySquareRootLayout();
+      break;
+  }
+}
 
 void LayoutCursor::addEmptySquareRootLayout() {
   // TODO: add a horizontal layout only if several children
@@ -117,6 +138,28 @@ void LayoutCursor::addEmptySquareRootLayout() {
   m_layout.addSibling(this, newChild, false);
   m_layout = newChild.childAtIndex(0);
   m_position = Position::Left;
+  ((Layout *)&newChild)->collapseSiblings(this);
+}
+
+void LayoutCursor::addEmptyRootLayout() {
+  // TODO: add a horizontal layout only if several children
+  HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  HorizontalLayout child2 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  NthRootLayout newChild = NthRootLayout::Builder(child1, child2);
+  m_layout.addSibling(this, newChild, false);
+  m_layout = newChild.childAtIndex(0);
+  m_position = Position::Right;
+  ((Layout *)&newChild)->collapseSiblings(this);
+}
+
+void LayoutCursor::addEmptyArgSquareRootLayout() {
+  // TODO: add a horizontal layout only if several children
+  HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  HorizontalLayout child2 = HorizontalLayout::Builder(CodePointLayout::Builder('2'));
+  NthRootLayout newChild = NthRootLayout::Builder(child1, child2);
+  m_layout.addSibling(this, newChild, false);
+  m_layout = newChild.childAtIndex(0);
+  m_position = Position::Right;
   ((Layout *)&newChild)->collapseSiblings(this);
 }
 

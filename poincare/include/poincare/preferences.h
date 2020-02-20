@@ -52,6 +52,11 @@ public:
     Star = 2,
     Auto = 3
   };
+  enum class SymbolRoot : uint8_t {
+    Square = 0,
+    ArgSquare = 1,
+    Arg = 2   
+  };
   enum class ResultDisplay : uint8_t {
     Default = 0,
     Compact = 1
@@ -76,6 +81,8 @@ public:
   void setColorOfLED(LEDColor color) { m_colorOfLED = color; }
   SymbolMultiplication symbolofMultiplication() const { return m_symbolMultiplication; }
   void setSymbolMultiplication(SymbolMultiplication symbolofMultiplication) { m_symbolMultiplication = symbolofMultiplication; }
+  SymbolRoot symbolofRoot() const { return m_symbolRoot; }
+  void setSymbolRoot(SymbolRoot symbolofRoot) { m_symbolRoot = symbolofRoot; }
   ResultDisplay resultDisplay() const { return m_resultDisplay; }
   void setResultDisplay(ResultDisplay resultDisplay) { m_resultDisplay = resultDisplay; }
   PythonFont pythonFont() const { return m_pythonFont; }
@@ -89,6 +96,7 @@ private:
   uint8_t m_numberOfSignificantDigits;
   LEDColor m_colorOfLED;
   SymbolMultiplication m_symbolMultiplication;
+  SymbolRoot m_symbolRoot;
   ResultDisplay m_resultDisplay;
   PythonFont m_pythonFont;
 };

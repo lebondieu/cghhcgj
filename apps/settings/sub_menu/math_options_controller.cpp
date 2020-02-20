@@ -66,6 +66,9 @@ void MathOptionsController::willDisplayCellForIndex(HighlightCell * cell, int in
     case I18n::Message::SymbolMultiplication:
       childIndex = (int)preferences->symbolofMultiplication();
       break;
+    case I18n::Message::SymbolRoot:
+      childIndex = (int)preferences->symbolofRoot();
+      break;
     default:
       break;
   }
