@@ -15,6 +15,7 @@ AboutController::AboutController(Responder * parentResponder) :
   GenericSubController(parentResponder),
   m_contributorsController(this),
   m_contributorsCell(KDFont::LargeFont, KDFont::SmallFont)
+  //m_view(&m_selectableTableView)
 {
   for (int i = 0; i < k_totalNumberOfCell; i++) {
     m_cells[i].setMessageFont(KDFont::LargeFont);

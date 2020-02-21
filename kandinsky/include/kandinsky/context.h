@@ -17,7 +17,7 @@ public:
 
   // Pixel manipulation
   void setPixel(KDPoint p, KDColor c);
-  KDColor getPixel(KDPoint p);
+  void getPixel(KDPoint p, KDColor * pixel);
   void getPixels(KDRect r, KDColor * pixels);
 
   // Text
@@ -33,7 +33,6 @@ public:
   void fillRectWithPixels(KDRect rect, const KDColor * pixels, KDColor * workingBuffer);
   void blendRectWithMask(KDRect rect, KDColor color, const uint8_t * mask, KDColor * workingBuffer);
   void strokeRect(KDRect rect, KDColor color);
-
   virtual void pushRect(KDRect, const KDColor * pixels) = 0;
   virtual void pushRectUniform(KDRect rect, KDColor color) = 0;
   virtual void pullRect(KDRect rect, KDColor * pixels) = 0;

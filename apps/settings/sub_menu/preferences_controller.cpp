@@ -155,6 +155,11 @@ Layout PreferencesController::layoutForPreferences(I18n::Message message) {
       const char * text = " ";
       return LayoutHelper::String(text, strlen(text), k_layoutFont);
     }
+    case I18n::Message::ExamModeModeNoSymNoText:
+    {
+      const char * text = " ";
+      return LayoutHelper::String(text, strlen(text), k_layoutFont);
+    }
     case I18n::Message::ExamModeModeDutch:
     {
       const char * text = " ";
@@ -177,12 +182,27 @@ Layout PreferencesController::layoutForPreferences(I18n::Message message) {
       return CodePointLayout::Builder('*', k_layoutFont);
     case I18n::Message::SymbolMultiplicationAutoSymbol:
       return CodePointLayout::Builder(' ', k_layoutFont);
+    
+    // Result display
+    case I18n::Message::DefaultResult:
+    {
+      const char * text = " ";
+      return LayoutHelper::String(text, strlen(text), k_layoutFont);
+    }
+    case I18n::Message::CompactResult:
+    {
+      const char * text = "Beta";
+      return LayoutHelper::String(text, strlen(text), k_layoutFont);
+    }
 
-      // Font size
-    case I18n::Message::Large:
-      return LayoutHelper::String("000", 3, KDFont::LargeFont);
-    case I18n::Message::Small:
-      return LayoutHelper::String("000", 3, KDFont::SmallFont);
+    // Font size
+    case I18n::Message::LargeFont:
+    case I18n::Message::SmallFont:
+    {
+      const char * text = "abc";
+      const KDFont * font = message == I18n::Message::LargeFont ? KDFont::LargeFont : KDFont::SmallFont;
+      return LayoutHelper::String(text, strlen(text), font);
+    }
 
     default:
       assert(false);
@@ -225,9 +245,12 @@ void PreferencesController::setPreferenceWithValueIndex(I18n::Message message, i
     GlobalPreferences::sharedGlobalPreferences()->setTempExamMode((GlobalPreferences::ExamMode)((uint8_t)valueIndex + 1));
   } else if (message == I18n::Message::SymbolMultiplication) {
     preferences->setSymbolMultiplication((Preferences::SymbolMultiplication)valueIndex);
-  } else if (message == I18n::Message::PythonFont) {
-    preferences->setPythonFont((Preferences::PythonFont)valueIndex);
+  } else if (message == I18n::Message::ResultDisplay) {
+    preferences->setResultDisplay((Preferences::ResultDisplay)valueIndex);
+  } else if (message == I18n::Message::FontSizes) {
+    GlobalPreferences::sharedGlobalPreferences()->setFont(valueIndex == 0 ? KDFont::LargeFont : KDFont::SmallFont);
   }
+
 }
 
 int PreferencesController::valueIndexForPreference(I18n::Message message) const {
@@ -250,8 +273,11 @@ int PreferencesController::valueIndexForPreference(I18n::Message message) const 
   if (message == I18n::Message::SymbolMultiplication) {
     return (int)preferences->symbolofMultiplication();
   }
-  if (message == I18n::Message::PythonFont) {
-    return (int)preferences->pythonFont();
+  if (message == I18n::Message::ResultDisplay) {
+    return (int)preferences->resultDisplay();
+  }
+  if (message == I18n::Message::FontSizes) {
+    return GlobalPreferences::sharedGlobalPreferences()->font() == KDFont::LargeFont ? 0 : 1;
   }
   return 0;
 }

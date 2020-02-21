@@ -1,17 +1,9 @@
 #include <escher/view_controller.h>
-
-ViewController::ViewController(Responder * parentResponder) :
-  Responder(parentResponder)
-{
-}
-
-const char * ViewController::title() {
-  return nullptr;
-}
+#include <escher/container.h>
+#include <string.h>
+#include <ion/telemetry.h>
 
 void ViewController::viewWillAppear() {
-}
 
-void ViewController::viewDidDisappear() {
 }
 

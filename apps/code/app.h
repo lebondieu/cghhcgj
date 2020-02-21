@@ -41,6 +41,7 @@ public:
     return static_cast<App *>(Container::activeApp());
   }
   ~App();
+  TELEMETRY_ID("Code");
   bool prepareForExit() override {
     if (m_consoleController.inputRunLoopActive()) {
       m_consoleController.terminateInputLoop();
@@ -53,6 +54,7 @@ public:
 
   /* Responder */
   bool handleEvent(Ion::Events::Event event) override;
+  void willExitResponderChain(Responder * nextFirstResponder) override;
 
   /* InputEventHandlerDelegate */
   Toolbox * toolboxForInputEventHandler(InputEventHandler * textInput) override;
@@ -69,13 +71,15 @@ public:
   void deinitPython();
 
   VariableBoxController * variableBoxController() { return &m_variableBoxController; }
+
+  static constexpr int k_pythonHeapSize = 32768;
+
 private:
   /* Python delegate:
    * MicroPython requires a heap. To avoid dynamic allocation, we keep a working
    * buffer here and we give to controllers that load Python environment. We
    * also memoize the last Python user to avoid re-initiating MicroPython when
    * unneeded. */
-  static constexpr int k_pythonHeapSize = 32768; // Default value: 16384
   char m_pythonHeap[k_pythonHeapSize];
   const void * m_pythonUser;
 
