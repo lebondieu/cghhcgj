@@ -10,6 +10,7 @@
 #include "sub_menu/language_controller.h"
 #include "sub_menu/math_options_controller.h"
 #include "sub_menu/preferences_controller.h"
+#include "sub_menu/brightness_controller.h"
 
 namespace Settings {
 
@@ -21,6 +22,7 @@ extern const SettingsMessageTree s_symbolChildren[4];
 extern const SettingsMessageTree s_modelResultDisplayChildren[2];
 extern const SettingsMessageTree s_modelMathOptionsChildren[6];
 extern const SettingsMessageTree s_modelFontChildren[2];
+extern const SettingsMessageTree s_brightnessChildren[5];
 extern const SettingsMessageTree s_accessibilityChildren[6];
 extern const SettingsMessageTree s_contributorsChildren[16];
 #ifdef USERNAME
@@ -63,9 +65,8 @@ private:
   StackViewController * stackController() const;
   I18n::Message promptMessage() const;
   bool hasPrompt() const { return promptMessage() != I18n::Message::Default; }
-  constexpr static int k_numberOfSimpleChevronCells = 9;
+  constexpr static int k_numberOfSimpleChevronCells = 10;
   MessageTableCellWithChevronAndMessage m_cells[k_numberOfSimpleChevronCells];
-  MessageTableCellWithGaugeWithSeparator m_brightnessCell;
   MessageTableCellWithSwitch m_popUpCell;
   SelectableTableView m_selectableTableView;
   MathOptionsController m_mathOptionsController;
@@ -74,6 +75,7 @@ private:
   ExamModeController m_examModeController;
   AboutController m_aboutController;
   PreferencesController m_preferencesController;
+  BrightnessController m_brightnessController;
 };
 
 }

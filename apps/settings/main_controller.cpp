@@ -16,6 +16,7 @@ constexpr SettingsMessageTree s_symbolChildren[4] = {SettingsMessageTree(I18n::M
 constexpr SettingsMessageTree s_modelResultDisplayChildren[2] = {SettingsMessageTree(I18n::Message::DefaultResult), SettingsMessageTree(I18n::Message::CompactResult)};
 constexpr SettingsMessageTree s_modelMathOptionsChildren[6] = {SettingsMessageTree(I18n::Message::AngleUnit, s_modelAngleChildren), SettingsMessageTree(I18n::Message::DisplayMode, s_modelFloatDisplayModeChildren), SettingsMessageTree(I18n::Message::EditionMode, s_modelEditionModeChildren), SettingsMessageTree(I18n::Message::ComplexFormat, s_modelComplexFormatChildren), SettingsMessageTree(I18n::Message::SymbolMultiplication, s_symbolChildren), SettingsMessageTree(I18n::Message::ResultDisplay, s_modelResultDisplayChildren)};
 constexpr SettingsMessageTree s_modelFontChildren[2] = {SettingsMessageTree(I18n::Message::LargeFont), SettingsMessageTree(I18n::Message::SmallFont)};
+constexpr SettingsMessageTree s_brightnessChildren[5] = {SettingsMessageTree(I18n::Message::Normal), SettingsMessageTree(I18n::Message::Dim), SettingsMessageTree(I18n::Message::BrightnessShortcut), SettingsMessageTree(I18n::Message::IdleTimeBeforeDimming), SettingsMessageTree(I18n::Message::IdleTimeBeforeSuspend)};
 constexpr SettingsMessageTree s_accessibilityChildren[6] = {SettingsMessageTree(I18n::Message::AccessibilityInvertColors), SettingsMessageTree(I18n::Message::AccessibilityMagnify),SettingsMessageTree(I18n::Message::AccessibilityGamma),SettingsMessageTree(I18n::Message::AccessibilityGammaRed),SettingsMessageTree(I18n::Message::AccessibilityGammaGreen),SettingsMessageTree(I18n::Message::AccessibilityGammaBlue)};
 constexpr SettingsMessageTree s_contributorsChildren[16] = {SettingsMessageTree(I18n::Message::Developers), SettingsMessageTree(I18n::Message::QuentinGuidee), SettingsMessageTree(I18n::Message::DannySimmons), SettingsMessageTree(I18n::Message::JoachimLeFournis), SettingsMessageTree(I18n::Message::JeanBaptisteBoric), SettingsMessageTree(I18n::Message::MaximeFriess), SettingsMessageTree(I18n::Message::David), SettingsMessageTree(I18n::Message::DamienNicolet), SettingsMessageTree(I18n::Message::EvannDreumont), SettingsMessageTree(I18n::Message::SzaboLevente), SettingsMessageTree(I18n::Message::VenceslasDuet), SettingsMessageTree(I18n::Message::BetaTesters), SettingsMessageTree(I18n::Message::CyprienMejat), SettingsMessageTree(I18n::Message::TimeoArnouts), SettingsMessageTree(I18n::Message::LouisC), SettingsMessageTree(I18n::Message::LelahelHideux)};
 #ifdef USERNAME
@@ -26,11 +27,11 @@ constexpr SettingsMessageTree s_modelAboutChildren[7] = {SettingsMessageTree(I18
 
 MainController::MainController(Responder * parentResponder, InputEventHandlerDelegate * inputEventHandlerDelegate) :
   ViewController(parentResponder),
-  m_brightnessCell(I18n::Message::Default, KDFont::LargeFont),
   m_popUpCell(I18n::Message::Default, KDFont::LargeFont),
   m_selectableTableView(this),
   m_mathOptionsController(this, inputEventHandlerDelegate),
   m_languageController(this, 13),
+  m_brightnessController(this, inputEventHandlerDelegate),
   m_accessibilityController(this),
   m_examModeController(this),
   m_aboutController(this),
@@ -56,7 +57,8 @@ bool MainController::handleEvent(Ion::Events::Event event) {
   GlobalPreferences * globalPreferences = GlobalPreferences::sharedGlobalPreferences();
   if (event == Ion::Events::BrightnessPlus || event == Ion::Events::BrightnessMinus){
     int delta = Ion::Backlight::MaxBrightness/GlobalPreferences::NumberOfBrightnessStates;
-    int direction = (event == Ion::Events::BrightnessPlus) ? Ion::Backlight::NumberOfStepsPerShortcut*delta : -delta*Ion::Backlight::NumberOfStepsPerShortcut;
+    int NumberOfStepsPerShortcut = GlobalPreferences::sharedGlobalPreferences()->BrightnessShortcut();
+    int direction = (event == Ion::Events::BrightnessPlus) ? NumberOfStepsPerShortcut*delta : -delta*NumberOfStepsPerShortcut;
     GlobalPreferences::sharedGlobalPreferences()->setBrightnessLevel(GlobalPreferences::sharedGlobalPreferences()->brightnessLevel()+direction);
     m_selectableTableView.reloadCellAtLocation(m_selectableTableView.selectedColumn(), 1);
     return true;
@@ -65,16 +67,6 @@ bool MainController::handleEvent(Ion::Events::Event event) {
     if (model()->children(selectedRow())->label() == promptMessage()) {
       if (event == Ion::Events::OK || event == Ion::Events::EXE) {
         globalPreferences->setShowPopUp(!globalPreferences->showPopUp());
-        m_selectableTableView.reloadCellAtLocation(m_selectableTableView.selectedColumn(), m_selectableTableView.selectedRow());
-        return true;
-      }
-      return false;
-    }
-    if (model()->children(selectedRow())->label() == I18n::Message::Brightness) {
-      if (event == Ion::Events::Right || event == Ion::Events::Left || event == Ion::Events::Plus || event == Ion::Events::Minus) {
-        int delta = Ion::Backlight::MaxBrightness/GlobalPreferences::NumberOfBrightnessStates;
-        int direction = (event == Ion::Events::Right || event == Ion::Events::Plus) ? delta : -delta;
-        globalPreferences->setBrightnessLevel(globalPreferences->brightnessLevel()+direction);
         m_selectableTableView.reloadCellAtLocation(m_selectableTableView.selectedColumn(), m_selectableTableView.selectedRow());
         return true;
       }
@@ -91,12 +83,14 @@ bool MainController::handleEvent(Ion::Events::Event event) {
   if (event == Ion::Events::OK || event == Ion::Events::EXE || event == Ion::Events::Right) {
     GenericSubController * subController = nullptr;
     I18n::Message title = model()->children(selectedRow())->label();
-    if (title == I18n::Message::Brightness || title == I18n::Message::Language) {
+    if (title == I18n::Message::Language) {
       assert(false);
     } else if (title == I18n::Message::ExamMode) {
       subController = &m_examModeController;
     } else if (title == I18n::Message::About) {
       subController = &m_aboutController;
+    } else if (title == I18n::Message::Brightness) {
+      subController = &m_brightnessController;
     } else if (title == I18n::Message::Accessibility) {
       subController = &m_accessibilityController;
     } else if (title == I18n::Message::MathOptions) {
@@ -149,7 +143,6 @@ HighlightCell * MainController::reusableCell(int index, int type) {
     return &m_popUpCell;
   }
   assert(type == 1);
-  return &m_brightnessCell;
 }
 
 int MainController::reusableCellCount(int type) {
@@ -160,9 +153,6 @@ int MainController::reusableCellCount(int type) {
 }
 
 int MainController::typeAtLocation(int i, int j) {
-  if (model()->children(j)->label() == I18n::Message::Brightness) {
-    return 1;
-  }
   if (model()->children(j)->label() == I18n::Message::UpdatePopUp || model()->children(j)->label() == I18n::Message::BetaPopUp) {
     return 2;
   }
@@ -172,13 +162,6 @@ int MainController::typeAtLocation(int i, int j) {
 void MainController::willDisplayCellForIndex(HighlightCell * cell, int index) {
   GlobalPreferences * globalPreferences = GlobalPreferences::sharedGlobalPreferences();
   I18n::Message title = model()->children(index)->label();
-  if (model()->children(index)->label() == I18n::Message::Brightness) {
-    MessageTableCellWithGaugeWithSeparator * myGaugeCell = (MessageTableCellWithGaugeWithSeparator *)cell;
-    myGaugeCell->setMessage(title);
-    GaugeView * myGauge = (GaugeView *)myGaugeCell->accessoryView();
-    myGauge->setLevel((float)globalPreferences->brightnessLevel()/(float)Ion::Backlight::MaxBrightness);
-    return;
-  }
   MessageTableCell * myCell = (MessageTableCell *)cell;
   myCell->setMessage(title);
   if (model()->children(index)->label() == I18n::Message::Language) {
