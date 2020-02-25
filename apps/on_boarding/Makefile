@@ -16,6 +16,7 @@ i18n_files += $(addprefix apps/on_boarding/,\
   base.fr.i18n\
   base.pt.i18n\
   base.hu.i18n\
+  base.pr.i18n\
 )
 
 $(eval $(call depends_on_image,apps/on_boarding/logo_view.cpp,apps/on_boarding/logo_icon.png))

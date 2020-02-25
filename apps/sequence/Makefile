@@ -34,6 +34,7 @@ i18n_files += $(addprefix apps/sequence/,\
   base.es.i18n\
   base.fr.i18n\
   base.pt.i18n\
+  base.pr.i18n\
   base.hu.i18n\
 )
 

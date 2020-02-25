@@ -40,6 +40,7 @@ i18n_files += $(addprefix apps/graph/,\
   base.fr.i18n\
   base.pt.i18n\
   base.hu.i18n\
+  base.pr.i18n\
 )
 
 $(eval $(call depends_on_image,apps/graph/app.cpp,apps/graph/graph_icon.png))

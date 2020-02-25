@@ -64,6 +64,7 @@ i18n_files += $(addprefix apps/,\
   shared.fr.i18n\
   shared.pt.i18n\
   shared.hu.i18n\
+  shared.pr.i18n\
   shared.universal.i18n\
   toolbox.de.i18n\
   toolbox.en.i18n\
@@ -71,12 +72,14 @@ i18n_files += $(addprefix apps/,\
   toolbox.fr.i18n\
   toolbox.pt.i18n\
   toolbox.hu.i18n\
+  toolbox.pr.i18n\
   variables.de.i18n\
   variables.en.i18n\
   variables.es.i18n\
   variables.fr.i18n\
   variables.pt.i18n\
   variables.hu.i18n\
+  variables.pr.i18n\
 )
 
 $(eval $(call rule_for, \
