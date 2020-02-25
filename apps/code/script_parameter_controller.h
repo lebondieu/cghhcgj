@@ -43,7 +43,7 @@ private:
   SelectableTableView m_selectableTableView;
   Script m_script;
   MenuController * m_menuController;
-  bool m_sizedisplaypercent = false;
+  bool m_sizeDisplayPercent = false;
 };
 
 }
