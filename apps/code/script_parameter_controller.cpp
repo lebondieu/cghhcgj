@@ -83,7 +83,7 @@ bool ScriptParameterController::handleEvent(Ion::Events::Event event) {
           size[sizelen+1] = '%';
           myCell->setAccessoryText(size);
         }
-        m_sizedisplaypercent = !m_sizedisplaypercent;
+        m_sizeDisplayPercent = ! m_sizeDisplayPercent;
         return true;
       }
       default:
