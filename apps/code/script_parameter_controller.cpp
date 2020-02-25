@@ -62,7 +62,7 @@ bool ScriptParameterController::handleEvent(Ion::Events::Event event) {
         return true;
       case 5:{
         MessageTableCellWithBuffer * myCell = (MessageTableCellWithBuffer *)m_selectableTableView.selectedCell();
-        if(m_sizedisplaypercent){
+        if(m_sizeDisplayPercent){
           char size[18];
           memset(size, ' ', sizeof(size));
           int sizelen = Poincare::Integer((int)m_script.value().size).serialize(size, 6);
