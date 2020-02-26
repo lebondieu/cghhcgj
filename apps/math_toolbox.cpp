@@ -23,7 +23,7 @@ const ToolboxMessageTree calculChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::DiffCommandWithArg, I18n::Message::DerivateNumber, false, I18n::Message::DiffCommand),
   ToolboxMessageTree::Leaf(I18n::Message::IntCommandWithArg, I18n::Message::Integral, false, I18n::Message::IntCommand),
   ToolboxMessageTree::Leaf(I18n::Message::SumCommandWithArg, I18n::Message::Sum, false, I18n::Message::SumCommand),
-  ToolboxMessageTree::Leaf(I18n::Message::ProductCommandWithArg, I18n::Message::Product, false, I18n::Message::ProductCommand)
+  ToolboxMessageTree::Leaf(I18n::Message::ProductCommandWithArg, I18n::Message::Product, false, I18n::Message::ProductCommand),
 };
 
 const ToolboxMessageTree complexChildren[] = {
@@ -532,18 +532,22 @@ const ToolboxMessageTree SpeedsOfSound[] = {
   ToolboxMessageTree::Leaf(I18n::Message::SpeedOfSoundSteelTag, I18n::Message::SpeedOfSoundSteel, false, I18n::Message::SpeedOfSoundSteel)
 };
 
+const ToolboxMessageTree EscapeVelocities[] = {
+    ToolboxMessageTree::Leaf(I18n::Message::EscapeVelocityFromMoon, I18n::Message::EscapeVelocityOfMoon, false, I18n::Message::EscapeVelocityOfMoon),
+  ToolboxMessageTree::Leaf(I18n::Message::EscapeVelocityFromEarth, I18n::Message::EscapeVelocityOfEarth, false, I18n::Message::EscapeVelocityOfEarth),
+  ToolboxMessageTree::Leaf(I18n::Message::EscapeVelocityFromSun, I18n::Message::EscapeVelocityOfSun, false, I18n::Message::EscapeVelocityOfSun),
+};
+
 const ToolboxMessageTree Speed[] = {
   ToolboxMessageTree::Leaf(I18n::Message::SpeedOfLightTag, I18n::Message::SpeedOfLight, false, I18n::Message::SpeedOfLight),
-  ToolboxMessageTree::Node(I18n::Message::SpeedOfSound, SpeedsOfSound)
+  ToolboxMessageTree::Node(I18n::Message::SpeedOfSound, SpeedsOfSound),
+  ToolboxMessageTree::Node(I18n::Message::EscapeVelocity, EscapeVelocities)
 };
 
 const ToolboxMessageTree Thermodynamics[] =  {
   ToolboxMessageTree::Leaf(I18n::Message::BoltzmannTag,I18n::Message::Boltzmann, false, I18n::Message::Boltzmann),
   ToolboxMessageTree::Leaf(I18n::Message::AvogadroTag, I18n::Message::Avogadro, false, I18n::Message::Avogadro),
   ToolboxMessageTree::Leaf(I18n::Message::GasTag,I18n::Message::Gas, false, I18n::Message::Gas),
-  ToolboxMessageTree::Leaf(I18n::Message::ElectronMassTag, I18n::Message::ElectronMass, false, I18n::Message::ElectronMass),
-  ToolboxMessageTree::Leaf(I18n::Message::ProtonMassTag, I18n::Message::ProtonMass, false, I18n::Message::ProtonMass),
-  ToolboxMessageTree::Leaf(I18n::Message::NeutronMassTag, I18n::Message::NeutronMass, false, I18n::Message::NeutronMass),
 };
 
 const ToolboxMessageTree Electromagnetism[] = {
@@ -556,14 +560,33 @@ const ToolboxMessageTree Electromagnetism[] = {
 
 const ToolboxMessageTree Gravitation[] = {
   ToolboxMessageTree::Leaf(I18n::Message::GAccelerationTag, I18n::Message::GAcceleration, false, I18n::Message::GAcceleration),
-  ToolboxMessageTree::Leaf(I18n::Message::GConstantTag, I18n::Message::GConstant, false, I18n::Message::GConstant)
+  ToolboxMessageTree::Leaf(I18n::Message::GConstantTag, I18n::Message::GConstant, false, I18n::Message::GConstant),
+};
+
+const ToolboxMessageTree ParticleMass[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::ElectronMassTag, I18n::Message::ElectronMass, false, I18n::Message::ElectronMass),
+  ToolboxMessageTree::Leaf(I18n::Message::NeutronMassTag, I18n::Message::NeutronMass, false, I18n::Message::NeutronMass),
+  ToolboxMessageTree::Leaf(I18n::Message::ProtonMassTag, I18n::Message::ProtonMass, false, I18n::Message::NeutronMass),
+};
+
+const ToolboxMessageTree AstronomicalMass[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::SunMassTag, I18n::Message::SunMass, false, I18n::Message::SunMass),
+  ToolboxMessageTree::Leaf(I18n::Message::EarthMassTag, I18n::Message::EarthMass, false, I18n::Message::EarthMass),
+  ToolboxMessageTree::Leaf(I18n::Message::MoonMassTag, I18n::Message::MoonMass, false, I18n::Message::MoonMass),
+};
+
+
+const ToolboxMessageTree Mass[] = {
+  ToolboxMessageTree::Node(I18n::Message::ParticleMass, ParticleMass),
+  ToolboxMessageTree::Node(I18n::Message::AstronomicalMass, AstronomicalMass),
 };
 
 const ToolboxMessageTree Physics[] = {
   ToolboxMessageTree::Node(I18n::Message::Speed, Speed),
   ToolboxMessageTree::Node(I18n::Message::Thermodynamics, Thermodynamics),
   ToolboxMessageTree::Node(I18n::Message::Electromagnetism, Electromagnetism),
-  ToolboxMessageTree::Node(I18n::Message::Gravitation, Gravitation)
+  ToolboxMessageTree::Node(I18n::Message::Gravitation, Gravitation),
+  ToolboxMessageTree::Node(I18n::Message::Mass, Mass),
 };
 
 const ToolboxMessageTree menu[] = {
