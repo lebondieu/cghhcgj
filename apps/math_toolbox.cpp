@@ -520,9 +520,30 @@ const ToolboxMessageTree chemistryMolarMassesByAlpha[] = {
   ToolboxMessageTree::Leaf(I18n::Message::AlphaElementZr, I18n::Message::ElementZrMass, false, I18n::Message::ElementZrMass)
 };
 
+const ToolboxMessageTree Pka[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::Pka01, I18n::Message::Pka01Value, false, I18n::Message::Pka01Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka02, I18n::Message::Pka02Value, false, I18n::Message::Pka02Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka03, I18n::Message::Pka03Value, false, I18n::Message::Pka03Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka04, I18n::Message::Pka04Value, false, I18n::Message::Pka04Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka05, I18n::Message::Pka05Value, false, I18n::Message::Pka05Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka06, I18n::Message::Pka06Value, false, I18n::Message::Pka06Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka07, I18n::Message::Pka07Value, false, I18n::Message::Pka07Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka08, I18n::Message::Pka08Value, false, I18n::Message::Pka08Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka09, I18n::Message::Pka09Value, false, I18n::Message::Pka09Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka10, I18n::Message::Pka10Value, false, I18n::Message::Pka10Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka11, I18n::Message::Pka11Value, false, I18n::Message::Pka11Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka12, I18n::Message::Pka12Value, false, I18n::Message::Pka12Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka13, I18n::Message::Pka13Value, false, I18n::Message::Pka13Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka14, I18n::Message::Pka14Value, false, I18n::Message::Pka14Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka15, I18n::Message::Pka15Value, false, I18n::Message::Pka15Value),
+  ToolboxMessageTree::Leaf(I18n::Message::Pka16, I18n::Message::Pka16Value, false, I18n::Message::Pka16Value),
+  ToolboxMessageTree::Leaf(I18n::Message::UltimateAnswer, I18n::Message::UltimateAnswerValue, false, I18n::Message::UltimateAnswerValue),
+};
+
 const ToolboxMessageTree chemistry[] = {
   ToolboxMessageTree::Node(I18n::Message::MolarMassesByNumber, chemistryMolarMassesByNumber),
-  ToolboxMessageTree::Node(I18n::Message::MolarMassesByAlpha, chemistryMolarMassesByAlpha)
+  ToolboxMessageTree::Node(I18n::Message::MolarMassesByAlpha, chemistryMolarMassesByAlpha),
+  ToolboxMessageTree::Node(I18n::Message::Pka, Pka),
 };
 
 const ToolboxMessageTree SpeedsOfSound[] = {
@@ -605,6 +626,8 @@ const ToolboxMessageTree Physics[] = {
   ToolboxMessageTree::Node(I18n::Message::Mass, Mass),
   ToolboxMessageTree::Node(I18n::Message::Lenght, Lenght)
 };
+
+
 
 const ToolboxMessageTree menu[] = {
   ToolboxMessageTree::Leaf(I18n::Message::AbsCommandWithArg, I18n::Message::AbsoluteValue),
