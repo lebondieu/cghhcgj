@@ -142,6 +142,19 @@ const ToolboxMessageTree unitAmountMoleChildren[] = {
 const ToolboxMessageTree unitLuminousIntensityChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitLuminousIntensityCandelaSymbol, I18n::Message::UnitLuminousIntensityCandela)};
 
+
+const ToolboxMessageTree unitLuminousFluxChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitLuminousFluxLumenSymbol, I18n::Message::UnitLuminousFluxLumen),
+};
+
+const ToolboxMessageTree unitSolidAngleChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitSolidAngleSteradianSymbol, I18n::Message::UnitSolidAngleSteradian),
+};
+
+const ToolboxMessageTree unitIlluminanceChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitIlluminanceLuxSymbol, I18n::Message::UnitIlluminanceLux),
+};
+
 const ToolboxMessageTree unitFrequencyHertzChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitFrequencyHertzGigaSymbol, I18n::Message::UnitFrequencyHertzGiga),
   ToolboxMessageTree::Leaf(I18n::Message::UnitFrequencyHertzMegaSymbol, I18n::Message::UnitFrequencyHertzMega),
@@ -190,6 +203,7 @@ const ToolboxMessageTree unitElectricChargeCoulombChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitChargeCoulombSymbol, I18n::Message::UnitChargeCoulomb),
 };
 
+
 const ToolboxMessageTree unitPotentialVoltChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltKiloSymbol, I18n::Message::UnitPotentialVoltKilo),
   ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltSymbol, I18n::Message::UnitPotentialVolt),
@@ -237,6 +251,9 @@ const ToolboxMessageTree unitChildren[] = {
   ToolboxMessageTree::Node(I18n::Message::UnitTemperatureMenu, unitTemperatureChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitAmountMenu, unitAmountMoleChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitLuminousIntensityMenu, unitLuminousIntensityChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitLuminousFluxMenu, unitLuminousFluxChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitIlluminanceMenu, unitIlluminanceChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitSolidAngleMenu, unitSolidAngleChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitFrequencyMenu, unitFrequencyHertzChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),

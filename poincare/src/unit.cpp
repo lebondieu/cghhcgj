@@ -8,6 +8,7 @@
 #include <poincare/layout_helper.h>
 #include <cmath>
 #include <assert.h>
+#include <iostream>
 #include <string.h>
 #include <utility>
 
@@ -177,12 +178,15 @@ constexpr const Unit::Prefix
 constexpr const Unit::Representative
   Unit::TimeRepresentatives[],
   Unit::DistanceRepresentatives[],
+  Unit::SolideAngleRepresentatives[],
   Unit::MassRepresentatives[],
   Unit::CurrentRepresentatives[],
   Unit::TemperatureRepresentatives[],
   Unit::AmountOfSubstanceRepresentatives[],
   Unit::LuminousIntensityRepresentatives[],
   Unit::FrequencyRepresentatives[],
+  Unit::LuminousFluxRepresentatives[],
+  Unit::IlluminanceRepresentatives[],
   Unit::ForceRepresentatives[],
   Unit::PressureRepresentatives[],
   Unit::EnergyRepresentatives[],
@@ -221,14 +225,29 @@ Unit Unit::Builder(const Dimension * dimension, const Representative * represent
 }
 
 Expression Unit::shallowReduce(ExpressionNode::ReductionContext reductionContext) {
+
+
   if (reductionContext.symbolicComputation() == ExpressionNode::SymbolicComputation::ReplaceAllSymbolsWithUndefinedAndDoNotReplaceUnits) {
     return *this;
   }
+
+
   UnitNode * unitNode = static_cast<UnitNode *>(node());
+
+
   const Dimension * dim = unitNode->dimension();
+
+
   const Representative * rep = unitNode->representative();
+
+
   const Prefix * pre = unitNode->prefix();
+
+
+
   int8_t prefixMultiplier = pre->exponent();
+
+
   if (rep == dim->stdRepresentative()) {
     const Prefix * stdPre = dim->stdRepresentativePrefix();
     unitNode->setPrefix(stdPre);
@@ -240,11 +259,20 @@ Expression Unit::shallowReduce(ExpressionNode::ReductionContext reductionContext
   } else {
     result = Expression::Parse(rep->definition(), nullptr, false).deepReduce(reductionContext);
   }
+
+
+
   if (prefixMultiplier != 0) {
     Expression multiplier = Power::Builder(Rational::Builder(10), Rational::Builder(prefixMultiplier)).shallowReduce(reductionContext);
     result = Multiplication::Builder(multiplier, result).shallowReduce(reductionContext);
   }
+
+
   replaceWithInPlace(result);
+
+  std::cout << "Unit " << rep->rootSymbol() << std::endl;
+
+
   return result;
 }
 
