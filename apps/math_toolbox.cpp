@@ -579,8 +579,8 @@ const ToolboxMessageTree Electromagnetism[] = {
   ToolboxMessageTree::Leaf(I18n::Message::CoulombTag, I18n::Message::Coulomb, false, I18n::Message::Coulomb),
   ToolboxMessageTree::Leaf(I18n::Message::Vacuum_permittivityTag, I18n::Message::Vacuum_permittivity, false, I18n::Message::Vacuum_permittivity),
   ToolboxMessageTree::Leaf(I18n::Message::Vacuum_permeabilityTag, I18n::Message::Vacuum_permeability, false, I18n::Message::Vacuum_permeability),
-  ToolboxMessageTree::Leaf(I18n::Message::PlanckTag, I18n::Message::Planck, false, I18n::Message::Planck),
   ToolboxMessageTree::Leaf(I18n::Message::ElementalChargeTag, I18n::Message::ElementalCharge, false, I18n::Message::ElementalCharge),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckTag, I18n::Message::Planck, false, I18n::Message::Planck),
   ToolboxMessageTree::Leaf(I18n::Message::FaradayConstantTag, I18n::Message::FaradayConstant, false, I18n::Message::FaradayConstant),
   ToolboxMessageTree::Leaf(I18n::Message::VacuumImpedanceTag, I18n::Message::VacuumImpedance, false, I18n::Message::VacuumImpedance),
   ToolboxMessageTree::Leaf(I18n::Message::BohrMagnetonTag, I18n::Message::BohrMagneton, false, I18n::Message::BohrMagneton),
@@ -619,7 +619,7 @@ const ToolboxMessageTree Distances[] = {
     ToolboxMessageTree::Leaf(I18n::Message::EarthSunDistanceTag, I18n::Message::EarthSunDistance, false, I18n::Message::EarthSunDistance),
 };
 
-const ToolboxMessageTree Lenght[] = {
+const ToolboxMessageTree Length[] = {
   ToolboxMessageTree::Node(I18n::Message::Radiuses, Radiuses),
   ToolboxMessageTree::Node(I18n::Message::Distances, Distances),
 };
@@ -629,13 +629,27 @@ const ToolboxMessageTree Mass[] = {
   ToolboxMessageTree::Node(I18n::Message::AstronomicalMass, AstronomicalMass),
 };
 
+
+const ToolboxMessageTree PlanckUnits[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckReduceTag, I18n::Message::PlanckReduce, false, I18n::Message::PlanckReduce),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckMassTag, I18n::Message::PlanckMass, false, I18n::Message::PlanckMass),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckLengthTag, I18n::Message::PlanckLength, false, I18n::Message::PlanckLength),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckTimeTag, I18n::Message::PlanckTime, false, I18n::Message::PlanckTime),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckTemperatureTag, I18n::Message::PlanckTemperature, false, I18n::Message::PlanckTemperature),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckChargeTag, I18n::Message::PlanckCharge, false, I18n::Message::PlanckCharge),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckForceTag, I18n::Message::PlanckForce, false, I18n::Message::PlanckForce),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckEnergyTag, I18n::Message::PlanckEnergy, false, I18n::Message::PlanckEnergy),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckPowerTag, I18n::Message::PlanckPower, false, I18n::Message::PlanckPower),
+};
+
 const ToolboxMessageTree Physics[] = {
   ToolboxMessageTree::Node(I18n::Message::Speed, Speed),
   ToolboxMessageTree::Node(I18n::Message::Thermodynamics, Thermodynamics),
   ToolboxMessageTree::Node(I18n::Message::Electromagnetism, Electromagnetism),
   ToolboxMessageTree::Node(I18n::Message::Gravitation, Gravitation),
   ToolboxMessageTree::Node(I18n::Message::Mass, Mass),
-  ToolboxMessageTree::Node(I18n::Message::Lenght, Lenght)
+  ToolboxMessageTree::Node(I18n::Message::Length, Length),
+  ToolboxMessageTree::Node(I18n::Message::PlanckUnitsTag, PlanckUnits),
 };
 
 
