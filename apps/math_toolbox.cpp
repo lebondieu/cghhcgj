@@ -546,6 +546,14 @@ const ToolboxMessageTree chemistry[] = {
   ToolboxMessageTree::Node(I18n::Message::Pka, Pka),
 };
 
+const ToolboxMessageTree FundamentalConstants[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::SpeedOfLightTag, I18n::Message::SpeedOfLight, false, I18n::Message::SpeedOfLight),
+  ToolboxMessageTree::Leaf(I18n::Message::Vacuum_permittivityTag, I18n::Message::Vacuum_permittivity, false, I18n::Message::Vacuum_permittivity),
+  ToolboxMessageTree::Leaf(I18n::Message::Vacuum_permeabilityTag, I18n::Message::Vacuum_permeability, false, I18n::Message::Vacuum_permeability),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckTag, I18n::Message::Planck, false, I18n::Message::Planck),
+  ToolboxMessageTree::Leaf(I18n::Message::VacuumImpedanceTag, I18n::Message::VacuumImpedance, false, I18n::Message::VacuumImpedance),
+};
+
 const ToolboxMessageTree SpeedsOfSound[] = {
   ToolboxMessageTree::Leaf(I18n::Message::SpeedOfSound0Tag, I18n::Message::SpeedOfSound0, false, I18n::Message::SpeedOfSound0),
   ToolboxMessageTree::Leaf(I18n::Message::SpeedOfSoundWaterTag, I18n::Message::SpeedOfSoundWater, false, I18n::Message::SpeedOfSoundWater),
@@ -560,7 +568,6 @@ const ToolboxMessageTree EscapeVelocities[] = {
 };
 
 const ToolboxMessageTree Speed[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::SpeedOfLightTag, I18n::Message::SpeedOfLight, false, I18n::Message::SpeedOfLight),
   ToolboxMessageTree::Node(I18n::Message::SpeedOfSound, SpeedsOfSound),
   ToolboxMessageTree::Node(I18n::Message::EscapeVelocity, EscapeVelocities)
 };
@@ -577,19 +584,9 @@ const ToolboxMessageTree Thermodynamics[] =  {
 
 const ToolboxMessageTree Electromagnetism[] = {
   ToolboxMessageTree::Leaf(I18n::Message::CoulombTag, I18n::Message::Coulomb, false, I18n::Message::Coulomb),
-  ToolboxMessageTree::Leaf(I18n::Message::Vacuum_permittivityTag, I18n::Message::Vacuum_permittivity, false, I18n::Message::Vacuum_permittivity),
-  ToolboxMessageTree::Leaf(I18n::Message::Vacuum_permeabilityTag, I18n::Message::Vacuum_permeability, false, I18n::Message::Vacuum_permeability),
   ToolboxMessageTree::Leaf(I18n::Message::ElementalChargeTag, I18n::Message::ElementalCharge, false, I18n::Message::ElementalCharge),
-  ToolboxMessageTree::Leaf(I18n::Message::PlanckTag, I18n::Message::Planck, false, I18n::Message::Planck),
   ToolboxMessageTree::Leaf(I18n::Message::FaradayConstantTag, I18n::Message::FaradayConstant, false, I18n::Message::FaradayConstant),
-  ToolboxMessageTree::Leaf(I18n::Message::VacuumImpedanceTag, I18n::Message::VacuumImpedance, false, I18n::Message::VacuumImpedance),
-  ToolboxMessageTree::Leaf(I18n::Message::BohrMagnetonTag, I18n::Message::BohrMagneton, false, I18n::Message::BohrMagneton),
-  ToolboxMessageTree::Leaf(I18n::Message::NuclearMagnetonTag, I18n::Message::NuclearMagneton, false, I18n::Message::NuclearMagneton),
-};
 
-const ToolboxMessageTree Gravitation[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::GAccelerationTag, I18n::Message::GAcceleration, false, I18n::Message::GAcceleration),
-  ToolboxMessageTree::Leaf(I18n::Message::GConstantTag, I18n::Message::GConstant, false, I18n::Message::GConstant),
 };
 
 const ToolboxMessageTree ParticleMass[] = {
@@ -600,17 +597,24 @@ const ToolboxMessageTree ParticleMass[] = {
   ToolboxMessageTree::Leaf(I18n::Message::AtomicMassUnitTag, I18n::Message::AtomicMassUnit, false, I18n::Message::AtomicMassUnit),
 };
 
-const ToolboxMessageTree AstronomicalMass[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::SunMassTag, I18n::Message::SunMass, false, I18n::Message::SunMass),
-  ToolboxMessageTree::Leaf(I18n::Message::EarthMassTag, I18n::Message::EarthMass, false, I18n::Message::EarthMass),
-  ToolboxMessageTree::Leaf(I18n::Message::MoonMassTag, I18n::Message::MoonMass, false, I18n::Message::MoonMass),
+
+const ToolboxMessageTree Nuclear[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::BohrRadiusTag, I18n::Message::BohrRadius, false, I18n::Message::BohrRadius),
+  ToolboxMessageTree::Leaf(I18n::Message::BohrMagnetonTag, I18n::Message::BohrMagneton, false, I18n::Message::BohrMagneton),
+  ToolboxMessageTree::Leaf(I18n::Message::NuclearMagnetonTag, I18n::Message::NuclearMagneton, false, I18n::Message::NuclearMagneton),
+  ToolboxMessageTree::Node(I18n::Message::ParticleMass, ParticleMass),
 };
+
+const ToolboxMessageTree Gravitation[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::GAccelerationTag, I18n::Message::GAcceleration, false, I18n::Message::GAcceleration),
+  ToolboxMessageTree::Leaf(I18n::Message::GConstantTag, I18n::Message::GConstant, false, I18n::Message::GConstant),
+};
+
 
 const ToolboxMessageTree Radiuses[] = {
   ToolboxMessageTree::Leaf(I18n::Message::SunMassTag, I18n::Message::SunRadius, false, I18n::Message::SunRadius),
   ToolboxMessageTree::Leaf(I18n::Message::EarthMassTag, I18n::Message::EarthRadius, false, I18n::Message::EarthRadius),
   ToolboxMessageTree::Leaf(I18n::Message::MoonMassTag, I18n::Message::MoonRadius, false, I18n::Message::MoonRadius),
-  ToolboxMessageTree::Leaf(I18n::Message::BohrRadiusTag, I18n::Message::BohrRadius, false, I18n::Message::BohrRadius),
 
 };
 
@@ -625,8 +629,9 @@ const ToolboxMessageTree Length[] = {
 };
 
 const ToolboxMessageTree Mass[] = {
-  ToolboxMessageTree::Node(I18n::Message::ParticleMass, ParticleMass),
-  ToolboxMessageTree::Node(I18n::Message::AstronomicalMass, AstronomicalMass),
+  ToolboxMessageTree::Leaf(I18n::Message::SunMassTag, I18n::Message::SunMass, false, I18n::Message::SunMass),
+  ToolboxMessageTree::Leaf(I18n::Message::EarthMassTag, I18n::Message::EarthMass, false, I18n::Message::EarthMass),
+  ToolboxMessageTree::Leaf(I18n::Message::MoonMassTag, I18n::Message::MoonMass, false, I18n::Message::MoonMass),
 };
 
 
@@ -643,10 +648,13 @@ const ToolboxMessageTree PlanckUnits[] = {
 };
 
 const ToolboxMessageTree Physics[] = {
-  ToolboxMessageTree::Node(I18n::Message::Speed, Speed),
-  ToolboxMessageTree::Node(I18n::Message::Thermodynamics, Thermodynamics),
+
+  ToolboxMessageTree::Node(I18n::Message::FundamentalConstants, FundamentalConstants),
   ToolboxMessageTree::Node(I18n::Message::Electromagnetism, Electromagnetism),
+  ToolboxMessageTree::Node(I18n::Message::NuclearConstants, Nuclear),
+  ToolboxMessageTree::Node(I18n::Message::Thermodynamics, Thermodynamics),
   ToolboxMessageTree::Node(I18n::Message::Gravitation, Gravitation),
+  ToolboxMessageTree::Node(I18n::Message::Speed, Speed),
   ToolboxMessageTree::Node(I18n::Message::Mass, Mass),
   ToolboxMessageTree::Node(I18n::Message::Length, Length),
   ToolboxMessageTree::Node(I18n::Message::PlanckUnitsTag, PlanckUnits),
