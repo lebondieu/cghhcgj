@@ -6,7 +6,6 @@
 #include <poincare/undefined.h>
 #include <poincare/unreal.h>
 #include <string.h>
-#include <iostream>
 #include <cmath>
 
 using namespace Poincare;

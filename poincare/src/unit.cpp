@@ -8,7 +8,6 @@
 #include <poincare/layout_helper.h>
 #include <cmath>
 #include <assert.h>
-#include <iostream>
 #include <string.h>
 #include <utility>
 
@@ -269,10 +268,6 @@ Expression Unit::shallowReduce(ExpressionNode::ReductionContext reductionContext
 
 
   replaceWithInPlace(result);
-
-  std::cout << "Unit " << rep->rootSymbol() << std::endl;
-
-
   return result;
 }
 

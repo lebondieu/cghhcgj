@@ -20,7 +20,6 @@
 #include <cmath>
 #include <utility>
 #include <poincare/preferences.h>
-#include <iostream>
 
 namespace Poincare {
 
@@ -367,7 +366,6 @@ static void ExponentsOfBaseUnits(const Expression units, Integer (&exponents)[8]
 
     // Fill the exponents array with the unit's exponent
     const int indexInTable = static_cast<Unit &>(factor).dimension() - Unit::DimensionTable;
-    std::cout << indexInTable << std::endl;
     assert(0 <= indexInTable && indexInTable < 8);
     exponents[indexInTable] = exponent;
   }
