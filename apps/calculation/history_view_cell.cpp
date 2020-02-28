@@ -203,14 +203,6 @@ void HistoryViewCell::resetMemoization() {
   m_calculationCRC32 = 0;
 }
 
-void HistoryViewCell::resetMemoization() {
-  // Clean the layouts to make room in the pool
-  // TODO: maybe do this only when the layout won't change to avoid blinking
-  m_inputView.setLayout(Poincare::Layout());
-  m_scrollableOutputView.setLayouts(Poincare::Layout(), Poincare::Layout(), Poincare::Layout());
-  m_calculationCRC32 = 0;
-}
-
 void HistoryViewCell::setCalculation(Calculation * calculation, bool expanded) {
   uint32_t newCalculationCRC = Ion::crc32Byte((const uint8_t *)calculation, ((char *)calculation->next()) - ((char *) calculation));
   if (newCalculationCRC == m_calculationCRC32 && m_calculationExpanded == expanded) {
