@@ -184,18 +184,18 @@ Layout PreferencesController::layoutForPreferences(I18n::Message message) {
     case I18n::Message::SymbolMultiplicationAutoSymbol:
       return CodePointLayout::Builder(' ', k_layoutFont);
     
-    // Symbol root
-    case I18n::Message::SymbolSquareRoot:
+    // Symbol function
+    case I18n::Message::SymbolDefaultFunction:
     {
       return NthRootLayout::Builder(CodePointLayout::Builder('x'));
     }
-    case I18n::Message::SymbolArgSquareRoot:
+    case I18n::Message::SymbolArgDefaultFunction:
     {
       return NthRootLayout::Builder(CodePointLayout::Builder('x'), CodePointLayout::Builder('2'));
     }
-    case I18n::Message::SymbolArgRoot:
+    case I18n::Message::SymbolArgFunction:
     {
-      return NthRootLayout::Builder(CodePointLayout::Builder('x'), CodePointLayout::Builder('x'));
+      return NthRootLayout::Builder(CodePointLayout::Builder('x'), CodePointLayout::Builder('y'));
     }
     // Result display
     case I18n::Message::DefaultResult:
@@ -259,8 +259,8 @@ void PreferencesController::setPreferenceWithValueIndex(I18n::Message message, i
     GlobalPreferences::sharedGlobalPreferences()->setTempExamMode((GlobalPreferences::ExamMode)((uint8_t)valueIndex + 1));
   } else if (message == I18n::Message::SymbolMultiplication) {
     preferences->setSymbolMultiplication((Preferences::SymbolMultiplication)valueIndex);
-  } else if (message == I18n::Message::SymbolRoot) {
-    preferences->setSymbolRoot((Preferences::SymbolRoot)valueIndex);
+  } else if (message == I18n::Message::SymbolFunction) {
+    preferences->setSymbolofFunction((Preferences::SymbolFunction)valueIndex);
   } else if (message == I18n::Message::ResultDisplay) {
     preferences->setResultDisplay((Preferences::ResultDisplay)valueIndex);
   } else if (message == I18n::Message::FontSizes) {
@@ -289,8 +289,8 @@ int PreferencesController::valueIndexForPreference(I18n::Message message) const 
   if (message == I18n::Message::SymbolMultiplication) {
     return (int)preferences->symbolofMultiplication();
   }
-  if (message == I18n::Message::SymbolRoot) {
-    return (int)preferences->symbolofRoot();
+  if (message == I18n::Message::SymbolFunction) {
+    return (int)preferences->symbolofFunction();
   }
   if (message == I18n::Message::ResultDisplay) {
     return (int)preferences->resultDisplay();

@@ -18,7 +18,7 @@ extern const SettingsMessageTree s_modelEditionModeChildren[2];
 extern const SettingsMessageTree s_modelFloatDisplayModeChildren[4];
 extern const SettingsMessageTree s_modelComplexFormatChildren[3];
 extern const SettingsMessageTree s_symbolChildren[4];
-extern const SettingsMessageTree s_symbolRootChildren[3];
+extern const SettingsMessageTree s_symbolFunctionChildren[3];
 extern const SettingsMessageTree s_modelResultDisplayChildren[2];
 extern const SettingsMessageTree s_modelMathOptionsChildren[7];
 extern const SettingsMessageTree s_modelFontChildren[2];
