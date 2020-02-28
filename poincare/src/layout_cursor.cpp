@@ -4,14 +4,18 @@
 #include <poincare/fraction_layout.h>
 #include <poincare/horizontal_layout.h>
 #include <poincare/layout.h>
+#include <poincare/layout_helper.h>
 #include <poincare/left_parenthesis_layout.h>
 #include <poincare/matrix_layout.h>
 #include <poincare/nth_root_layout.h>
+#include <poincare/logarithm.h>
+#include <poincare/based_integer.h>
 #include <poincare/right_parenthesis_layout.h>
 #include <poincare/vertical_offset_layout.h>
 #include <ion/unicode/utf8_decoder.h>
 #include <stdio.h>
 #include <poincare/preferences.h>
+#include <poincare/layout_helper.h>
 
 namespace Poincare {
 
@@ -109,16 +113,79 @@ void LayoutCursor::addEmptyMatrixLayout() {
   m_layout = matrixLayout.childAtIndex(0);
   m_position = Position::Right;
 }
-/*HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
+
+void LayoutCursor::addLog() {
+  Preferences * preferences = Preferences::sharedPreferences();
+  switch((int)preferences->symbolofFunction()){
+    case 1:
+      addEmpty10Log();
+      break;
+    case 2:
+      addEmptyArgLog();
+      break;
+    default:
+      addEmptyLog();
+      break;
+  }
+}
+
+void LayoutCursor::addEmptyLog() {
+  HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
   HorizontalLayout child2 = HorizontalLayout::Builder(EmptyLayout::Builder());
-  HorizontalLayout child3 = HorizontalLayout::Builder(CodePointLayout::Builder('2'));
-  NthRootLayout newChild0 = NthRootLayout::Builder(child1);
-  NthRootLayout newChild1 = NthRootLayout::Builder(child1, child2);
-  NthRootLayout newChild2 = NthRootLayout::Builder(child1, child3);*/
+  Layout logLayout = LayoutHelper::String("log", 3);
+  HorizontalLayout resultLayout = static_cast<HorizontalLayout &>(logLayout);
+  //VerticalOffsetLayout offsetLayout = VerticalOffsetLayout::Builder(child2, VerticalOffsetLayoutNode::Position::Subscript);
+  //resultLayout.addChildAtIndex(offsetLayout, resultLayout.numberOfChildren(), resultLayout.numberOfChildren(), nullptr);
+  resultLayout.addChildAtIndex(HorizontalLayout::Builder(
+    LeftParenthesisLayout::Builder(),
+    child1,
+    RightParenthesisLayout::Builder()
+    
+  ), resultLayout.numberOfChildren(), resultLayout.numberOfChildren(), nullptr);
+
+  m_layout.addSibling(this, resultLayout, true);
+  LayoutCursor::moveLeft(nullptr, false);
+}
+
+void LayoutCursor::addEmpty10Log() {
+  HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  HorizontalLayout child2 = HorizontalLayout::Builder(CodePointLayout::Builder('1'),CodePointLayout::Builder('0'));
+  Layout logLayout = LayoutHelper::String("log", 3);
+  HorizontalLayout resultLayout = static_cast<HorizontalLayout &>(logLayout);
+  VerticalOffsetLayout offsetLayout = VerticalOffsetLayout::Builder(child2, VerticalOffsetLayoutNode::Position::Subscript);
+  resultLayout.addChildAtIndex(offsetLayout, resultLayout.numberOfChildren(), resultLayout.numberOfChildren(), nullptr);
+  resultLayout.addChildAtIndex(HorizontalLayout::Builder(
+    LeftParenthesisLayout::Builder(),
+    child1,
+    RightParenthesisLayout::Builder()
+    
+  ), resultLayout.numberOfChildren(), resultLayout.numberOfChildren(), nullptr);
+  
+  m_layout.addSibling(this, resultLayout, true);
+  LayoutCursor::moveLeft(nullptr, false);
+}
+
+void LayoutCursor::addEmptyArgLog() {
+  HorizontalLayout child1 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  HorizontalLayout child2 = HorizontalLayout::Builder(EmptyLayout::Builder());
+  Layout logLayout = LayoutHelper::String("log", 3);
+  HorizontalLayout resultLayout = static_cast<HorizontalLayout &>(logLayout);
+  VerticalOffsetLayout offsetLayout = VerticalOffsetLayout::Builder(child2, VerticalOffsetLayoutNode::Position::Subscript);
+  resultLayout.addChildAtIndex(offsetLayout, resultLayout.numberOfChildren(), resultLayout.numberOfChildren(), nullptr);
+  resultLayout.addChildAtIndex(HorizontalLayout::Builder(
+    LeftParenthesisLayout::Builder(),
+    child1,
+    RightParenthesisLayout::Builder()
+    
+  ), resultLayout.numberOfChildren(), resultLayout.numberOfChildren(), nullptr);
+  
+  m_layout.addSibling(this, resultLayout, true);
+  LayoutCursor::moveLeft(nullptr, false);
+}
 
 void LayoutCursor::addRoot() {
   Preferences * preferences = Preferences::sharedPreferences();
-  switch((int)preferences->symbolofRoot()){
+  switch((int)preferences->symbolofFunction()){
     case 1:
       addEmptyArgSquareRootLayout();
       break;
