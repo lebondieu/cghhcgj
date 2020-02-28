@@ -23,6 +23,8 @@
 
 namespace Poincare {
 
+
+
 /* Multiplication Node */
 
 ExpressionNode::Sign MultiplicationNode::sign(Context * context) const {

@@ -610,12 +610,21 @@ const ToolboxMessageTree ParticleMass[] = {
   ToolboxMessageTree::Leaf(I18n::Message::ElectronMassTag, I18n::Message::ElectronMass, false, I18n::Message::ElectronMass),
   ToolboxMessageTree::Leaf(I18n::Message::MuonMassTag, I18n::Message::MuonMass, false, I18n::Message::MuonMass),
   ToolboxMessageTree::Leaf(I18n::Message::NeutronMassTag, I18n::Message::NeutronMass, false, I18n::Message::NeutronMass),
-  ToolboxMessageTree::Leaf(I18n::Message::ProtonMassTag, I18n::Message::ProtonMass, false, I18n::Message::NeutronMass),
+  ToolboxMessageTree::Leaf(I18n::Message::ProtonMassTag, I18n::Message::ProtonMass, false, I18n::Message::ProtonMass),
+  ToolboxMessageTree::Leaf(I18n::Message::TauonMassTag, I18n::Message::TauonMass, false, I18n::Message::TauonMass),
+  ToolboxMessageTree::Leaf(I18n::Message::WBosonMassTag, I18n::Message::WBosonMass, false, I18n::Message::WBosonMass),
+  ToolboxMessageTree::Leaf(I18n::Message::ZBosonMassTag, I18n::Message::ZBosonMass, false, I18n::Message::ZBosonMass),
   ToolboxMessageTree::Leaf(I18n::Message::AtomicMassUnitTag, I18n::Message::AtomicMassUnit, false, I18n::Message::AtomicMassUnit),
 };
 
 
 const ToolboxMessageTree Nuclear[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::FineStructureTag, I18n::Message::FineStructure, false, I18n::Message::FineStructure),
+  ToolboxMessageTree::Leaf(I18n::Message::RydbergConstantTag, I18n::Message::RydbergConstant, false, I18n::Message::RydbergConstant),
+  ToolboxMessageTree::Leaf(I18n::Message::HartreeConstantTag, I18n::Message::HartreeConstant, false, I18n::Message::HartreeConstant),
+  ToolboxMessageTree::Leaf(I18n::Message::MagneticFluxQuantumTag, I18n::Message::MagneticFluxQuantum, false, I18n::Message::MagneticFluxQuantum),
+  ToolboxMessageTree::Leaf(I18n::Message::ConductanceQuantumTag, I18n::Message::ConductanceQuantum, false, I18n::Message::ConductanceQuantum),
+  ToolboxMessageTree::Leaf(I18n::Message::CirculationQuantumTag, I18n::Message::CirculationQuantum, false, I18n::Message::CirculationQuantum),
   ToolboxMessageTree::Leaf(I18n::Message::BohrRadiusTag, I18n::Message::BohrRadius, false, I18n::Message::BohrRadius),
   ToolboxMessageTree::Leaf(I18n::Message::BohrMagnetonTag, I18n::Message::BohrMagneton, false, I18n::Message::BohrMagneton),
   ToolboxMessageTree::Leaf(I18n::Message::NuclearMagnetonTag, I18n::Message::NuclearMagneton, false, I18n::Message::NuclearMagneton),
@@ -662,6 +671,13 @@ const ToolboxMessageTree PlanckUnits[] = {
   ToolboxMessageTree::Leaf(I18n::Message::PlanckForceTag, I18n::Message::PlanckForce, false, I18n::Message::PlanckForce),
   ToolboxMessageTree::Leaf(I18n::Message::PlanckEnergyTag, I18n::Message::PlanckEnergy, false, I18n::Message::PlanckEnergy),
   ToolboxMessageTree::Leaf(I18n::Message::PlanckPowerTag, I18n::Message::PlanckPower, false, I18n::Message::PlanckPower),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckDensityTag, I18n::Message::PlanckDensity, false, I18n::Message::PlanckDensity),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckQuantityMovementTag, I18n::Message::PlanckQuantityMovement, false, I18n::Message::PlanckQuantityMovement),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckLinearMassTag, I18n::Message::PlanckLinearMass, false, I18n::Message::PlanckLinearMass),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckTensionTag, I18n::Message::PlanckTension, false, I18n::Message::PlanckTension),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckCurrentTag, I18n::Message::PlanckCurrent, false, I18n::Message::PlanckCurrent),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckPressureTag, I18n::Message::PlanckPressure, false, I18n::Message::PlanckPressure),
+  ToolboxMessageTree::Leaf(I18n::Message::PlanckImpedanceTag, I18n::Message::PlanckImpedance, false, I18n::Message::PlanckImpedance),
 };
 
 const ToolboxMessageTree Physics[] = {
