@@ -2,6 +2,7 @@
 
 PLATFORM ?= device
 DEBUG ?= 0
+LEDS_CHOICE ?= 0
 
 include build/defaults.mak
 include build/platform.$(PLATFORM).mak
@@ -9,7 +10,7 @@ include build/platform.$(PLATFORM).mak
 EPSILON_VERSION ?= 13.0.0
 EPSILON_CUSTOM_VERSION ?= 1.20.0
 # USERNAME ?= N/A
-EPSILON_APPS ?= calculation rpn graph code statistics probability solver atom sequence regression settings external
+EPSILON_APPS ?= calculation rpn graph code statistics probability solver atom sequence regression settings external omega
 EPSILON_I18N ?= en fr es de pt hu
 # EPSILON_I18N ?= en fr es de pt hu
 EPSILON_GETOPT ?= 0
@@ -26,6 +27,7 @@ endif
 include build/toolchain.$(TOOLCHAIN).mak
 
 SFLAGS += -DDEBUG=$(DEBUG)
+SFLAGS += -DLEDS_CHOICE=$(LEDS_CHOICE)
 ifdef USERNAME
   SFLAGS += -DUSERNAME="$(USERNAME)"
 endif
