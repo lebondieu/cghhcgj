@@ -243,10 +243,12 @@ Layout VariableBoxController::expressionLayoutForRecord(Storage::Record record, 
      * won't be able to open the variable box again, until she deletes the
      * problematic variable -> and she has no help to remember its name, as she
      * can't open the variable box. */
+    Layout result;
     Poincare::ExceptionCheckpoint ecp;
     if (ExceptionRun(ecp)) {
       result = GlobalContext::LayoutForRecord(record);
     }
+    m_layouts[index-m_firstMemoizedLayoutIndex] = result;
   }
   m_layouts[index-m_firstMemoizedLayoutIndex] = result;
   return result;
