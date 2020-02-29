@@ -681,7 +681,6 @@ const ToolboxMessageTree PlanckUnits[] = {
 };
 
 const ToolboxMessageTree Physics[] = {
-
   ToolboxMessageTree::Node(I18n::Message::FundamentalConstants, FundamentalConstants),
   ToolboxMessageTree::Node(I18n::Message::Electromagnetism, Electromagnetism),
   ToolboxMessageTree::Node(I18n::Message::NuclearConstants, Nuclear),
