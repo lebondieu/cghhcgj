@@ -131,6 +131,19 @@ extmod_src += $(addprefix python/src/extmod/,\
   modurandom.c \
 )
 
+ulab_src += $(addprefix python/src/extmod/ulab/code/,\
+  extras.c \
+  filter.c \
+  create.c \
+  ndarray.c \
+  linalg.c \
+  vectorise.c \
+  poly.c \
+  fft.c \
+  numerical.c \
+  ulab.c \
+)
+
 port_src += $(addprefix python/port/,\
   port.c \
   builtins.c \
@@ -180,7 +193,7 @@ ifeq ($(PLATFORM),emscripten)
 $(call object_for,$(py_src)): SFLAGS := $(subst -Os,-O0,$(SFLAGS))
 endif
 
-python_src = $(py_src) $(extmod_src) $(port_src)
+python_src = $(py_src) $(extmod_src) $(ulab_src) $(port_src)
 
 # QSTR generation
 
