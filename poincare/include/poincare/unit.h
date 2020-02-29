@@ -259,7 +259,7 @@ public:
 
     SolideAngleRepresentatives[] = {
         Representative("sr", nullptr, Representative::Prefixable::No, NoPrefix),
-        },
+    },
 
 
 
