@@ -74,6 +74,7 @@ Q(get_pixel)
 Q(set_pixel)
 Q(wait_vblank)
 Q(get_keys)
+Q(set_led)
 
 // Keys QSTRs
 Q(left)
