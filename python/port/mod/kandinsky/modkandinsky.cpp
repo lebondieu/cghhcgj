@@ -6,6 +6,7 @@ extern "C" {
 #include <kandinsky.h>
 #include <ion.h>
 #include "port.h"
+#include <apps/global_preferences.h>
 
 static KDColor ColorForTuple(mp_obj_t tuple) {
     size_t len;
@@ -191,4 +192,15 @@ mp_obj_t modkandinsky_get_keys() {
   }
 
   return result;
+}
+
+mp_obj_t modkandinsky_set_led(mp_obj_t color){
+  micropython_port_interrupt_if_needed();
+  if(GlobalPreferences::sharedGlobalPreferences()->examMode() != GlobalPreferences::ExamMode::Off){
+    mp_raise_TypeError("Exam mode activated");
+    return mp_const_none;
+  }
+  KDColor kdColor = ColorForTuple(color);
+  Ion::LED::setColor(kdColor);
+  return mp_const_none;
 }
