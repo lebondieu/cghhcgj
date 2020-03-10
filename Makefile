@@ -1,13 +1,16 @@
 include build/config.mak
 
-PLS_IGNORE := $(shell >&2 echo "    ____                             ")
-PLS_IGNORE := $(shell >&2 echo "   / __ \\____ ___  ___  ____ _____ _ ")
-PLS_IGNORE := $(shell >&2 echo "  / / / / __ \`__ \\/ _ \\/ __ \`/ __ \`/ ")
-PLS_IGNORE := $(shell >&2 echo " / /_/ / / / / / /  __/ /_/ / /_/ /  ")
-PLS_IGNORE := $(shell >&2 echo " \\____/_/ /_/ /_/\\___/\\__, /\\__,_/   ")
-PLS_IGNORE := $(shell >&2 echo "                     /____/          ")
-PLS_IGNORE := $(shell >&2 echo "          - Omega does what Epsilon't")
+PLS_IGNORE := $(shell >&2 echo -e "\e[91m\e[1m    ____                             \e[0m")
+PLS_IGNORE := $(shell >&2 echo -e "\e[91m\e[1m   / __ \\____ ___  ___  ____ _____ _ \e[0m")
+PLS_IGNORE := $(shell >&2 echo -e "\e[91m\e[1m  / / / / __ \`__ \\/ _ \\/ __ \`/ __ \`/ \e[0m")
+PLS_IGNORE := $(shell >&2 echo -e "\e[91m\e[1m / /_/ / / / / / /  __/ /_/ / /_/ /  \e[0m")
+PLS_IGNORE := $(shell >&2 echo -e "\e[91m\e[1m \\____/_/ /_/ /_/\\___/\\__, /\\__,_/   \e[0m")
+PLS_IGNORE := $(shell >&2 echo -e "\e[91m\e[1m                     /____/          \e[0m")
+PLS_IGNORE := $(shell >&2 echo -e "\e[33m\e[1m          - Omega does what Epsilon't\e[0m")
 PLS_IGNORE := $(shell >&2 echo "")
+PLS_IGNORE := $(shell >&2 echo -e "\e[32mBuilding O$(OMEGA_VERSION)-E$(EPSILON_VERSION)\e[0m")
+PLS_IGNORE := $(shell >&2 echo "")
+
 
 ifeq (${MODEL}, n0110)
   apps_list = ${EPSILON_APPS}
