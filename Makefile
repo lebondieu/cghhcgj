@@ -1,30 +1,5 @@
 include build/config.mak
-
-PLS_IGNORE := $(shell >&2 printf "\e[91m\e[1m    ____                                  \n")
-PLS_IGNORE := $(shell >&2 printf "   / __ \\____ ___  ___  ____ _____ _     \n")
-PLS_IGNORE := $(shell >&2 printf "  / / / / __ \`__ \\/ _ \\/ __ \`/ __ \`/ \n")
-PLS_IGNORE := $(shell >&2 printf " / /_/ / / / / / /  __/ /_/ / /_/ /       \n")
-PLS_IGNORE := $(shell >&2 printf " \\____/_/ /_/ /_/\\___/\\__, /\\__,_/    \n")
-PLS_IGNORE := $(shell >&2 printf "                     /____/               \n")
-PLS_IGNORE := $(shell >&2 printf "\e[33m          - Omega does what Epsilon't     \e[0m\n")
-PLS_IGNORE := $(shell >&2 printf "\n")
-PLS_IGNORE := $(shell >&2 printf "\e[32mBuilding O$(OMEGA_VERSION)-E$(EPSILON_VERSION)\n")
-
-ifeq (${PLATFORM},device)
-  DISPLAY_TARGET = Numworks $(MODEL)
-endif
-
-ifeq (${PLATFORM},simulator)
-  DISPLAY_TARGET = $(TARGET) simulator
-endif
-
-DISPLAY_TARGET ?= "Undefined"
-
-PLS_IGNORE := $(shell >&2 printf "\e[32m  Targetting $(DISPLAY_TARGET)\n")
-
-PLS_IGNORE := $(shell >&2 printf "\e[0m\e[39m\n")
-
-
+include build/pimp.mak
 
 ifeq (${MODEL}, n0110)
   apps_list = ${EPSILON_APPS}
