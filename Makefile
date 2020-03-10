@@ -1,5 +1,14 @@
 include build/config.mak
 
+PLS_IGNORE := $(shell >&2 echo "    ____                             ")
+PLS_IGNORE := $(shell >&2 echo "   / __ \\____ ___  ___  ____ _____ _ ")
+PLS_IGNORE := $(shell >&2 echo "  / / / / __ \`__ \\/ _ \\/ __ \`/ __ \`/ ")
+PLS_IGNORE := $(shell >&2 echo " / /_/ / / / / / /  __/ /_/ / /_/ /  ")
+PLS_IGNORE := $(shell >&2 echo " \\____/_/ /_/ /_/\\___/\\__, /\\__,_/   ")
+PLS_IGNORE := $(shell >&2 echo "                     /____/          ")
+PLS_IGNORE := $(shell >&2 echo "          - Omega does what Epsilon't")
+PLS_IGNORE := $(shell >&2 echo "")
+
 ifeq (${MODEL}, n0110)
   apps_list = ${EPSILON_APPS}
 else
