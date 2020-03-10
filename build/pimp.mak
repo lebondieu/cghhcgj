@@ -62,3 +62,5 @@ PLS_IGNORE := $(shell >&2 printf "\e[32m    Building on $(DISPLAY_OS)\n")
 
 PLS_IGNORE := $(shell >&2 printf "\e[0m\e[39m\n")
 endif
+
+MAKE += NO_PIMP=1
