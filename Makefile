@@ -1,5 +1,4 @@
 include build/config.mak
-include build/pimp.mak
 
 ifeq (${MODEL}, n0110)
   apps_list = ${EPSILON_APPS}
