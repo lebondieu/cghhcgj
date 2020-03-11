@@ -9,7 +9,7 @@ PLS_IGNORE := $(shell >&2 printf " \\____/_/ /_/ /_/\\___/\\__, /\\__,_/    \n")
 PLS_IGNORE := $(shell >&2 printf "                     /____/               \n")
 PLS_IGNORE := $(shell >&2 printf "\e[33m          - Omega does what Epsilon't     \e[0m\n")
 PLS_IGNORE := $(shell >&2 printf "\n")
-PLS_IGNORE := $(shell >&2 printf "\e[32mBuilding O$(OMEGA_VERSION)-E$(EPSILON_VERSION) commit $(PATCH_LEVEL)\n")
+PLS_IGNORE := $(shell >&2 printf "\e[32mBuilding O$(OMEGA_VERSION)-E$(EPSILON_VERSION)-$(PATCH_LEVEL)\e[0m\n")
 
 ifeq (${PLATFORM},device)
   DISPLAY_TARGET = Numworks $(MODEL)
