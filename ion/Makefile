@@ -1,9 +1,3 @@
-GIT := $(shell command -v git 2> /dev/null)
-PATCH_LEVEL = NONE
-ifdef GIT
-  PATCH_LEVEL = $(shell git rev-parse HEAD | head -c 7)
-endif
-
 SFLAGS += -Iion/include -DKD_CONFIG_H=1
 
 ifndef ION_KEYBOARD_LAYOUT
