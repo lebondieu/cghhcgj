@@ -39,10 +39,10 @@ public:
 
 private:
   static constexpr int k_textFieldBufferSize = TextField::maxBufferSize();
-  static constexpr KDCoordinate k_minimalHeight = 37;
+  static constexpr KDCoordinate k_minimalHeight = 30;
   static constexpr KDCoordinate k_maximalHeight = 0.6*Ion::Display::Height;
-  static constexpr KDCoordinate k_horizontalMargin = 5;
-  static constexpr KDCoordinate k_verticalMargin = 5;
+  static constexpr KDCoordinate k_horizontalMargin = 3;
+  static constexpr KDCoordinate k_verticalMargin = 3;
   constexpr static KDCoordinate k_separatorThickness = Metric::CellSeparatorThickness;
   KDCoordinate inputViewHeight() const;
   KDCoordinate m_inputViewMemoizedHeight;
