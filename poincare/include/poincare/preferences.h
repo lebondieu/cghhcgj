@@ -54,7 +54,7 @@ public:
   };
   enum class ResultDisplay : uint8_t {
     Compact = 0,
-    Default = 1,
+    Default = 1
   };
   enum class PythonFont : uint8_t {
     Large = 0,
