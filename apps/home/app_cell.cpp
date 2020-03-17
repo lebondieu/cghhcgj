@@ -13,7 +13,7 @@ AppCell::AppCell() :
 
 void AppCell::drawRect(KDContext * ctx, KDRect rect) const {
   KDSize nameSize = m_nameView.minimalSizeForOptimalDisplay();
-  ctx->fillRect(KDRect(0,  bounds().height()-nameSize.height() - 2*k_nameHeightMargin, bounds().width(), nameSize.height()+2*k_nameHeightMargin), Palette::HomeBackground);
+  ctx->fillRect(KDRect(0, (bounds().height()-nameSize.height())/2, bounds().width(), nameSize.height()+2*k_nameHeightMargin), Palette::HomeCellBackground);
 }
 
 int AppCell::numberOfSubviews() const {
@@ -26,9 +26,9 @@ View * AppCell::subviewAtIndex(int index) {
 }
 
 void AppCell::layoutSubviews(bool force) {
-  m_iconView.setFrame(KDRect((bounds().width()-k_iconWidth)/2, k_iconMargin, k_iconWidth,k_iconHeight), force);
+  m_iconView.setFrame(KDRect((0), k_iconMargin, k_iconWidth, k_iconHeight), force);
   KDSize nameSize = m_nameView.minimalSizeForOptimalDisplay();
-  m_nameView.setFrame(KDRect((bounds().width()-nameSize.width())/2-k_nameWidthMargin, bounds().height()-nameSize.height() - 2*k_nameHeightMargin, nameSize.width()+2*k_nameWidthMargin, nameSize.height()+2*k_nameHeightMargin), force);
+  m_nameView.setFrame(KDRect((bounds().width())/2-k_iconWidth-k_nameWidthMargin, (bounds().height()-nameSize.height())/2, nameSize.width()+2*k_nameWidthMargin, nameSize.height()+2*k_nameHeightMargin), force);
 }
 
 void AppCell::setAppDescriptor(::App::Descriptor * descriptor) {

@@ -18,9 +18,9 @@ public:
   void reloadCell() override;
   void setAppDescriptor(::App::Descriptor * appDescriptor);
 private:
-  static constexpr KDCoordinate k_iconMargin = 22;
-  static constexpr KDCoordinate k_iconWidth = 55;
-  static constexpr KDCoordinate k_iconHeight = 56;
+  static constexpr KDCoordinate k_iconMargin = 11;
+  static constexpr KDCoordinate k_iconWidth = 33;
+  static constexpr KDCoordinate k_iconHeight = 34;
   static constexpr KDCoordinate k_nameWidthMargin = 4;
   static constexpr KDCoordinate k_nameHeightMargin = 1;
   ImageView m_iconView;
