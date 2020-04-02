@@ -6,6 +6,7 @@ SFLAGS += -I$(BUILD_DIR)/python/port
 # - Copy PY_CORE_O_BASENAME from py.mk into py_src
 # - Copy select PY_EXTMOD_O_BASENAME from py.mk into extmod_src
 # - Edit special-case workarounds below as needed
+# - Add all C files found in extmod/ulab/code/micropython.mk to ulab_src
 
 py_src = $(addprefix python/src/py/,\
   mpstate.c \
@@ -132,15 +133,15 @@ extmod_src += $(addprefix python/src/extmod/,\
 )
 
 ulab_src += $(addprefix python/src/extmod/ulab/code/,\
-  extras.c \
-  filter.c \
-  create.c \
   ndarray.c \
+  create.c \
   linalg.c \
   vectorise.c \
   poly.c \
   fft.c \
   numerical.c \
+  filter.c \
+  extras.c \
   ulab.c \
 )
 
