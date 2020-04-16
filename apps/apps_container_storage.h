@@ -2,16 +2,26 @@
 #define APPS_CONTAINER_STORAGE_H
 
 #include "apps_container.h"
+#include "../macros.h"
 
 #ifndef APPS_CONTAINER_SNAPSHOT_DECLARATIONS
 #error Missing snapshot declarations
 #endif
 
+namespace AppsContainerS {
+  constexpr int k_numberOfCommonApps = APPS_CONTAINER_SNAPSHOT_COUNT+1; // Take the Home app into account
+  constexpr int k_numberAppsCanBeHide = APPS_CAN_BE_HIDE_COUNT;
+}
+
 class AppsContainerStorage : public AppsContainer {
 public:
   AppsContainerStorage();
   int numberOfApps() override;
+  int numberOfAppsCanBeHide() override;
+  int numberOfAppsShow() override;
   App::Snapshot * appSnapshotAtIndex(int index) override;
+  App::Snapshot * appSnapshotCanBeHideAtIndex(int index) override;
+  App::Snapshot * appSnapshotIsShowAtIndex(int index) override;
   void * currentAppBuffer() override { return &m_apps; };
 private:
   union Apps {

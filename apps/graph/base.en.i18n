@@ -1,5 +1,5 @@
-FunctionApp = "Functions"
-FunctionAppCapital = "FUNCTIONS"
+GraphApp = "Functions"
+GraphAppCapital = "FUNCTIONS"
 FunctionTab = "Functions"
 AddFunction = "Add function"
 DeleteFunction = "Delete function"

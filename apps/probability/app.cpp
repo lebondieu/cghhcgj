@@ -8,11 +8,11 @@ using namespace Shared;
 namespace Probability {
 
 I18n::Message App::Descriptor::name() {
-  return I18n::Message::ProbaApp;
+  return I18n::Message::ProbabilityApp;
 }
 
 I18n::Message App::Descriptor::upperName() {
-  return I18n::Message::ProbaAppCapital;
+  return I18n::Message::ProbabilityAppCapital;
 }
 
 int App::Descriptor::examinationLevel() {

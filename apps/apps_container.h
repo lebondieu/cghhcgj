@@ -17,6 +17,7 @@
 #include "backlight_dimming_timer.h"
 #include "shared/global_context.h"
 #include "on_boarding/pop_up_controller.h"
+#include "../macros.h"
 
 #include <ion/events.h>
 
@@ -26,7 +27,11 @@ public:
   AppsContainer();
   static bool poincareCircuitBreaker();
   virtual int numberOfApps() = 0;
+  virtual int numberOfAppsCanBeHide() = 0;
+  virtual int numberOfAppsShow() = 0;
   virtual App::Snapshot * appSnapshotAtIndex(int index) = 0;
+  virtual App::Snapshot * appSnapshotCanBeHideAtIndex(int index) = 0;
+  virtual App::Snapshot * appSnapshotIsShowAtIndex(int index) = 0;
   App::Snapshot * initialAppSnapshot();
   App::Snapshot * hardwareTestAppSnapshot();
   App::Snapshot * onBoardingAppSnapshot();

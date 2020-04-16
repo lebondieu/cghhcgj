@@ -9,6 +9,14 @@ int App::Descriptor::examinationLevel() {
   return App::Descriptor::NoExaminationLevel;
 }
 
+bool App::Snapshot::canBeShow() const {
+  return m_canBeShow;
+}
+
+void App::Snapshot::switchCanBeShow() {
+  m_canBeShow = !m_canBeShow;
+}
+
 void App::Snapshot::pack(App * app) {
   tidy();
   app->~App();

@@ -1,5 +1,5 @@
-CalculApp = "Számolás"
-CalculAppCapital = "SZÁMOLÁS"
+CalculationApp = "Számolás"
+CalculationAppCapital = "SZÁMOLÁS"
 AdditionalResults = "További eredmények"
 DecimalBase = "Decimális"
 HexadecimalBase = "Hexadecimális"

@@ -8,11 +8,11 @@ using namespace Shared;
 namespace Statistics {
 
 I18n::Message App::Descriptor::name() {
-  return I18n::Message::StatsApp;
+  return I18n::Message::StatisticsApp;
 }
 
 I18n::Message App::Descriptor::upperName() {
-  return I18n::Message::StatsAppCapital;
+  return I18n::Message::StatisticsAppCapital;
 }
 
 int App::Descriptor::examinationLevel() {

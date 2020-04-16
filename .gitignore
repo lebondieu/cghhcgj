@@ -5,3 +5,5 @@ epsilon.elf
 .vscode
 .DS_Store
 .gradle
+
+macros.h

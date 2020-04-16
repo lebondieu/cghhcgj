@@ -1,5 +1,5 @@
-ProbaApp = "Valószínüség"
-ProbaAppCapital = "VALÓSZÍNÜSÉG"
+ProbabilityApp = "Valószínüség"
+ProbabilityAppCapital = "VALÓSZÍNÜSÉG"
 ChooseDistribution = "Válassza ki a disztribúciót"
 Binomial = "Binomiális"
 Geometric = "Geometriai"

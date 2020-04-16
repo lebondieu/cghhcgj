@@ -10,11 +10,11 @@ using namespace Shared;
 namespace Calculation {
 
 I18n::Message App::Descriptor::name() {
-  return I18n::Message::CalculApp;
+  return I18n::Message::CalculationApp;
 }
 
 I18n::Message App::Descriptor::upperName() {
-  return I18n::Message::CalculAppCapital;
+  return I18n::Message::CalculationAppCapital;
 }
 
 int App::Descriptor::examinationLevel() {

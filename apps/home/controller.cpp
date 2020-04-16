@@ -58,7 +58,7 @@ Controller::Controller(Responder * parentResponder, SelectableTableViewDataSourc
 bool Controller::handleEvent(Ion::Events::Event event) {
   if (event == Ion::Events::OK || event == Ion::Events::EXE) {
     AppsContainer * container = AppsContainer::sharedAppsContainer();
-    ::App::Snapshot * selectedSnapshot = container->appSnapshotAtIndex(selectionDataSource()->selectedRow()*k_numberOfColumns+selectionDataSource()->selectedColumn()+1);
+    ::App::Snapshot * selectedSnapshot = container->appSnapshotIsShowAtIndex(selectionDataSource()->selectedRow()*k_numberOfColumns+selectionDataSource()->selectedColumn());
     if (((GlobalPreferences::sharedGlobalPreferences()->examMode() == GlobalPreferences::ExamMode::Dutch || GlobalPreferences::sharedGlobalPreferences()->examMode() == GlobalPreferences::ExamMode::NoSymNoText) && selectedSnapshot->descriptor()->examinationLevel() < 2) ||
       ((GlobalPreferences::sharedGlobalPreferences()->examMode() == GlobalPreferences::ExamMode::Standard || GlobalPreferences::sharedGlobalPreferences()->examMode() == GlobalPreferences::ExamMode::NoSym) && selectedSnapshot->descriptor()->examinationLevel() < 1)) {
       App::app()->displayWarning(I18n::Message::ForbidenAppInExamMode1, I18n::Message::ForbidenAppInExamMode2);
@@ -94,6 +94,12 @@ void Controller::didBecomeFirstResponder() {
 void Controller::viewWillAppear() {
   KDIonContext::sharedContext()->zoomInhibit = true;
   KDIonContext::sharedContext()->updatePostProcessingEffects();
+
+  AppsContainer * container = AppsContainer::sharedAppsContainer();
+
+  if (m_view.selectableTableView()->selectedColumn()+m_view.selectableTableView()->selectedRow()*k_numberOfColumns>=container->numberOfAppsShow()) {
+    m_view.selectableTableView()->selectCellAtLocation(0,0);
+  }
 }
 
 void Controller::viewDidDisappear() {
@@ -132,20 +138,24 @@ int Controller::reusableCellCount() const {
 void Controller::willDisplayCellAtLocation(HighlightCell * cell, int i, int j) {
   AppCell * appCell = (AppCell *)cell;
   AppsContainer * container = AppsContainer::sharedAppsContainer();
-  int appIndex = (j*k_numberOfColumns+i)+1;
-  if (appIndex >= container->numberOfApps()) {
+  int appIndex = (j*k_numberOfColumns+i);
+  if (appIndex >= container->numberOfAppsShow()) {
     appCell->setVisible(false);
   } else {
-    appCell->setVisible(true);
-    ::App::Descriptor * descriptor = container->appSnapshotAtIndex(appIndex)->descriptor();
-    appCell->setAppDescriptor(descriptor);
+    ::App::Snapshot * app = container->appSnapshotIsShowAtIndex(appIndex);
+    if (app == nullptr) {
+      appCell->setVisible(false);
+    } else {
+      appCell->setVisible(true);
+      ::App::Descriptor * descriptor = app->descriptor();
+      appCell->setAppDescriptor(descriptor);
+    }
   }
 }
 
 int Controller::numberOfIcons() const {
   AppsContainer * container = AppsContainer::sharedAppsContainer();
-  assert(container->numberOfApps() > 0);
-  return container->numberOfApps() - 1;
+  return container->numberOfAppsShow();
 }
 
 void Controller::tableViewDidChangeSelection(SelectableTableView * t, int previousSelectedCellX, int previousSelectedCellY, bool withinTemporarySelection) {
@@ -162,15 +172,15 @@ void Controller::tableViewDidChangeSelection(SelectableTableView * t, int previo
    * background complete redrawing but the code is a bit
    * clumsy. */
   if (t->selectedRow() == numberOfRows()-1) {
-    m_view.reloadBottomRow(this, container->numberOfApps()-1, k_numberOfColumns);
+    m_view.reloadBottomRow(this, container->numberOfAppsShow(), k_numberOfColumns);
   }
   /* To prevent the selectable table view to select cells that are unvisible,
    * we reselect the previous selected cell as soon as the selected cell is
    * unvisible. This trick does not create an endless loop as we ensure not to
    * stay on a unvisible cell and to initialize the first cell on a visible one
    * (so the previous one is always visible). */
-  int appIndex = (t->selectedColumn()+t->selectedRow()*k_numberOfColumns)+1;
-  if (appIndex >= container->numberOfApps()) {
+  int appIndex = (t->selectedColumn()+t->selectedRow()*k_numberOfColumns);
+  if (appIndex >= container->numberOfAppsShow()) {
     t->selectCellAtLocation(previousSelectedCellX, previousSelectedCellY);
   }
 }

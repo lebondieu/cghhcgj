@@ -9,11 +9,11 @@ using namespace Shared;
 namespace Graph {
 
 I18n::Message App::Descriptor::name() {
-  return I18n::Message::FunctionApp;
+  return I18n::Message::GraphApp;
 }
 
 I18n::Message App::Descriptor::upperName() {
-  return I18n::Message::FunctionAppCapital;
+  return I18n::Message::GraphAppCapital;
 }
 
 int App::Descriptor::examinationLevel() {

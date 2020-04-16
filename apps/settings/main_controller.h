@@ -10,10 +10,13 @@
 #include "sub_menu/language_controller.h"
 #include "sub_menu/math_options_controller.h"
 #include "sub_menu/preferences_controller.h"
+#include "sub_menu/apps_settings_controller.h"
+#include "../../macros.h"
 
 namespace Settings {
 
 extern const Shared::SettingsMessageTree s_modelAngleChildren[3];
+extern const Shared::SettingsMessageTree s_modelAppsSettingsChildren[APPS_CAN_BE_HIDE_COUNT+1];
 extern const Shared::SettingsMessageTree s_modelEditionModeChildren[2];
 extern const Shared::SettingsMessageTree s_modelFloatDisplayModeChildren[4];
 extern const Shared::SettingsMessageTree s_modelComplexFormatChildren[3];
@@ -74,6 +77,7 @@ private:
   ExamModeController m_examModeController;
   AboutController m_aboutController;
   PreferencesController m_preferencesController;
+  AppsSettingsController m_appsSettingsController;
 };
 
 }

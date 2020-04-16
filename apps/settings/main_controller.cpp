@@ -4,6 +4,12 @@
 #include <assert.h>
 #include <ion/backlight.h>
 
+#include "../../macros.h"
+
+#ifndef APPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST
+#error Settings message tree app hide is missing
+#endif
+
 using namespace Poincare;
 using namespace Shared;
 
@@ -17,6 +23,7 @@ constexpr SettingsMessageTree s_symbolChildren[4] = {SettingsMessageTree(I18n::M
 constexpr SettingsMessageTree s_modelResultDisplayChildren[2] = {SettingsMessageTree(I18n::Message::CompactResult), SettingsMessageTree(I18n::Message::DefaultResult)};
 constexpr SettingsMessageTree s_modelMathOptionsChildren[6] = {SettingsMessageTree(I18n::Message::AngleUnit, s_modelAngleChildren), SettingsMessageTree(I18n::Message::DisplayMode, s_modelFloatDisplayModeChildren), SettingsMessageTree(I18n::Message::EditionMode, s_modelEditionModeChildren), SettingsMessageTree(I18n::Message::ComplexFormat, s_modelComplexFormatChildren), SettingsMessageTree(I18n::Message::SymbolMultiplication, s_symbolChildren), SettingsMessageTree(I18n::Message::ResultDisplay, s_modelResultDisplayChildren)};
 constexpr SettingsMessageTree s_modelFontChildren[2] = {SettingsMessageTree(I18n::Message::LargeFont), SettingsMessageTree(I18n::Message::SmallFont)};
+constexpr SettingsMessageTree s_modelAppsSettingsChildren[APPS_CAN_BE_HIDE_COUNT+1] = {SettingsMessageTree(I18n::Message::ShowApplication), APPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST};
 constexpr SettingsMessageTree s_accessibilityChildren[6] = {SettingsMessageTree(I18n::Message::AccessibilityInvertColors), SettingsMessageTree(I18n::Message::AccessibilityMagnify),SettingsMessageTree(I18n::Message::AccessibilityGamma),SettingsMessageTree(I18n::Message::AccessibilityGammaRed),SettingsMessageTree(I18n::Message::AccessibilityGammaGreen),SettingsMessageTree(I18n::Message::AccessibilityGammaBlue)};
 constexpr SettingsMessageTree s_contributorsChildren[17] = {SettingsMessageTree(I18n::Message::Developers), SettingsMessageTree(I18n::Message::QuentinGuidee), SettingsMessageTree(I18n::Message::DannySimmons), SettingsMessageTree(I18n::Message::JoachimLeFournis), SettingsMessageTree(I18n::Message::JeanBaptisteBoric), SettingsMessageTree(I18n::Message::MaximeFriess), SettingsMessageTree(I18n::Message::David), SettingsMessageTree(I18n::Message::DamienNicolet), SettingsMessageTree(I18n::Message::EvannDreumont), SettingsMessageTree(I18n::Message::SzaboLevente), SettingsMessageTree(I18n::Message::VenceslasDuet), SettingsMessageTree(I18n::Message::CharlotteThomas), SettingsMessageTree(I18n::Message::BetaTesters), SettingsMessageTree(I18n::Message::CyprienMejat), SettingsMessageTree(I18n::Message::TimeoArnouts), SettingsMessageTree(I18n::Message::LouisC), SettingsMessageTree(I18n::Message::LelahelHideux)};
 #ifdef USERNAME
@@ -35,7 +42,8 @@ MainController::MainController(Responder * parentResponder, InputEventHandlerDel
   m_accessibilityController(this),
   m_examModeController(this),
   m_aboutController(this),
-  m_preferencesController(this)
+  m_preferencesController(this),
+  m_appsSettingsController(this)
 {
   for (int i = 0; i < k_numberOfSimpleChevronCells; i++) {
     m_cells[i].setMessageFont(KDFont::LargeFont);
@@ -102,6 +110,8 @@ bool MainController::handleEvent(Ion::Events::Event event) {
       subController = &m_accessibilityController;
     } else if (title == I18n::Message::MathOptions) {
       subController = &m_mathOptionsController;
+    } else if (title == I18n::Message::AppsSettings) {
+      subController = &m_appsSettingsController;
     } else {
       subController = &m_preferencesController;
     }

@@ -1,5 +1,5 @@
-CalculApp = "Cálculo"
-CalculAppCapital = "CÁLCULO"
+CalculationApp = "Cálculo"
+CalculationAppCapital = "CÁLCULO"
 AdditionalResults = "????"
 DecimalBase = "????"
 HexadecimalBase = "????"
