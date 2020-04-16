@@ -20,19 +20,6 @@ endif
 apps_list = $(shell $(PYTHON) apps_list_utils.py "filter_apps_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}")
 apps_list_can_be_hide = $(shell $(PYTHON) apps_list_utils.py "filter_apps_can_be_hide_count_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}" "${EPSILON_APPS_CAN_BE_HIDE}")
 
-# ifeq (${MODEL}, n0110)
-#   apps_list = ${EPSILON_APPS}
-#   apps_can_be_hide_count_list = ${EPSILON_APPS_CAN_BE_HIDE}
-# else
-#   apps_list = $(foreach i, ${EPSILON_APPS}, $(if $(filter external, $(i)),,$(i)))
-#   # apps_can_be_hide_count_list = $(foreach i, $(join $(EPSILON_APPS_CAN_BE_HIDE),$(foreach i,$(EPSILON_APPS), $( $(i)))), $(if $(filter external, $(word 2, $(i))),,$(i)))
-# endif
-
-# ifdef FORCE_EXTERNAL
-#   apps_list = ${EPSILON_APPS}
-#   apps_can_be_hide_count_list = ${EPSILON_APPS_CAN_BE_HIDE}
-# endif
-
 .PHONY test:
 test:
 

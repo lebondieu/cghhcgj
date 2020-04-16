@@ -41,37 +41,8 @@ apps_src += $(addprefix apps/,\
 
 tests_src += apps/exam_mode_configuration_non_official.cpp
 
-# snapshots_declaration = $(shell $(PYTHON) get_apps_list.py "snapshots_declaration" "$(apps_list)")# $(foreach i,$(apps),$(i)::Snapshot m_snapshot$(subst :,,$(i))Snapshot;)
-# apps_declaration = $(shell $(PYTHON) get_apps_list.py "apps_declaration" "$(apps_list)")#$(foreach i,$(apps),$(i) m_$(subst :,,$(i));)
-# snapshots_construction = $(shell $(PYTHON) get_apps_list.py "snapshots_construction" "$(apps_list)")#$(foreach i,$(apps),,m_snapshot$(subst :,,$(i))Snapshot())
-# snapshots_list = $(shell $(PYTHON) get_apps_list.py "snapshots_list" "$(apps_list)")#$(foreach i,$(apps),,&m_snapshot$(subst :,,$(i))Snapshot)
-# snapshots_count = $(shell $(PYTHON) get_apps_list.py "snapshots_count" "$(apps_list)")#$(words $(apps))
 snapshot_includes = $(shell $(PYTHON) apps_list_utils.py "snapshot_includes" "$(apps_list)" "$(apps_list_can_be_hide)")#$(foreach i,$(app_headers),-include $(i) )
-# epsilon_app_names = $(shell $(PYTHON) get_apps_list.py "epsilon_app_names" "$(apps_list)")#'$(foreach i,${apps_list},"$(i)", )'
-# apps_path = $(shell $(PYTHON) get_apps_list.py "apps_path" "$(apps_list)")# $(words $(apps))
-# apps_can_be_hide_count = $(shell $(PYTHON) get_apps_list.py "apps_can_be_hide_count" "$(apps_list)" "$(apps_list_can_be_hide)")# $(words $(apps))
-# apps_can_be_hide_settings_message_tree_list = $(shell $(PYTHON) get_apps_list.py "apps_can_be_hide_settings_message_tree_list" "$(apps_list)" "$(apps_list_can_be_hide)")# $(words $(apps))
 $(info $(shell $(PYTHON) apps_list_utils.py "create_macros" "$(apps_list)" "$(apps_list_can_be_hide)"))
-# $(info snapshots_declaration)
-# $(info $(snapshots_declaration))
-# $(info apps_declaration)
-# $(info $(apps_declaration))
-# $(info snapshots_construction)
-# $(info $(snapshots_construction))
-# $(info snapshots_list)
-# $(info $(snapshots_list))
-# $(info snapshots_count)
-# $(info $(snapshots_count))
-# $(info snapshot_includes)
-# $(info $(snapshot_includes))
-# $(info epsilon_app_names)
-# $(info $(epsilon_app_names))
-# $(info apps_can_be_hide_count)
-# $(info $(apps_can_be_hide_count))
-# $(info apps_can_be_hide_settings_message_tree_list)
-# $(info $(apps_can_be_hide_settings_message_tree_list))
-# $(info $(snapshot_includes) -DAPPS_CONTAINER_APPS_DECLARATION="$(apps_declaration)" -DAPPS_CONTAINER_SNAPSHOT_DECLARATIONS="$(snapshots_declaration)" -DAPPS_CONTAINER_SNAPSHOT_CONSTRUCTORS="$(snapshots_construction)" -DAPPS_CONTAINER_SNAPSHOT_LIST="$(snapshots_list)" -DAPPS_CONTAINER_SNAPSHOT_COUNT="$(snapshots_count)" -DEPSILON_APPS_NAMES="$(epsilon_app_names)" -DUSERNAME="$(USERNAME)" -DAPPS_CAN_BE_HIDE_COUNT="$(apps_can_be_hide_count)" -DAPPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST="$(apps_can_be_hide_settings_message_tree_list)")
-# $(error test)
 
 $(call object_for,apps/apps_container_storage.cpp apps/apps_container.cpp apps/main.cpp): CXXFLAGS += $(snapshot_includes) -DUSERNAME="$(USERNAME)"
 
