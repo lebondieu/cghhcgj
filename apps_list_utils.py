@@ -65,9 +65,9 @@ def snapshot_includes(app_list, apps_can_be_hide):
 			)
 
 def epsilon_app_names(app_list, apps_can_be_hide):
-		return "\'" + "".join(
+		return "".join(
 				["\"{0}\", ".format(app) for app in app_list]
-			) + "\'"
+			)
 
 def apps_can_be_hide_count(app_list, apps_list_can_be_hide):
 		count = 0
