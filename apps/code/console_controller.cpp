@@ -3,6 +3,7 @@
 #include "script.h"
 #include "variable_box_controller.h"
 #include <apps/i18n.h>
+#include <algorithm>
 #include <assert.h>
 #include <escher/metric.h>
 #include <poincare/preferences.h>
@@ -15,8 +16,6 @@ extern "C" {
 }
 
 namespace Code {
-
-static inline int minInt(int x, int y) { return x < y ? x : y; }
 
 static const char * sStandardPromptText = ">>> ";
 
@@ -34,9 +33,8 @@ ConsoleController::ConsoleController(Responder * parentResponder, App * pythonDe
   m_selectableTableView(this, this, this, this),
   m_editCell(this, pythonDelegate, this),
   m_scriptStore(scriptStore),
-  m_sandboxController(this, this),
-  m_inputRunLoopActive(false),
-  m_preventEdition(false)
+  m_sandboxController(this),
+  m_inputRunLoopActive(false)
 #if EPSILON_GETOPT
   , m_locked(lockOnConsole)
 #endif
@@ -82,14 +80,12 @@ void ConsoleController::runAndPrintForCommand(const char * command) {
   assert(m_outputAccumulationBuffer[0] == '\0');
 
   // Draw the console before running the code
-  m_preventEdition = true;
   m_editCell.setText("");
   m_editCell.setPrompt("");
   refreshPrintOutput();
 
   runCode(storedCommand);
 
-  m_preventEdition = false;
   m_editCell.setPrompt(sStandardPromptText);
   m_editCell.setEditing(true);
 
@@ -108,9 +104,7 @@ const char * ConsoleController::inputText(const char * prompt) {
   m_inputRunLoopActive = true;
 
   // Hide the sandbox if it is displayed
-  if (sandboxIsDisplayed()) {
-    hideSandbox();
-  }
+  hideAnyDisplayedViewController();
 
   const char * promptText = prompt;
   char * s = const_cast<char *>(prompt);
@@ -157,8 +151,7 @@ const char * ConsoleController::inputText(const char * prompt) {
    m_editCell.clearAndReduceSize();
 
   // Reload the history
-  m_selectableTableView.reloadData();
-  m_selectableTableView.selectCellAtLocation(0, m_consoleStore.numberOfLines());
+  reloadData(true);
   appsContainer->redrawWindow();
 
   // Launch a new input loop
@@ -191,14 +184,21 @@ void ConsoleController::viewWillAppear() {
     m_importScriptsWhenViewAppears = false;
     autoImport();
   }
-  m_selectableTableView.reloadData();
-  m_selectableTableView.selectCellAtLocation(0, m_consoleStore.numberOfLines());
-  m_editCell.setEditing(true);
-  m_editCell.setText("");
+
+  reloadData(true);
 }
 
 void ConsoleController::didBecomeFirstResponder() {
-  Container::activeApp()->setFirstResponder(&m_editCell);
+  if (!isDisplayingViewController()) {
+    Container::activeApp()->setFirstResponder(&m_editCell);
+  } else {
+    /* A view controller might be displayed: for example, when pushing the
+     * console on the stack controller, we auto-import scripts during the
+     * 'viewWillAppear' and then we set the console as first responder. The
+     * sandbox or the matplotlib controller might have been pushed in the
+     * auto-import. */
+    Container::activeApp()->setFirstResponder(stackViewController()->topViewController());
+  }
 }
 
 bool ConsoleController::handleEvent(Ion::Events::Event event) {
@@ -347,11 +347,8 @@ bool ConsoleController::textFieldDidFinishEditing(TextField * textField, const c
   }
   telemetryReportEvent("Console", text);
   runAndPrintForCommand(text);
-  if (!sandboxIsDisplayed()) {
-    m_selectableTableView.reloadData();
-    m_editCell.setEditing(true);
-    textField->setText("");
-    m_selectableTableView.selectCellAtLocation(0, m_consoleStore.numberOfLines());
+  if (!isDisplayingViewController()) {
+    reloadData(true);
   }
   return true;
 }
@@ -378,37 +375,53 @@ bool ConsoleController::textFieldDidAbortEditing(TextField * textField) {
   return true;
 }
 
-void ConsoleController::displaySandbox() {
-  if (sandboxIsDisplayed()) {
-    return;
-  }
-  stackViewController()->push(&m_sandboxController);
-}
-
-void ConsoleController::hideSandbox() {
-  if (!sandboxIsDisplayed()) {
-    return;
-  }
-  m_sandboxController.hide();
-}
-
 void ConsoleController::resetSandbox() {
-  if (!sandboxIsDisplayed()) {
+  if (stackViewController()->topViewController() != sandbox()) {
     return;
   }
   m_sandboxController.reset();
 }
 
-void ConsoleController::refreshPrintOutput() {
-  if (sandboxIsDisplayed()) {
+void ConsoleController::displayViewController(ViewController * controller) {
+  if (stackViewController()->topViewController() == controller) {
     return;
   }
+  hideAnyDisplayedViewController();
+  stackViewController()->push(controller);
+}
+
+void ConsoleController::hideAnyDisplayedViewController() {
+  if (!isDisplayingViewController()) {
+    return;
+  }
+  stackViewController()->pop();
+}
+
+bool ConsoleController::isDisplayingViewController() {
+  /* The StackViewController model state is the best way to know wether the
+   * console is displaying a View Controller (Sandbox or Matplotlib). Indeed,
+   * keeping a boolean or a pointer raises the issue of when updating it - when
+   * 'viewWillAppear' or when 'didEnterResponderChain' - in both cases, the
+   * state would be wrong at some point... */
+  return stackViewController()->depth() > 2;
+}
+
+void ConsoleController::refreshPrintOutput() {
+  if (!isDisplayingViewController()) {
+    reloadData(false);
+    AppsContainer::sharedAppsContainer()->redrawWindow();
+  }
+}
+
+void ConsoleController::reloadData(bool isEditing) {
   m_selectableTableView.reloadData();
   m_selectableTableView.selectCellAtLocation(0, m_consoleStore.numberOfLines());
-  if (m_preventEdition) {
+  if (isEditing) {
+    m_editCell.setEditing(true);
+    m_editCell.setText("");
+  } else {
     m_editCell.setEditing(false);
   }
-  AppsContainer::sharedAppsContainer()->redrawWindow();
 }
 
 /* printText is called by the Python machine.
@@ -457,12 +470,11 @@ void ConsoleController::printText(const char * text, size_t length) {
 }
 
 void ConsoleController::autoImportScript(Script script, bool force) {
-  if (sandboxIsDisplayed()) {
-    /* The sandbox might be displayed, for instance if we are auto-importing
-     * several scripts that draw at importation. In this case, we want to remove
-     * the sandbox. */
-    hideSandbox();
-  }
+  /* The sandbox might be displayed, for instance if we are auto-importing
+   * several scripts that draw at importation. In this case, we want to remove
+   * the sandbox. */
+  hideAnyDisplayedViewController();
+
   if (script.importationStatus() || force) {
     // Step 1 - Create the command "from scriptName import *".
 
@@ -475,7 +487,7 @@ void ConsoleController::autoImportScript(Script script, bool force) {
 
     /* Copy the script name without the extension ".py". The '.' is overwritten
      * by the null terminating char. */
-    int copySizeWithNullTerminatingZero = minInt(k_maxImportCommandSize - currentChar, strlen(scriptName) - strlen(ScriptStore::k_scriptExtension));
+    int copySizeWithNullTerminatingZero = std::min(k_maxImportCommandSize - currentChar, strlen(scriptName) - strlen(ScriptStore::k_scriptExtension));
     assert(copySizeWithNullTerminatingZero >= 0);
     assert(copySizeWithNullTerminatingZero <= k_maxImportCommandSize - currentChar);
     strlcpy(command+currentChar, scriptName, copySizeWithNullTerminatingZero);
@@ -488,11 +500,8 @@ void ConsoleController::autoImportScript(Script script, bool force) {
     // Step 2 - Run the command
     runAndPrintForCommand(command);
   }
-  if (!sandboxIsDisplayed() && force) {
-    m_selectableTableView.reloadData();
-    m_selectableTableView.selectCellAtLocation(0, m_consoleStore.numberOfLines());
-    m_editCell.setEditing(true);
-    m_editCell.setText("");
+  if (!isDisplayingViewController() && force) {
+    reloadData(true);
   }
 }
 

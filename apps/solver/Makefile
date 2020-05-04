@@ -16,7 +16,7 @@ app_solver_src = $(addprefix apps/solver/,\
 )
 
 app_solver_src += $(app_solver_test_src)
-app_src += $(app_solver_src)
+apps_src += $(app_solver_src)
 
 i18n_files += $(addprefix apps/solver/,\
   base.de.i18n\
@@ -28,7 +28,8 @@ i18n_files += $(addprefix apps/solver/,\
 )
 
 tests_src += $(addprefix apps/solver/test/,\
-  equation_store.cpp\
+  equation_store.cpp \
+  helpers.cpp \
 )
 
 $(eval $(call depends_on_image,apps/solver/app.cpp,apps/solver/solver_icon.png))

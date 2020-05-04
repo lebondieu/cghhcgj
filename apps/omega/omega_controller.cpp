@@ -10,12 +10,13 @@ OmegaController::OmegaController(Responder * parentResponder) :
   m_omegaView(&m_selectableTableView),
   m_selectableTableView(this),
   m_contributorsCell(),
-  m_versionCell()
+  m_versionCell(),
+  m_contributorsController(this)
 {
   m_contributorsCell.setMessageFont(KDFont::LargeFont);
   m_versionCell.setMessageFont(KDFont::LargeFont);
   m_versionCell.setAccessoryFont(KDFont::SmallFont);
-  m_versionCell.setAccessoryText(Ion::customSoftwareVersion());
+  m_versionCell.setAccessoryText(Ion::omegaVersion());
 }
 
 View * OmegaController::view() {
@@ -23,12 +24,16 @@ View * OmegaController::view() {
 }
 
 void OmegaController::didBecomeFirstResponder() {
+  if (selectedRow() < 0) {
+    selectCellAtLocation(0, 0);
+  }
+  Container::activeApp()->setFirstResponder(&m_selectableTableView);
 }
 
 bool OmegaController::handleEvent(Ion::Events::Event event) {
   if (event == Ion::Events::OK || event == Ion::Events::EXE || event == Ion::Events::Right) {
-    StackViewController * stack = (StackViewController *)parentResponder();
-    // stack->push(&m_contributorsController, Palette::BannerFirstText, Palette::BannerFirstBackground, Palette::BannerFirstBorder);
+    //StackViewController * stack = (StackViewController *)parentResponder();
+    stackController()->push(&m_contributorsController, Palette::BannerFirstText, Palette::BannerFirstBackground, Palette::BannerFirstBorder);
     return true;
   }
   return false;
@@ -65,6 +70,10 @@ void OmegaController::willDisplayCellForIndex(HighlightCell * cell, int index) {
   MessageTableCell * myCell = (MessageTableCell *)cell;
   I18n::Message titles[2] = {I18n::Message::OmegaContributors, I18n::Message::OmegaVersion};
   myCell->setMessage(titles[index]);
+}
+
+StackViewController * OmegaController::stackController() const {
+  return (StackViewController *)parentResponder();
 }
 
 }

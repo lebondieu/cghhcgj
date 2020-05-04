@@ -16,7 +16,7 @@ Preferences::Preferences() :
   m_colorOfLED(Preferences::LEDColor::Red),
   m_symbolMultiplication(Preferences::SymbolMultiplication::Auto),
   m_symbolFunction(Preferences::SymbolFunction::Default),
-  m_resultDisplay(Preferences::ResultDisplay::Default),
+  m_resultDisplay(Preferences::ResultDisplay::Compact),
   m_pythonFont(Preferences::PythonFont::Large)
 {}
 

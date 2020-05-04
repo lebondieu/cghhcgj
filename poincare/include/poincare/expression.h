@@ -1,7 +1,6 @@
 #ifndef POINCARE_EXPRESSION_REFERENCE_H
 #define POINCARE_EXPRESSION_REFERENCE_H
 
-#include <poincare/array_builder.h>
 #include <poincare/coordinate_2D.h>
 #include <poincare/tree_handle.h>
 #include <poincare/preferences.h>
@@ -76,6 +75,7 @@ class Expression : public TreeHandle {
   friend class NthRoot;
   friend class Number;
   friend class Opposite;
+  friend class ParameteredExpression;
   friend class Parenthesis;
   friend class PermuteCoefficient;
   friend class Power;
@@ -112,6 +112,7 @@ class Expression : public TreeHandle {
   friend class IntegralNode;
   template<int T>
   friend class LogarithmNode;
+  friend class MatrixNode;
   friend class NaperianLogarithmNode;
   friend class NAryExpressionNode;
   friend class StoreNode;
@@ -215,6 +216,9 @@ public:
    * same structures and all their nodes have same types and values (ie,
    * sqrt(pi^2) is NOT identical to pi). */
   bool isIdenticalTo(const Expression e) const;
+  /* isIdenticalToWithoutParentheses behaves as isIdenticalTo, but without
+   * taking into account parentheses: e^(0) is identical to e^0. */
+  bool isIdenticalToWithoutParentheses(const Expression e) const;
   static bool ParsedExpressionsAreEqual(const char * e0, const char * e1, Context * context, Preferences::ComplexFormat complexFormat, Preferences::AngleUnit angleUnit);
 
   /* Layout Helper */
@@ -274,7 +278,7 @@ public:
       m_numberOfChildren(numberOfChildren),
       m_untypedBuilder(builder) {}
     const char * name() const { return m_name; }
-    const int numberOfChildren() const { return m_numberOfChildren; }
+    int numberOfChildren() const { return m_numberOfChildren; }
     Expression build(Expression children) const { return (*m_untypedBuilder)(children); }
   private:
     const char * m_name;
@@ -283,6 +287,9 @@ public:
   };
 
   static void Tidy() { sSymbolReplacementsCountLock = false; }
+
+  /* Tuple */
+  typedef std::initializer_list<Expression> Tuple;
 
 protected:
   static bool SimplificationHasBeenInterrupted();
@@ -326,6 +333,12 @@ protected:
     return *reinterpret_cast<T *>(const_cast<Expression *>(this));
   }
 
+  static_assert(sizeof(TreeHandle::Tuple) == sizeof(Tuple), "Size mismatch");
+  static const TreeHandle::Tuple & convert(const Tuple & l) {
+    assert(sizeof(TreeHandle) == sizeof(Expression));
+    return reinterpret_cast<const TreeHandle::Tuple &>(l);
+  }
+
   /* Reference */
   ExpressionNode * node() const {
     assert(identifier() != TreeNode::NoNodeIdentifier || !TreeHandle::node()->isGhost());
@@ -346,8 +359,8 @@ protected:
   Expression defaultReplaceSymbolWithExpression(const SymbolAbstract & symbol, const Expression expression);
   /* 'deepReplaceReplaceableSymbols' returns an uninitialized expression if it
    * is circularly defined. Same convention as for 'ExpressionWithoutSymbols'.*/
-  Expression deepReplaceReplaceableSymbols(Context * context, bool * didReplace, bool replaceFunctionsOnly) { return node()->deepReplaceReplaceableSymbols(context, didReplace, replaceFunctionsOnly); }
-  Expression defaultReplaceReplaceableSymbols(Context * context, bool * didReplace, bool replaceFunctionsOnly);
+  Expression deepReplaceReplaceableSymbols(Context * context, bool * didReplace, bool replaceFunctionsOnly, int parameteredAncestorsCount) { return node()->deepReplaceReplaceableSymbols(context, didReplace, replaceFunctionsOnly, parameteredAncestorsCount); }
+  Expression defaultReplaceReplaceableSymbols(Context * context, bool * didReplace, bool replaceFunctionsOnly, int parameteredAncestorsCount);
 
   /* Simplification */
   void beautifyAndApproximateScalar(Expression * simplifiedExpression, Expression * approximateExpression, ExpressionNode::ReductionContext userReductionContext, Context * context, Preferences::ComplexFormat complexFormat, Preferences::AngleUnit angleUnit);

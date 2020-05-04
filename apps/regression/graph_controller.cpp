@@ -4,18 +4,15 @@
 #include "../apps_container.h"
 #include <poincare/preferences.h>
 #include <cmath>
+#include <algorithm>
 
 using namespace Poincare;
 using namespace Shared;
 
-static inline float minFloat(float x, float y) { return x < y ? x : y; }
-static inline float maxFloat(float x, float y) { return x > y ? x : y; }
-static inline int maxInt(int x, int y) { return x > y ? x : y; }
-
 namespace Regression {
 
-GraphController::GraphController(Responder * parentResponder, InputEventHandlerDelegate * inputEventHandlerDelegate, ButtonRowController * header, Store * store, CurveViewCursor * cursor, uint32_t * modelVersion, uint32_t * rangeVersion, int * selectedDotIndex, int * selectedSeriesIndex) :
-  InteractiveCurveViewController(parentResponder, inputEventHandlerDelegate, header, store, &m_view, cursor, modelVersion, rangeVersion),
+GraphController::GraphController(Responder * parentResponder, InputEventHandlerDelegate * inputEventHandlerDelegate, ButtonRowController * header, Store * store, CurveViewCursor * cursor, uint32_t * modelVersion, uint32_t * previousModelsVersions, uint32_t * rangeVersion, int * selectedDotIndex, int * selectedSeriesIndex) :
+  InteractiveCurveViewController(parentResponder, inputEventHandlerDelegate, header, store, &m_view, cursor, modelVersion, previousModelsVersions, rangeVersion),
   m_crossCursorView(),
   m_roundCursorView(),
   m_bannerView(this, inputEventHandlerDelegate, this),
@@ -165,7 +162,7 @@ void GraphController::reloadBannerView() {
   }
   if (!coefficientsAreDefined) {
     // Force the "Data not suitable" message to be on the next line
-    int numberOfCharToCompleteLine = maxInt(Ion::Display::Width / BannerView::Font()->glyphSize().width() - strlen(I18n::translate(formula)), 0);
+    int numberOfCharToCompleteLine = std::max<int>(Ion::Display::Width / BannerView::Font()->glyphSize().width() - strlen(I18n::translate(formula)), 0);
     numberOfChar = 0;
     // Padding
     Shared::TextHelpers::PadWithSpaces(buffer, bufferSize, &numberOfChar, numberOfCharToCompleteLine - 1);
@@ -351,6 +348,11 @@ uint32_t GraphController::modelVersion() {
   return m_store->storeChecksum();
 }
 
+uint32_t GraphController::modelVersionAtIndex(int i) {
+  assert(i < numberOfMemoizedVersions());
+  return *(m_store->seriesChecksum() + i);
+}
+
 uint32_t GraphController::rangeVersion() {
   return m_store->rangeChecksum();
 }
@@ -385,8 +387,8 @@ InteractiveCurveViewRangeDelegate::Range GraphController::computeYRange(Interact
   for (int series = 0; series < Store::k_numberOfSeries; series++) {
     for (int k = 0; k < m_store->numberOfPairsOfSeries(series); k++) {
       if (m_store->xMin() <= m_store->get(series, 0, k) && m_store->get(series, 0, k) <= m_store->xMax()) {
-        minY = minFloat(minY, m_store->get(series, 1, k));
-        maxY = maxFloat(maxY, m_store->get(series, 1, k));
+        minY = std::min<float>(minY, m_store->get(series, 1, k));
+        maxY = std::max<float>(maxY, m_store->get(series, 1, k));
       }
     }
   }
@@ -402,6 +404,7 @@ void GraphController::setRoundCrossCursorView() {
   bool round = *m_selectedDotIndex < 0;
   if (round) {
     // Set the color although the cursor view stays round
+    assert(*m_selectedSeriesIndex < Palette::numberOfDataColors());
     m_roundCursorView.setColor(Palette::DataColor[*m_selectedSeriesIndex]);
   }
   CursorView * nextCursorView = round ? static_cast<Shared::CursorView *>(&m_roundCursorView) : static_cast<Shared::CursorView *>(&m_crossCursorView);

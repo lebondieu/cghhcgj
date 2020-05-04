@@ -8,12 +8,11 @@
 #include <poincare/fraction_layout.h>
 #include <poincare/vertical_offset_layout.h>
 #include <poincare/nth_root_layout.h>
+#include <algorithm>
 
 using namespace Poincare;
 
 namespace Settings {
-
-static inline int maxInt(int x, int y) { return x > y ? x : y; }
 
 PreferencesController::PreferencesController(Responder * parentResponder) :
   GenericSubController(parentResponder)
@@ -207,7 +206,7 @@ Layout PreferencesController::layoutForPreferences(I18n::Message message) {
     }
     case I18n::Message::CompactResult:
     {
-      const char * text = "Beta";
+      const char * text = " ";
       return LayoutHelper::String(text, strlen(text), k_layoutFont);
     }
 
@@ -249,7 +248,7 @@ void PreferencesController::setPreferenceWithValueIndex(I18n::Message message, i
       /* In Engineering mode, the number of significant digits cannot be lower
        * than 3, because we need to be able to display 100 for instance. */
       // TODO: Add warning about signifiant digits change ?
-      preferences->setNumberOfSignificantDigits(maxInt(preferences->numberOfSignificantDigits(), 3));
+      preferences->setNumberOfSignificantDigits(std::max<int>(preferences->numberOfSignificantDigits(), 3));
     }
   } else if (message == I18n::Message::EditionMode) {
     preferences->setEditionMode((Preferences::EditionMode)valueIndex);
