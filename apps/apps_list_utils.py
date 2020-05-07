@@ -23,18 +23,13 @@ def filter_apps_list(raw_app_list, model, force_external):
 		return result
 
 def filter_apps_can_be_hide_count_list(raw_app_list, model, force_external, raw_app_can_be_hide_list):
-		assert(len(raw_app_can_be_hide_list) == len(raw_app_list))
+		result = ""
+		for i, app in enumerate(raw_app_list):
+			if force_external or model == "n0110" or app != "external":
+				result += ("1", "0")[raw_app_list in raw_app_can_be_hide_list]
+				result += " "
 
-		if force_external or model == "n0110":
-			return " ".join(raw_app_can_be_hide_list)
-		else:
-			result = ""
-			for i, app in enumerate(raw_app_list):
-				if app != "external":
-					result += raw_app_can_be_hide_list[i]
-					result += " "
-
-			return result
+		return result
 
 def snapshots_declaration(app_list, apps_can_be_hide):
 		return " ".join(

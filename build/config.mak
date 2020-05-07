@@ -7,7 +7,7 @@ EPSILON_VERSION ?= 13.1.0
 OMEGA_VERSION ?= 1.20.0
 # USERNAME ?= N/A
 EPSILON_APPS ?= calculation rpn graph code statistics probability solver atom sequence regression settings external omega
-EPSILON_APPS_CAN_BE_HIDE ?= 1 1 1 1 1 1 1 1 1 1 0 0 1
+EPSILON_APPS_ALWAYS_SHOWN ?= settings external
 
 EPSILON_I18N ?= en fr es de pt hu
 # EPSILON_I18N ?= en fr es de pt hu

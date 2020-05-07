@@ -17,8 +17,8 @@ ifdef FORCE_EXTERNAL
 	FORCE_EXTERNAL_BOOl = 1
 endif
 
-apps_list = $(shell $(PYTHON) apps_list_utils.py "filter_apps_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}")
-apps_list_can_be_hide = $(shell $(PYTHON) apps_list_utils.py "filter_apps_can_be_hide_count_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}" "${EPSILON_APPS_CAN_BE_HIDE}")
+apps_list = $(shell $(PYTHON) apps/apps_list_utils.py "filter_apps_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}")
+apps_list_can_be_hide = $(shell $(PYTHON) apps/apps_list_utils.py "filter_apps_can_be_hide_count_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}" "${EPSILON_APPS_CAN_BE_HIDE}")
 
 .PHONY test:
 test:

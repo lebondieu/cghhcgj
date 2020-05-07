@@ -41,8 +41,8 @@ apps_src += $(addprefix apps/,\
 
 tests_src += apps/exam_mode_configuration_non_official.cpp
 
-snapshot_includes = $(shell $(PYTHON) apps_list_utils.py "snapshot_includes" "$(apps_list)" "$(apps_list_can_be_hide)")#$(foreach i,$(app_headers),-include $(i) )
-$(info $(shell $(PYTHON) apps_list_utils.py "create_macros" "$(apps_list)" "$(apps_list_can_be_hide)"))
+snapshot_includes = $(shell $(PYTHON) apps/apps_list_utils.py "snapshot_includes" "$(apps_list)" "$(apps_list_can_be_hide)")#$(foreach i,$(app_headers),-include $(i) )
+$(info $(shell $(PYTHON) apps/apps_list_utils.py "create_macros" "$(apps_list)" "$(apps_list_can_be_hide)"))
 
 $(call object_for,apps/apps_container_storage.cpp apps/apps_container.cpp apps/main.cpp): CXXFLAGS += $(snapshot_includes) -DUSERNAME="$(USERNAME)"
 
