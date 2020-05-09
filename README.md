@@ -5,6 +5,7 @@
   <a href="https://github.com/Omega-Numworks/Omega/issues"><img alt="Issues" src="https://img.shields.io/github/issues/Omega-Numworks/Omega.svg?labelColor=292929&logo=git&style=for-the-badge" /></a>
   <br/>
   <a href="https://discord.gg/hjH3gtd"><img alt="Discord" src="https://img.shields.io/discord/663420259851567114?color=blue&labelColor=292929&label=chat%20-%20discord&logo=discord&style=for-the-badge" /></a>
+  <a href="https://webchat.freenode.net/?channels=#omega-numworks"><img alt="freenode #omega-numworks" src="https://img.shields.io/badge/Chat%20on%20freenode-%23omega--numworks-brightgreen?style=for-the-badge&labelColor=292929" /></a>
 </p>
 
 ## About
