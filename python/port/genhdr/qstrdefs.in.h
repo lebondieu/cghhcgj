@@ -668,3 +668,13 @@ Q(isvisible)
 Q(time)
 Q(sleep)
 Q(monotonic)
+
+// ppn QSTRs
+Q(ppn)
+Q(ppn_w)
+Q(ppn_h)
+Q(ppn_y0)
+Q(ppn_has_color)
+Q(ppn_need_show)
+Q(col_int2lst)
+Q(col_lst2int)
