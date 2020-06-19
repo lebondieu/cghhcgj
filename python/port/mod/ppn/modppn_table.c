@@ -4,7 +4,7 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_1(modppn_col_lst2int_obj, modppn_colLst2Int);
 STATIC MP_DEFINE_CONST_FUN_OBJ_1(modppn_col_int2lst_obj, modppn_colInt2Lst);
 STATIC MP_DEFINE_CONST_FUN_OBJ_0(modppn_clearScreen_obj, modppn_clearScreen);
 STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(modppn_draw_string_obj, 3, 5, modppn_drawString);
-STATIC MP_DEFINE_CONST_FUN_OBJ_0(modppn_none_function_obj, modppn_noneFunction)
+STATIC MP_DEFINE_CONST_FUN_OBJ_0(modppn_none_function_obj, modppn_noneFunction);
 
 STATIC const mp_rom_map_elem_t modppn_module_globals_table[] = {
   { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_ppn) },
