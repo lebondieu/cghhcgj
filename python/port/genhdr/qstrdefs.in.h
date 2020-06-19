@@ -678,3 +678,7 @@ Q(ppn_has_color)
 Q(ppn_need_show)
 Q(col_int2lst)
 Q(col_lst2int)
+Q(clear_screen)
+Q(cls)
+// Q(draw_string) already define by kandinsky
+Q(show_screen)
