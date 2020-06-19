@@ -1,5 +1,4 @@
 #include "apps_container_storage.h"
-#include "../macros.h"
 
 #ifndef APPS_CONTAINER_SNAPSHOT_CONSTRUCTORS
 #error Missing snapshot constructors

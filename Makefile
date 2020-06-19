@@ -12,13 +12,26 @@ include build/toolchain.$(TOOLCHAIN).mak
 include build/variants.mak
 include build/helpers.mk
 
-FORCE_EXTERNAL_BOOl = 0
-ifdef FORCE_EXTERNAL
-	FORCE_EXTERNAL_BOOl = 1
+# FORCE_EXTERNAL_BOOl = 0
+# ifdef FORCE_EXTERNAL
+# 	FORCE_EXTERNAL_BOOl = 1
+# endif
+
+# apps_list = $(shell $(PYTHON) apps/apps_list_utils.py "filter_apps_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}")
+# apps_list_can_be_hide = $(shell $(PYTHON) apps/apps_list_utils.py "filter_apps_can_be_hide_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}" "${EPSILON_APPS_CAN_BE_HIDE}")
+
+ifeq (${MODEL}, n0110)
+  apps_list = ${EPSILON_APPS}
+  apps_can_be_hide_list = $(filter-out $(EPSILON_APPS_ALWAYS_SHOWN), ${apps_list})
+else
+  apps_list = $(foreach i, ${EPSILON_APPS}, $(if $(filter external, $(i)),,$(i)))
+  apps_can_be_hide_list = $(filter-out $(EPSILON_APPS_ALWAYS_SHOWN), $(apps_list))
 endif
 
-apps_list = $(shell $(PYTHON) apps/apps_list_utils.py "filter_apps_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}")
-apps_list_can_be_hide = $(shell $(PYTHON) apps/apps_list_utils.py "filter_apps_can_be_hide_count_list" "${EPSILON_APPS}" "${MODEL}" "${FORCE_EXTERNAL_BOOl}" "${EPSILON_APPS_CAN_BE_HIDE}")
+ifdef FORCE_EXTERNAL
+  apps_list = ${EPSILON_APPS}
+  apps_can_be_hide_list = $(filter-out $(EPSILON_APPS_ALWAYS_SHOWN), ${apps_list})
+endif
 
 .PHONY test:
 test:

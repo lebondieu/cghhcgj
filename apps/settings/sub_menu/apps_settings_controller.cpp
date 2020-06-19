@@ -2,7 +2,6 @@
 #include <assert.h>
 
 #include "../../global_preferences.h"
-#include "../../../macros.h"
 #include "../../apps_container.h"
 #include "preferences_controller.h"
 

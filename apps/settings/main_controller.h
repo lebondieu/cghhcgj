@@ -11,7 +11,6 @@
 #include "sub_menu/math_options_controller.h"
 #include "sub_menu/preferences_controller.h"
 #include "sub_menu/apps_settings_controller.h"
-#include "../../macros.h"
 
 namespace Settings {
 

@@ -7,7 +7,6 @@
 #include <poincare/exception_checkpoint.h>
 #include <ion/backlight.h>
 #include <poincare/preferences.h>
-#include "../macros.h"
 
 extern "C" {
 #include <assert.h>

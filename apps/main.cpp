@@ -1,7 +1,6 @@
 #include "apps_container.h"
 #include "global_preferences.h"
 #include <poincare/init.h>
-#include "../macros.h"
 
 #define DUMMY_MAIN 0
 #if DUMMY_MAIN

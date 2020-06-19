@@ -2,7 +2,6 @@
 #define APPS_CONTAINER_STORAGE_H
 
 #include "apps_container.h"
-#include "../macros.h"
 
 #ifndef APPS_CONTAINER_SNAPSHOT_DECLARATIONS
 #error Missing snapshot declarations

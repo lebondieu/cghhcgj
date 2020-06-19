@@ -4,7 +4,6 @@
 #include "generic_sub_controller.h"
 #include "preferences_controller.h"
 #include <escher.h>
-#include "../../../macros.h"
 
 #ifndef APPS_CAN_BE_HIDE_COUNT
 #error Missing app can be hide count

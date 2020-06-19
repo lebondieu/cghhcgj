@@ -17,7 +17,6 @@
 #include "backlight_dimming_timer.h"
 #include "shared/global_context.h"
 #include "on_boarding/pop_up_controller.h"
-#include "../macros.h"
 
 #include <ion/events.h>
 

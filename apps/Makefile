@@ -4,11 +4,32 @@ include apps/on_boarding/Makefile
 include apps/hardware_test/Makefile
 include apps/usb/Makefile
 
+define ITERATE
+$(eval ITERATE_COUNT := 0)\
+$(if $(filter ${1},0),,\
+  $(call ITERATE_DO,${1})\
+)
+$(eval ITERATE_COUNT += ${1})
+$(filter-out 0, $(ITERATE_COUNT))
+endef
+
+define ITERATE_DO
+$(if $(word ${1}, ${ITERATE_COUNT}),,\
+  $(eval ITERATE_COUNT+=$(words ${ITERATE_COUNT}))\
+  $(call ITERATE_DO,${1})\
+)
+endef
+
 apps =
 # All selected apps are included. Each Makefile below is responsible for setting
 # the $apps variable (name of the app class) and the $app_headers
 # (path to the apps header).
 $(foreach i,${apps_list},${eval include apps/$(i)/Makefile})
+
+
+index_list = $(call ITERATE, $(words $(apps_list)))
+
+apps_can_be_hide = $(foreach x,$(index_list),$(if $(filter $(apps_can_be_hide_list), $(word $(x), $(apps_list))), $(word $(x), $(apps))))
 
 apps_src += $(addprefix apps/,\
   apps_container.cpp \
@@ -39,12 +60,58 @@ apps_src += $(addprefix apps/,\
   variable_box_empty_controller.cpp \
 )
 
+null  :=
+space := $(null) #
+comma := ,
+
 tests_src += apps/exam_mode_configuration_non_official.cpp
 
-snapshot_includes = $(shell $(PYTHON) apps/apps_list_utils.py "snapshot_includes" "$(apps_list)" "$(apps_list_can_be_hide)")#$(foreach i,$(app_headers),-include $(i) )
-$(info $(shell $(PYTHON) apps/apps_list_utils.py "create_macros" "$(apps_list)" "$(apps_list_can_be_hide)"))
+snapshots_declaration = $(foreach i,$(apps),$(i)::Snapshot m_snapshot$(subst :,,$(i))Snapshot;)
+apps_declaration = $(foreach i,$(apps),$(i) m_$(subst :,,$(i));)
+snapshots_construction = $(foreach i,$(apps),,m_snapshot$(subst :,,$(i))Snapshot())
+snapshots_list = $(foreach i,$(apps),,&m_snapshot$(subst :,,$(i))Snapshot)
+snapshots_count = $(words $(apps))
+snapshot_includes = $(foreach i,$(app_headers),-include $(i) )
+epsilon_app_names = '$(foreach i,${apps_list},"$(i)", )'
+apps_path = $(words $(apps))
+apps_can_be_hide_count = $(words $(apps_can_be_hide_list))
+apps_can_be_hide_list_declaration = $(subst $(space),$(comma),$(strip $(foreach i, ${apps_list}, $(if $(filter $(apps_can_be_hide_list), $(i)),true,false))))
+apps_can_be_hide_settings_message_tree_list = $(subst $(space),$(comma),$(foreach i,$(apps_can_be_hide),SettingsMessageTree(I18n::Message::$(subst :,,$(i)))))
+# $(info $(shell $(PYTHON) apps/apps_list_utils.py "create_macros" "$(apps_list)" "$(apps_list_can_be_hide)"))
+# $(info apps_list)
+# $(info $(apps_list))
+# $(info apps_can_be_hide_list)
+# $(info $(apps_can_be_hide_list))
+# $(info snapshots_declaration)
+# $(info $(snapshots_declaration))
+# $(info apps_declaration)
+# $(info $(apps_declaration))
+# $(info snapshots_construction)
+# $(info $(snapshots_construction))
+# $(info snapshots_list)
+# $(info $(snapshots_list))
+# $(info snapshots_count)
+# $(info $(snapshots_count))
+# $(info snapshot_includes)
+# $(info $(snapshot_includes))
+# $(info epsilon_app_names)
+# $(info $(epsilon_app_names))
+# $(info apps_can_be_hide_count)
+# $(info $(apps_can_be_hide_count))
+# $(info apps_can_be_hide_settings_message_tree_list)
+# $(info $(apps_can_be_hide_settings_message_tree_list))
+# $(info apps_can_be_hide_list_declaration)
+# $(info $(apps_can_be_hide_list_declaration))
+# $(info )
+# $(info )
+# $(info Line:)
+$(info $(snapshot_includes) -DAPPS_CONTAINER_APPS_DECLARATION="$(apps_declaration)" -DAPPS_CONTAINER_SNAPSHOT_DECLARATIONS="$(snapshots_declaration)" -DAPPS_CONTAINER_SNAPSHOT_CONSTRUCTORS="$(snapshots_construction)" -DAPPS_CONTAINER_SNAPSHOT_LIST="$(snapshots_list)" -DAPPS_CONTAINER_SNAPSHOT_COUNT="$(snapshots_count)" -DEPSILON_APPS_NAMES=$(epsilon_app_names) -DUSERNAME="$(USERNAME)" -DAPPS_CAN_BE_HIDE_COUNT=$(apps_can_be_hide_count) -DAPPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST="$(apps_can_be_hide_settings_message_tree_list)" -DAPPS_CAN_BE_HIDE_LIST="$(apps_can_be_hide_list_declaration)")
+# $(info $(patsubst 'testetst tes', '\w+', '_(\&)'))
 
-$(call object_for,apps/apps_container_storage.cpp apps/apps_container.cpp apps/main.cpp): CXXFLAGS += $(snapshot_includes) -DUSERNAME="$(USERNAME)"
+# $(error test)
+
+
+$(call object_for,apps/apps_container_storage.cpp apps/apps_container.cpp apps/main.cpp): CXXFLAGS += $(snapshot_includes) -DAPPS_CONTAINER_APPS_DECLARATION="$(apps_declaration)" -DAPPS_CONTAINER_SNAPSHOT_DECLARATIONS="$(snapshots_declaration)" -DAPPS_CONTAINER_SNAPSHOT_CONSTRUCTORS="$(snapshots_construction)" -DAPPS_CONTAINER_SNAPSHOT_LIST="$(snapshots_list)" -DAPPS_CONTAINER_SNAPSHOT_COUNT="$(snapshots_count)" -DEPSILON_APPS_NAMES=$(epsilon_app_names) -DAPPS_CAN_BE_HIDE_COUNT=$(apps_can_be_hide_count) -DAPPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST="$(apps_can_be_hide_settings_message_tree_list)" -DAPPS_CAN_BE_HIDE_LIST="$(apps_can_be_hide_list_declaration)" -DUSERNAME="$(USERNAME)"
 
 
 # I18n file generation

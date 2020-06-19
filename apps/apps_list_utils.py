@@ -22,7 +22,7 @@ def filter_apps_list(raw_app_list, model, force_external):
 
 		return result
 
-def filter_apps_can_be_hide_count_list(raw_app_list, model, force_external, raw_app_can_be_hide_list):
+def filter_apps_can_be_hide_list(raw_app_list, model, force_external, raw_app_can_be_hide_list):
 		result = ""
 		for i, app in enumerate(raw_app_list):
 			if force_external or model == "n0110" or app != "external":
@@ -95,7 +95,7 @@ MACROS_TO_GENERATE = {
 	"APPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST": apps_can_be_hide_settings_message_tree_list
 }
 
-if resource_requested in ("filter_apps_list", "filter_apps_can_be_hide_count_list"):
+if resource_requested in ("filter_apps_list", "filter_apps_can_be_hide_list"):
 
 	raw_app_list = sys.argv[2].split()
 	model = sys.argv[3]
@@ -104,9 +104,9 @@ if resource_requested in ("filter_apps_list", "filter_apps_can_be_hide_count_lis
 	if resource_requested == "filter_apps_list":
 		print(filter_apps_list(raw_app_list, model, force_external))
 
-	elif resource_requested == "filter_apps_can_be_hide_count_list":
+	elif resource_requested == "filter_apps_can_be_hide_list":
 		raw_app_can_be_hide_list = sys.argv[5].split()
-		print(filter_apps_can_be_hide_count_list(raw_app_list, model, force_external, raw_app_can_be_hide_list))
+		print(filter_apps_can_be_hide_list(raw_app_list, model, force_external, raw_app_can_be_hide_list))
 
 elif resource_requested == "snapshot_includes":
 	app_list = sys.argv[2].split()

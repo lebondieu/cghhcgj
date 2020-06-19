@@ -4,8 +4,6 @@
 #include <assert.h>
 #include <ion/backlight.h>
 
-#include "../../macros.h"
-
 #ifndef APPS_CAN_BE_HIDE_SETTINGS_MESSAGE_TREE_LIST
 #error Settings message tree app hide is missing
 #endif
