@@ -11,3 +11,6 @@
 	path = discord-rpc/discord-rpc
 	url = https://github.com/discord/discord-rpc.git
 	branch = master
+[submodule "discord-rpc/rapidjson"]
+	path = discord-rpc/rapidjson
+	url = https://github.com/Tencent/rapidjson.git

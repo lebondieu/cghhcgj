@@ -1,4 +1,4 @@
-SFLAGS += -Idiscord-rpc/discord-rpc/include -Idiscord-rpc/discord-rpc/src -Idiscord-rpc
+SFLAGS += -Idiscord-rpc/discord-rpc/include -Idiscord-rpc/discord-rpc/src -Idiscord-rpc -Idiscord-rpc/rapidjson/include
 
 discord_rpc_src += $(addprefix discord-rpc/discord-rpc/src/, \
 	discord_rpc.cpp \
