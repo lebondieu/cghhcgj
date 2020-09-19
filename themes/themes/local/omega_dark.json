@@ -76,9 +76,9 @@
             "Text": "ffffff"
         },
         "Toolbox": {
-            "HeaderBackground": "b5b5b5",
-            "HeaderText": "000000",
-            "HeaderBorder": "b5b5b5",
+            "HeaderBackground": "3b3b3b",
+            "HeaderText": "ffffff",
+            "HeaderBorder": "3b3b3b",
             "Background": "ffffff"
         },
         "List": {
