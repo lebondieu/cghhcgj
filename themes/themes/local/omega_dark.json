@@ -14,7 +14,7 @@
         },
         "Toolbar": {
             "": "c03535",
-            "Text": "000000"
+            "Text": "ffffff"
         },
         "ExpressionInput": {
             "Background": "1f1f1f",
@@ -25,7 +25,7 @@
             "SecondaryLine": "0a0a0a"
         },
         "Battery": {
-            "": "000000",
+            "": "ffffff",
             "InCharge": "179e1f",
             "Low": "992321"
         },
