@@ -1,4 +1,5 @@
-AddScript = "Script hozzadás"
+AddScript = "Script hozzadása"
+
 AllowedCharactersaz09 = "Engedélyezett karakterek: a-z, 0-9, _"
 Autocomplete = "Önkiegészítés"
 AutoImportScript = "Script automata importálása"
