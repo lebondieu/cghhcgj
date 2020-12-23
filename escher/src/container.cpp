@@ -1,5 +1,9 @@
 #include <escher/container.h>
 #include <assert.h>
+#ifndef DEVICE
+#include <escher/clipboard.h>
+#include <SDL.h>
+#endif
 
 Container::Container() :
   RunLoop()
@@ -39,12 +43,40 @@ bool Container::switchTo(App::Snapshot * snapshot) {
   return true;
 }
 
+#ifndef DEVICE
+void updateClipboard(bool set) {
+  Clipboard * escherClipboard = Clipboard::sharedClipboard();
+  if(set) {
+    int clipboardUpdated = SDL_SetClipboardText(escherClipboard->storedText());
+    assert(clipboardUpdated == 0);
+    return;
+  }
+  char * SDLClipboard = SDL_GetClipboardText();
+  if(strcmp(escherClipboard->storedText(), SDLClipboard) == 0) {
+    SDL_free(SDLClipboard);
+    return;
+  }
+  escherClipboard->store(SDLClipboard);
+  SDL_free(SDLClipboard);
+}
+#endif
+
 bool Container::dispatchEvent(Ion::Events::Event event) {
+#ifndef DEVICE
+  // When changing SDL clipboard, and then directly pasting in omega, escher clipboard has to be updated
+  if(event == Ion::Events::Paste) {
+    updateClipboard(false);
+  }
+#endif
   if (event == Ion::Events::TimerFire ) {
     window()->redraw();
     return true;
   }
-  if (s_activeApp->processEvent(event)) {
+  bool eventProcessed = s_activeApp->processEvent(event);
+#ifndef DEVICE
+  updateClipboard(event == Ion::Events::Copy || event == Ion::Events::Cut);
+#endif
+  if (eventProcessed) {
     window()->redraw();
     return true;
   }
