@@ -1,6 +1,6 @@
 #include <escher/container.h>
 #include <assert.h>
-#ifndef DEVICE
+#if !defined(DEVICE_N0100) && !defined(DEVICE_N0110)
 #include <escher/clipboard.h>
 #include <SDL.h>
 #endif
@@ -43,7 +43,7 @@ bool Container::switchTo(App::Snapshot * snapshot) {
   return true;
 }
 
-#ifndef DEVICE
+#if !defined(DEVICE_N0100) && !defined(DEVICE_N0110)
 void updateClipboard(bool set) {
   Clipboard * escherClipboard = Clipboard::sharedClipboard();
   if(set) {
@@ -62,7 +62,7 @@ void updateClipboard(bool set) {
 #endif
 
 bool Container::dispatchEvent(Ion::Events::Event event) {
-#ifndef DEVICE
+#if !defined(DEVICE_N0100) && !defined(DEVICE_N0110)
   // When changing SDL clipboard, and then directly pasting in omega, escher clipboard has to be updated
   if(event == Ion::Events::Paste) {
     updateClipboard(false);
@@ -73,7 +73,7 @@ bool Container::dispatchEvent(Ion::Events::Event event) {
     return true;
   }
   bool eventProcessed = s_activeApp->processEvent(event);
-#ifndef DEVICE
+#if !defined(DEVICE_N0100) && !defined(DEVICE_N0110)
   updateClipboard(event == Ion::Events::Copy || event == Ion::Events::Cut);
 #endif
   if (eventProcessed) {
