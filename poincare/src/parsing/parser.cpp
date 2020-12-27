@@ -213,7 +213,15 @@ void Parser::parseTimes(Expression & leftHandSide, Token::Type stoppingType) {
 void Parser::parseSlash(Expression & leftHandSide, Token::Type stoppingType) {
   Expression rightHandSide;
   if (parseBinaryOperator(leftHandSide, rightHandSide, Token::Slash)) {
-    leftHandSide = Division::Builder(leftHandSide, rightHandSide);
+    uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+    if (points != 0)
+    {
+      leftHandSide = FixedDivision::Builder(leftHandSide, rightHandSide);
+    }
+    else
+    {
+      leftHandSide = Division::Builder(leftHandSide, rightHandSide);
+    }
   }
 }
 

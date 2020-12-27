@@ -73,6 +73,7 @@ poincare_src += $(addprefix poincare/src/,\
   expression_node.cpp \
   factor.cpp \
   factorial.cpp \
+  fixed_division.cpp \
   float.cpp \
   floor.cpp \
   frac_part.cpp \

@@ -23,7 +23,8 @@ class ExpressionNode : public TreeNode {
   friend class PowerNode;
   friend class SymbolNode;
 public:
-   enum class Type : uint8_t {
+  enum class Type : uint8_t
+  {
     Uninitialized = 0,
     Undefined = 1,
     Unreal,
@@ -60,6 +61,7 @@ public:
     DivisionQuotient,
     DivisionRemainder,
     Factor,
+    FixedDivision,
     Floor,
     FracPart,
     Function,
@@ -106,7 +108,7 @@ public:
     PredictionInterval,
     Matrix,
     EmptyExpression
-   };
+  };
 
   /* Poor man's RTTI */
   virtual Type type() const = 0;

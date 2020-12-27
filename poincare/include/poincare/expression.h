@@ -46,6 +46,7 @@ class Expression : public TreeHandle {
   friend class Factor;
   friend class Factorial;
   friend class Floor;
+  friend class FixedDivision;
   friend class FracPart;
   friend class Function;
   friend class GlobalContext;

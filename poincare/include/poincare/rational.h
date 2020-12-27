@@ -109,6 +109,7 @@ public:
   static Rational Multiplication(const Rational & i, const Rational & j);
   // IntegerPower of (p1/q1)^(p2) --> (p1^p2)/(q1^p2)
   static Rational IntegerPower(const Rational & i, const Integer & j);
+  static Rational toFixedPoint(const Rational &a);
   static int NaturalOrder(const Rational & i, const Rational & j) { return RationalNode::NaturalOrder(i.node(), j.node()); }
 
   // Simplification

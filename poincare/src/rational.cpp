@@ -5,6 +5,7 @@
 #include <poincare/infinity.h>
 #include <poincare/opposite.h>
 #include <poincare/serialization_helper.h>
+#include "../../apps/apps_container.h"
 #include <assert.h>
 #include <math.h>
 #include <utility>
@@ -218,6 +219,36 @@ Rational Rational::IntegerPower(const Rational & i, const Integer & j) {
     return Rational::Builder(newDenominator, newNumerator);
   }
   return Rational::Builder(newNumerator, newDenominator);
+}
+
+Rational Rational::toFixedPoint(const Rational &a)
+{
+  uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+  if (points != 0)
+  {
+    Integer val = a.signedIntegerNumerator();
+    bool didOverflow = false;
+    //truncate MSBs
+    for (uint8_t i = 31; i >= points; i--)
+    {
+      Integer msb = Integer::Power(2, Integer(i));
+      if (!val.isLowerThan(msb))
+      {
+        val = Integer::Subtraction(val, msb);
+        didOverflow = true;
+      }
+    }
+    if (didOverflow)
+    {
+      // warn the user of overflow
+      Container::activeApp()->displayWarning(I18n::Message::Overflow);
+    }
+    return Rational::Builder(val);
+  }
+  else
+  {
+    return a;
+  }
 }
 
 Rational Rational::Builder(const native_uint_t * i, uint8_t numeratorSize, const native_uint_t * j, uint8_t denominatorSize, bool negative) {
