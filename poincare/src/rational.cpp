@@ -201,13 +201,13 @@ bool Rational::numeratorOrDenominatorIsInfinity() const {
 Rational Rational::Addition(const Rational & i, const Rational & j) {
   Integer newNumerator = Integer::Addition(Integer::Multiplication(i.signedIntegerNumerator(), j.integerDenominator()), Integer::Multiplication(j.signedIntegerNumerator(), i.integerDenominator()));
   Integer newDenominator = Integer::Multiplication(i.integerDenominator(), j.integerDenominator());
-  return Rational::Builder(newNumerator, newDenominator);
+  return Rational::toFixedPoint(Rational::Builder(newNumerator, newDenominator));
 }
 
 Rational Rational::Multiplication(const Rational & i, const Rational & j) {
   Integer newNumerator = Integer::Multiplication(i.signedIntegerNumerator(), j.signedIntegerNumerator());
   Integer newDenominator = Integer::Multiplication(i.integerDenominator(), j.integerDenominator());
-  return Rational::Builder(newNumerator, newDenominator);
+  return Rational::toFixedPoint(Rational::Builder(newNumerator, newDenominator));
 }
 
 Rational Rational::IntegerPower(const Rational & i, const Integer & j) {
@@ -216,17 +216,18 @@ Rational Rational::IntegerPower(const Rational & i, const Integer & j) {
   Integer newNumerator = Integer::Power(i.signedIntegerNumerator(), absJ);
   Integer newDenominator = Integer::Power(i.integerDenominator(), absJ);
   if (j.isNegative()) {
-    return Rational::Builder(newDenominator, newNumerator);
+    return Rational::toFixedPoint(Rational::Builder(newDenominator, newNumerator));
   }
-  return Rational::Builder(newNumerator, newDenominator);
+  return Rational::toFixedPoint(Rational::Builder(newNumerator, newDenominator));
 }
 
 Rational Rational::toFixedPoint(const Rational &a)
 {
+  // only do conversion when enabled
   uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
   if (points != 0)
   {
-    Integer val = a.signedIntegerNumerator();
+    Integer val = Integer::Division(a.signedIntegerNumerator(), a.integerDenominator()).quotient;
     bool didOverflow = false;
     //truncate MSBs
     for (uint8_t i = 31; i >= points; i--)

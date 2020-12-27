@@ -77,6 +77,30 @@ Expression Division::shallowReduce(ExpressionNode::ReductionContext reductionCon
       return e;
     }
   }
+  //Check if we are in fixed pint mode!
+  uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+  if (points != 0 && childAtIndex(0).type() == ExpressionNode::Type::Rational && childAtIndex(1).type() == ExpressionNode::Type::Rational)
+  {
+
+    Rational r1 = childAtIndex(0).convert<Rational>();
+    Rational r2 = childAtIndex(1).convert<Rational>();
+    Integer r1a = r1.signedIntegerNumerator();
+    Integer r1b = r1.integerDenominator();
+    Integer r2a = r2.signedIntegerNumerator();
+    Integer r2b = r2.integerDenominator();
+    //TODO: multiply up if there are fractional bits and correct post division
+    IntegerDivision top = Integer::Division(r1.signedIntegerNumerator(), r1.integerDenominator());
+    IntegerDivision bottom = Integer::Division(r2.signedIntegerNumerator(), r2.integerDenominator());
+    IntegerDivision d = Integer::Division(top.quotient, bottom.quotient);
+    Integer rounding = d.quotient;
+    Rational result = Rational::toFixedPoint(Rational::Builder(rounding));
+    if (result.numeratorOrDenominatorIsInfinity())
+    {
+      return *this;
+    }
+    replaceWithInPlace(result);
+    return std::move(result);
+  }
   /* For matrices: we decided that A/B is computed as A = A/B * B so A/B = AB^-1
    * (it could have been A = B * A/B so A/B = B^-1*A). */
   Expression p = Power::Builder(childAtIndex(1), Rational::Builder(-1));
