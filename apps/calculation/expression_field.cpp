@@ -20,6 +20,12 @@ bool ExpressionField::handleEvent(Ion::Events::Event event) {
        event == Ion::Events::Sto)) {
     handleEventWithText(Poincare::Symbol::k_ans);
   }
+  if (event == Ion::Events::shiftfois)
+  {
+  }
+  if (event == Ion::Events::shiftdiv)
+  {
+  }
   return(::ExpressionField::handleEvent(event));
 }
 

@@ -1,6 +1,7 @@
 #include "title_bar_view.h"
 #include "exam_icon.h"
 #include "global_preferences.h"
+#include <string>
 extern "C" {
 #include <assert.h>
 }
@@ -86,7 +87,7 @@ void TitleBarView::layoutSubviews(bool force) {
 }
 
 void TitleBarView::refreshPreferences() {
-  constexpr size_t bufferSize = 13;
+  constexpr size_t bufferSize = 22;
   char buffer[bufferSize];
   int numberOfChar = 0;
   Preferences * preferences = Preferences::sharedPreferences();
@@ -121,7 +122,21 @@ void TitleBarView::refreshPreferences() {
         (angleUnit == Preferences::AngleUnit::Radian ? I18n::Message::Rad : I18n::Message::Gon);
     numberOfChar += strlcpy(buffer+numberOfChar, I18n::translate(angleMessage), bufferSize - numberOfChar);
   }
-  
+  assert(numberOfChar <= bufferSize);
+  {
+    // Display the angle unit
+    const uint8_t points = preferences->numberOfFixedPointDigits();
+    if (points != 0)
+    {
+      I18n::Message pointsMessage = I18n::Message::Fi;
+      numberOfChar += strlcpy(buffer + numberOfChar, I18n::translate(pointsMessage), bufferSize - numberOfChar);
+      numberOfChar += strlcpy(buffer + numberOfChar, "(", bufferSize - numberOfChar);
+      std::string s = std::to_string(points);
+      numberOfChar += strlcpy(buffer + numberOfChar, s.c_str(), bufferSize - numberOfChar);
+      numberOfChar += strlcpy(buffer + numberOfChar, ")", bufferSize - numberOfChar);
+    }
+  }
+
   m_preferenceView.setText(buffer);
   // Layout the exam mode icon if needed
   layoutSubviews();
