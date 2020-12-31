@@ -154,7 +154,15 @@ Expression RationalNode::denominator(ReductionContext reductionContext) const {
 
 // Constructors
 
+// This function gets called when a single rational number gets built (i.e. user envers in 0xFF and hits enter)
 Rational Rational::Builder(Integer & num, Integer & den) {
+  uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+  if (points != 0)
+  {
+    //truncate in fixed point mode
+    num = Integer::toFixedPoint(Integer::Division(num, den).quotient, points);
+    den = Integer(1);
+  }
   assert(!den.isZero());
   if (!num.isOne() && !den.isOne()) {
     // Avoid computing GCD if possible
@@ -205,6 +213,16 @@ Rational Rational::Addition(const Rational & i, const Rational & j) {
 }
 
 Rational Rational::Multiplication(const Rational & i, const Rational & j) {
+  // A/B * C/D = A*C / B*D
+  // With floating precision this is fine, but with fixed precision this is not rounded correctly.
+  //The rational numbers must be truncated before being multiplied.
+  uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+  if (points != 0)
+  {
+    //TODO: expand to support fixed decimal point... for now we truncate
+    assert(i.integerDenominator().isOne());
+    assert(j.integerDenominator().isOne());
+  }
   Integer newNumerator = Integer::Multiplication(i.signedIntegerNumerator(), j.signedIntegerNumerator());
   Integer newDenominator = Integer::Multiplication(i.integerDenominator(), j.integerDenominator());
   return Rational::toFixedPoint(Rational::Builder(newNumerator, newDenominator));
@@ -228,23 +246,8 @@ Rational Rational::toFixedPoint(const Rational &a)
   if (points != 0)
   {
     Integer val = Integer::Division(a.signedIntegerNumerator(), a.integerDenominator()).quotient;
-    bool didOverflow = false;
-    //truncate MSBs
-    for (uint8_t i = 31; i >= points; i--)
-    {
-      Integer msb = Integer::Power(2, Integer(i));
-      if (!val.isLowerThan(msb))
-      {
-        val = Integer::Subtraction(val, msb);
-        didOverflow = true;
-      }
-    }
-    if (didOverflow)
-    {
-      // warn the user of overflow
-      Container::activeApp()->displayWarning(I18n::Message::Overflow);
-    }
-    return Rational::Builder(val);
+    Integer int_val = Integer::toFixedPoint(val, points);
+    return Rational::Builder(int_val);
   }
   else
   {

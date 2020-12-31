@@ -1,5 +1,6 @@
 #include "integer_list_controller.h"
 #include <poincare/based_integer.h>
+#include <poincare/opposite.h>
 #include <poincare/integer.h>
 #include <poincare/empty_layout.h>
 #include <poincare/factor.h>
@@ -28,10 +29,21 @@ Integer::Base baseAtIndex(int index) {
 }
 
 void IntegerListController::computeLayoutAtIndex(int index) {
-  assert(m_expression.type() == ExpressionNode::Type::BasedInteger);
+  assert(m_expression.type() == ExpressionNode::Type::BasedInteger || (m_expression.type() == ExpressionNode::Type::Opposite && m_expression.childAtIndex(0).type() == ExpressionNode::Type::BasedInteger));
   // For index = k_indexOfFactorExpression, the layout is assumed to be alreday memoized because it is needed to compute the numberOfRows
   assert(index < k_indexOfFactorExpression);
-  Integer i = static_cast<BasedInteger &>(m_expression).integer();
+  Integer i;
+  if (m_expression.type() == ExpressionNode::Type::BasedInteger)
+  {
+    i = static_cast<BasedInteger &>(m_expression).integer();
+  }
+  else
+  {
+    Opposite b = static_cast<Opposite &>(m_expression);
+    Expression e = b.childAtIndex(0);
+    Integer childInt = static_cast<BasedInteger &>(e).integer();
+    i = Integer::Multiplication(childInt, Integer(-1));
+  }
   m_layouts[index] = i.createLayout(baseAtIndex(index));
 }
 

@@ -11,6 +11,7 @@
 #include <poincare/division_remainder.h>
 #include <poincare/equal.h>
 #include <poincare/multiplication.h>
+#include "../../apps/apps_container.h"
 #include <cmath>
 #include <utility>
 extern "C" {
@@ -261,8 +262,19 @@ int Integer::serializeInBinaryBase(char * buffer, int bufferSize, int bitsPerDig
   // Compute the required bufferSize to print the integer
   // TODO: share this code with exam mode new version
   native_uint_t lastDigit = digit(nbOfDigits-1);
+  if (isNegative())
+  {
+    lastDigit = lastDigit * -1;
+  }
+
+  uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+  if (points == 0 || !isNegative())
+  {
+    points = 32;
+  }
+
   int minShift = 0;
-  int maxShift = 32;
+  int maxShift = points;
   while (maxShift > minShift+1) {
     int shift = (minShift + maxShift)/2;
     native_uint_t shifted = lastDigit >> shift;
@@ -272,7 +284,7 @@ int Integer::serializeInBinaryBase(char * buffer, int bufferSize, int bitsPerDig
       minShift = shift;
     }
   }
-  int requiredBufferSize = ((nbOfDigits-1)*32+(maxShift+bitsPerDigit-1))/bitsPerDigit;
+  int requiredBufferSize = ((nbOfDigits - 1) * points + (maxShift + bitsPerDigit - 1)) / bitsPerDigit;
   // Don't forget 0x prefix and the null termination
   requiredBufferSize += 3;
   if (requiredBufferSize > bufferSize) {
@@ -283,8 +295,10 @@ int Integer::serializeInBinaryBase(char * buffer, int bufferSize, int bitsPerDig
   buffer[currentChar--] = 0;
   uint8_t first4bits = ((1 << bitsPerDigit) - 1);
   for (int i = 0; i < nbOfDigits; i++) {
-    for (int j = 0; j < 32/bitsPerDigit; j++) {
-      char d = (digit(i) >> j*bitsPerDigit) & first4bits;
+    for (int j = 0; j < points / bitsPerDigit; j++)
+    {
+      int digit_i = isNegative() ? digit(i) * -1 : digit(i);
+      char d = (digit_i >> j * bitsPerDigit) & first4bits;
       buffer[currentChar--] = charForDigit(d);
       if (currentChar == 1) {
         return requiredBufferSize-1;
@@ -448,6 +462,106 @@ Integer Integer::Factorial(const Integer & i) {
     j = usum(j, Integer(1), false);
   }
   return result;
+}
+
+/*Integer Integer::Truncate(const Integer &a, uint8_t points)
+{
+  //convert to signed bits if needed:
+  Integer buffer = a;
+  //if(a.isNegative()) {
+    //buffer = usum(a, Integer(1).multiplyByPowerOf2(points), true);
+  //}
+  //Integer msb = buffer.divideByPowerOf2(points - 1);
+  bool msb_sign = false; //msb.numberOfDigits() > 0 ? msb.digit(0) % 2 : 0; //number interpreted as negative if MSB==1
+  bool didOverflow = false;
+  for (size_t i = 0; i < a.numberOfDigits(); i++)
+  {
+    s_workingBuffer[i] = a.digit(i);
+  }
+
+  for (uint16_t i = a.numberOfDigits() * 32 - 1; i >= points; i--)
+  {
+    bool bit_i = (s_workingBuffer[i] & (1 << i)) >> i;
+    if (bit_i != msb_sign)
+    {
+      s_workingBuffer[i / 32] = s_workingBuffer[i / 32] ^ (1 << i); //flip bit to extend sign
+      if (i < points)
+      {
+        didOverflow = true;
+      }
+    }
+  }
+  if (didOverflow)
+  {
+    // warn the user of overflow
+    Container::activeApp()->displayWarning(I18n::Message::Overflow);
+  }
+
+  Integer uint_final = BuildInteger(s_workingBuffer, buffer.numberOfDigits(), false);
+  if (msb_sign)
+  {
+    // flip bits back to unsigned from two's comp
+    Integer bias = Integer(1).multiplyByPowerOf2(31);
+    bias.setNegative(true);
+    for (size_t i = 0; i < buffer.numberOfDigits(); i++)
+    {
+      //we need 2^32 to convert from two's comp so we have to do 2^31 twice
+      uint_final = Addition(uint_final, bias);
+      uint_final = Addition(uint_final, bias);
+    }
+  }
+  return uint_final;
+}*/
+
+Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
+{
+  //convert to signed bits if needed:
+  Integer buffer = a;
+  if (a.isNegative())
+  {
+    buffer = usum(a, Integer(1).multiplyByPowerOf2(points), true);
+  }
+  Integer msb = buffer.divideByPowerOf2(points - 1);
+  bool msb_sign = msb.numberOfDigits() > 0 ? msb.digit(0) % 2 : 0; //number interpreted as negative if MSB==1
+  bool didOverflow = false;
+  for (size_t i = 0; i < a.numberOfDigits(); i++)
+  {
+    s_workingBuffer[i] = a.digit(i);
+  }
+
+  for (uint16_t i = a.numberOfDigits() * 32 - 1; i >= points; i--)
+  {
+    bool bit_i = (s_workingBuffer[i / 32] & (1 << i)) >> i;
+    //sign extend
+    if (bit_i != msb_sign)
+    {
+      s_workingBuffer[i / 32] = s_workingBuffer[i / 32] ^ (1 << i); //flip bit to extend sign
+    }
+    if (bit_i)
+    {
+      didOverflow = true;
+    }
+  }
+  if (didOverflow)
+  {
+    // warn the user of overflow
+    Container::activeApp()->displayWarning(I18n::Message::Overflow);
+  }
+
+  Integer uint_final = BuildInteger(s_workingBuffer, buffer.numberOfDigits(), a.isNegative());
+  if (msb_sign)
+  {
+    // flip bits back to unsigned from two's comp
+    Integer bias = Integer(1).multiplyByPowerOf2(31);
+    bias.setNegative(true);
+    for (size_t i = 0; i < buffer.numberOfDigits(); i++)
+    {
+      //we need 2^32 to convert from two's comp so we have to do 2^31 twice
+      uint_final = Addition(uint_final, bias);
+      uint_final = Addition(uint_final, bias);
+    }
+  }
+  return uint_final;
 }
 
 Integer Integer::addition(const Integer & a, const Integer & b, bool inverseBNegative, bool oneDigitOverflow) {
