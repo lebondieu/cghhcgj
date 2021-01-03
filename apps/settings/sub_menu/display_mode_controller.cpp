@@ -1,5 +1,6 @@
 #include "display_mode_controller.h"
 #include "../../shared/poincare_helpers.h"
+#include "../../apps_container.h"
 #include <assert.h>
 #include <cmath>
 #include "../app.h"
@@ -115,7 +116,7 @@ bool DisplayModeController::textFieldDidFinishEditing(TextField * textField, con
     }
     Preferences::sharedPreferences()->setNumberOfSignificantDigits((char)std::round(floatBody));
     m_selectableTableView.reloadCellAtLocation(0, selectedRow());
-    if (event == Ion::Events::Up || event == Ion::Events::OK)
+    if (event == Ion::Events::Up || event == Ion::Events::Down || event == Ion::Events::OK)
     {
       m_selectableTableView.handleEvent(event);
     }
@@ -133,6 +134,7 @@ bool DisplayModeController::textFieldDidFinishEditing(TextField * textField, con
     m_selectableTableView.reloadCellAtLocation(0, selectedRow());
     if (event == Ion::Events::Up || event == Ion::Events::OK)
     {
+      AppsContainer::sharedAppsContainer()->refreshPreferences();
       m_selectableTableView.handleEvent(event);
     }
     return true;
