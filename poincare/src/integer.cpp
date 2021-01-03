@@ -464,55 +464,6 @@ Integer Integer::Factorial(const Integer & i) {
   return result;
 }
 
-/*Integer Integer::Truncate(const Integer &a, uint8_t points)
-{
-  //convert to signed bits if needed:
-  Integer buffer = a;
-  //if(a.isNegative()) {
-    //buffer = usum(a, Integer(1).multiplyByPowerOf2(points), true);
-  //}
-  //Integer msb = buffer.divideByPowerOf2(points - 1);
-  bool msb_sign = false; //msb.numberOfDigits() > 0 ? msb.digit(0) % 2 : 0; //number interpreted as negative if MSB==1
-  bool didOverflow = false;
-  for (size_t i = 0; i < a.numberOfDigits(); i++)
-  {
-    s_workingBuffer[i] = a.digit(i);
-  }
-
-  for (uint16_t i = a.numberOfDigits() * 32 - 1; i >= points; i--)
-  {
-    bool bit_i = (s_workingBuffer[i] & (1 << i)) >> i;
-    if (bit_i != msb_sign)
-    {
-      s_workingBuffer[i / 32] = s_workingBuffer[i / 32] ^ (1 << i); //flip bit to extend sign
-      if (i < points)
-      {
-        didOverflow = true;
-      }
-    }
-  }
-  if (didOverflow)
-  {
-    // warn the user of overflow
-    Container::activeApp()->displayWarning(I18n::Message::Overflow);
-  }
-
-  Integer uint_final = BuildInteger(s_workingBuffer, buffer.numberOfDigits(), false);
-  if (msb_sign)
-  {
-    // flip bits back to unsigned from two's comp
-    Integer bias = Integer(1).multiplyByPowerOf2(31);
-    bias.setNegative(true);
-    for (size_t i = 0; i < buffer.numberOfDigits(); i++)
-    {
-      //we need 2^32 to convert from two's comp so we have to do 2^31 twice
-      uint_final = Addition(uint_final, bias);
-      uint_final = Addition(uint_final, bias);
-    }
-  }
-  return uint_final;
-}*/
-
 Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
 {
   if (a.isZero())
@@ -526,6 +477,7 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
     buffer = usum(Integer(0), a, true);
   }
   Integer msb = buffer.divideByPowerOf2(points - 1);
+  Integer full_scale = Integer(1).multiplyByPowerOf2(points);
   bool msb_sign = msb.numberOfDigits() > 0 ? msb.digit(0) % 2 : 0; //number interpreted as negative if MSB==1
   bool didOverflow = false;
   for (size_t i = 0; i < a.numberOfDigits(); i++)
@@ -543,12 +495,12 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
       didOverflow = true;
     }
   }
-  if (didOverflow)
+  if (didOverflow && !a.isLowerThan(full_scale))
   {
     // warn the user of overflow
-    #if !TEST_MODE
+#ifndef TEST_MODE
     Container::activeApp()->displayWarning(I18n::Message::Overflow);
-    #endif
+#endif
   }
 
   Integer uint_final = BuildInteger(s_workingBuffer, buffer.numberOfDigits(), false);
@@ -568,23 +520,30 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
   return uint_final;
 }
 
-Integer Integer::addition(const Integer & a, const Integer & b, bool inverseBNegative, bool oneDigitOverflow) {
+Integer Integer::addition(const Integer &a, const Integer &b, bool inverseBNegative, bool oneDigitOverflow)
+{
   bool bNegative = (inverseBNegative ? !b.m_negative : b.m_negative);
-  if (a.m_negative == bNegative) {
+  if (a.m_negative == bNegative)
+  {
     Integer us = usum(a, b, false, oneDigitOverflow);
     us.setNegative(a.m_negative);
     return us;
-  } else {
+  }
+  else
+  {
     /* The signs are different, this is in fact a subtraction
      * s = a+b = (abs(a)-abs(b) OR abs(b)-abs(a))
      * 1/abs(a)>abs(b) : s = sign*udiff(a, b)
      * 2/abs(b)>abs(a) : s = sign*udiff(b, a)
      * sign? sign of the greater! */
-    if (ucmp(a, b) >= 0) {
+    if (ucmp(a, b) >= 0)
+    {
       Integer us = usum(a, b, true, oneDigitOverflow);
       us.setNegative(a.m_negative);
       return us;
-    } else {
+    }
+    else
+    {
       Integer us = usum(b, a, true, oneDigitOverflow);
       us.setNegative(bNegative);
       return us;
