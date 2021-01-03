@@ -65,7 +65,13 @@ public:
   uint8_t numberOfSignificantDigits() const { return m_numberOfSignificantDigits; }
   void setNumberOfSignificantDigits(uint8_t numberOfSignificantDigits) { m_numberOfSignificantDigits = numberOfSignificantDigits; }
   uint8_t numberOfFixedPointDigits() const { return m_numberOfFixedPointDigits; }
-  void setNumberOfFixedPointDigits(uint8_t numberOfFixedPointDigits) { m_numberOfFixedPointDigits = numberOfFixedPointDigits; }
+  void setNumberOfFixedPointDigits(uint8_t numberOfFixedPointDigits)
+  {
+    if (numberOfFixedPointDigits < 65) // lower bound is handeled by uint rollover
+    {
+      m_numberOfFixedPointDigits = numberOfFixedPointDigits;
+    }
+  }
   SymbolMultiplication symbolOfMultiplication() const { return m_symbolMultiplication; }
   void setSymbolMultiplication(SymbolMultiplication symbolOfMultiplication) { m_symbolMultiplication = symbolOfMultiplication; }
   SymbolFunction symbolOfFunction() const { return m_symbolFunction; }

@@ -476,8 +476,31 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
   {
     buffer = usum(Integer(0), a, true);
   }
-  Integer msb = buffer.divideByPowerOf2(points - 1);
-  Integer full_scale = Integer(1).multiplyByPowerOf2(points);
+  Integer msb = buffer;
+  //This if statement is a workaround fo a stupid assertion that prohibits powers greater than 32...
+  if (points > 32)
+  {
+    for (size_t i = 0; i < (2 ^ (points - 32)); i++)
+    {
+      msb = msb.multiplyByPowerOf2(31);
+    }
+  }
+  else
+  {
+    msb = msb.divideByPowerOf2(points - 1);
+  }
+  Integer full_scale = Integer(1);
+  if (points > 31)
+  {
+    for (size_t i = 0; i < (2 ^ (points - 31)); i++)
+    {
+      full_scale = full_scale.multiplyByPowerOf2(31);
+    }
+  }
+  else
+  {
+    full_scale = full_scale.multiplyByPowerOf2(points);
+  }
   bool msb_sign = msb.numberOfDigits() > 0 ? msb.digit(0) % 2 : 0; //number interpreted as negative if MSB==1
   bool didOverflow = false;
   for (size_t i = 0; i < a.numberOfDigits(); i++)
