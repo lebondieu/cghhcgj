@@ -28,7 +28,6 @@
 #include <poincare/expression.h>
 #include <poincare/factor.h>
 #include <poincare/factorial.h>
-#include <poincare/fixed_division.h>
 #include <poincare/float.h>
 #include <poincare/floor.h>
 #include <poincare/frac_part.h>

@@ -5,7 +5,6 @@
 #include <poincare/infinity.h>
 #include <poincare/opposite.h>
 #include <poincare/serialization_helper.h>
-#include "../../apps/apps_container.h"
 #include <assert.h>
 #include <math.h>
 #include <utility>

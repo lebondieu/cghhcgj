@@ -73,7 +73,6 @@ poincare_src += $(addprefix poincare/src/,\
   expression_node.cpp \
   factor.cpp \
   factorial.cpp \
-  fixed_division.cpp \
   float.cpp \
   floor.cpp \
   frac_part.cpp \
@@ -191,5 +190,9 @@ POINCARE_TREE_LOG ?= 1
 endif
 
 ifdef POINCARE_TREE_LOG
-SFLAGS += -DPOINCARE_TREE_LOG=$(POINCARE_TREE_LOG) -DTEST_MODE=$(TEST_MODE)
+SFLAGS += -DPOINCARE_TREE_LOG=$(POINCARE_TREE_LOG) 
+endif
+
+ifdef TEST_MODE
+SFLAGS += -DTEST_MODE=$(TEST_MODE)
 endif

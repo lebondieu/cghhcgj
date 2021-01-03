@@ -306,7 +306,6 @@ template EmptyExpression TreeHandle::FixedArityBuilder<EmptyExpression, EmptyExp
 template Equal TreeHandle::FixedArityBuilder<Equal, EqualNode>(const Tuple &);
 template Factor TreeHandle::FixedArityBuilder<Factor, FactorNode>(const Tuple &);
 template Factorial TreeHandle::FixedArityBuilder<Factorial, FactorialNode>(const Tuple &);
-template FixedDivision TreeHandle::FixedArityBuilder<FixedDivision, FixedDivisionNode>(const Tuple &);
 template Floor TreeHandle::FixedArityBuilder<Floor, FloorNode>(const Tuple &);
 template FloorLayout TreeHandle::FixedArityBuilder<FloorLayout, FloorLayoutNode>(const Tuple &);
 template FracPart TreeHandle::FixedArityBuilder<FracPart, FracPartNode>(const Tuple &);

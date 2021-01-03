@@ -212,8 +212,7 @@ void Parser::parseTimes(Expression & leftHandSide, Token::Type stoppingType) {
 
 void Parser::parseSlash(Expression & leftHandSide, Token::Type stoppingType) {
   Expression rightHandSide;
-  if (parseBinaryOperator(leftHandSide, rightHandSide, Token::Slash))
-  {
+  if (parseBinaryOperator(leftHandSide, rightHandSide, Token::Slash)) {
     leftHandSide = Division::Builder(leftHandSide, rightHandSide);
   }
 }
