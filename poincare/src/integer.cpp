@@ -522,6 +522,8 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
   {
     // warn the user of overflow
 #ifndef TEST_MODE
+    //TODO: This is a bit hacky... I a guessing that this is calling a GUI function from a worker thread
+    // which is probably dangerous. I don't know how to do this without rewriting a lot of code...
     Container::activeApp()->displayWarning(I18n::Message::Overflow);
 #endif
   }
