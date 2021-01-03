@@ -515,18 +515,22 @@ Integer Integer::Factorial(const Integer & i) {
 
 Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
 {
+  if (a.isZero())
+  {
+    return a;
+  }
   //convert to signed bits if needed:
   Integer buffer = a;
   if (a.isNegative())
   {
-    buffer = usum(a, Integer(1).multiplyByPowerOf2(points), true);
+    buffer = usum(Integer(0), a, true);
   }
   Integer msb = buffer.divideByPowerOf2(points - 1);
   bool msb_sign = msb.numberOfDigits() > 0 ? msb.digit(0) % 2 : 0; //number interpreted as negative if MSB==1
   bool didOverflow = false;
   for (size_t i = 0; i < a.numberOfDigits(); i++)
   {
-    s_workingBuffer[i] = a.digit(i);
+    s_workingBuffer[i] = buffer.digit(i);
   }
 
   for (uint16_t i = a.numberOfDigits() * 32 - 1; i >= points; i--)
@@ -536,19 +540,18 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
     if (bit_i != msb_sign)
     {
       s_workingBuffer[i / 32] = s_workingBuffer[i / 32] ^ (1 << i); //flip bit to extend sign
-    }
-    if (bit_i)
-    {
       didOverflow = true;
     }
   }
   if (didOverflow)
   {
     // warn the user of overflow
+    #if !TEST_MODE
     Container::activeApp()->displayWarning(I18n::Message::Overflow);
+    #endif
   }
 
-  Integer uint_final = BuildInteger(s_workingBuffer, buffer.numberOfDigits(), a.isNegative());
+  Integer uint_final = BuildInteger(s_workingBuffer, buffer.numberOfDigits(), false);
   if (msb_sign)
   {
     // flip bits back to unsigned from two's comp
@@ -560,6 +563,7 @@ Integer Integer::toFixedPoint(const Integer &a, uint8_t points)
       uint_final = Addition(uint_final, bias);
       uint_final = Addition(uint_final, bias);
     }
+    uint_final.setNegative(true);
   }
   return uint_final;
 }

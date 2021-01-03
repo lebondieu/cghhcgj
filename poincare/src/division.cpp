@@ -88,6 +88,11 @@ Expression Division::shallowReduce(ExpressionNode::ReductionContext reductionCon
     Integer r1b = r1.integerDenominator();
     Integer r2a = r2.signedIntegerNumerator();
     Integer r2b = r2.integerDenominator();
+    //divide by 0
+    if (r2a.isZero())
+    {
+      return Expression::replaceWithUndefinedInPlace();
+    }
     //TODO: multiply up if there are fractional bits and correct post division
     IntegerDivision top = Integer::Division(r1.signedIntegerNumerator(), r1.integerDenominator());
     IntegerDivision bottom = Integer::Division(r2.signedIntegerNumerator(), r2.integerDenominator());

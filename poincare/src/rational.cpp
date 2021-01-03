@@ -155,9 +155,10 @@ Expression RationalNode::denominator(ReductionContext reductionContext) const {
 // Constructors
 
 // This function gets called when a single rational number gets built (i.e. user envers in 0xFF and hits enter)
-Rational Rational::Builder(Integer & num, Integer & den) {
+Rational Rational::Builder(Integer &num, Integer &den, bool allowFixedPoint)
+{
   uint8_t points = Preferences::sharedPreferences()->numberOfFixedPointDigits();
-  if (points != 0)
+  if (points != 0 && allowFixedPoint)
   {
     //truncate in fixed point mode
     num = Integer::toFixedPoint(Integer::Division(num, den).quotient, points);
@@ -209,7 +210,7 @@ bool Rational::numeratorOrDenominatorIsInfinity() const {
 Rational Rational::Addition(const Rational & i, const Rational & j) {
   Integer newNumerator = Integer::Addition(Integer::Multiplication(i.signedIntegerNumerator(), j.integerDenominator()), Integer::Multiplication(j.signedIntegerNumerator(), i.integerDenominator()));
   Integer newDenominator = Integer::Multiplication(i.integerDenominator(), j.integerDenominator());
-  return Rational::toFixedPoint(Rational::Builder(newNumerator, newDenominator));
+  return Rational::Builder(newNumerator, newDenominator, true);
 }
 
 Rational Rational::Multiplication(const Rational & i, const Rational & j) {
