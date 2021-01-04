@@ -31,6 +31,7 @@ AppsContainer::AppsContainer() :
   m_batteryTimer(),
   m_suspendTimer(),
   m_backlightDimmingTimer(),
+  m_clockTimer(ClockTimer(this)),
   m_homeSnapshot(),
   m_onBoardingSnapshot(),
   m_hardwareTestSnapshot(),
@@ -312,6 +313,10 @@ void AppsContainer::run() {
   switchTo(nullptr);
 }
 
+bool AppsContainer::updateClock() {
+  return m_window.updateClock();
+}
+
 bool AppsContainer::updateBatteryState() {
   bool batteryLevelUpdated = m_window.updateBatteryLevel();
   bool pluggedStateUpdated = m_window.updatePluggedState();
@@ -417,11 +422,11 @@ Window * AppsContainer::window() {
 }
 
 int AppsContainer::numberOfContainerTimers() {
-  return 3;
+  return 4;
 }
 
 Timer * AppsContainer::containerTimerAtIndex(int i) {
-  Timer * timers[3] = {&m_batteryTimer, &m_suspendTimer, &m_backlightDimmingTimer};
+  Timer * timers[4] = {&m_batteryTimer, &m_suspendTimer, &m_backlightDimmingTimer, &m_clockTimer};
   return timers[i];
 }
 
