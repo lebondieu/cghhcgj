@@ -11,6 +11,7 @@
 #include <assert.h>
 #include <string.h>
 #include <float.h>
+#include <utility>
 
 namespace Poincare {
 
