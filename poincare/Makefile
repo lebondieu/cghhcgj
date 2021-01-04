@@ -167,6 +167,7 @@ tests_src += $(addprefix poincare/test/,\
   expression_properties.cpp\
   expression_serialization.cpp\
   expression_to_layout.cpp\
+  fixed_point.cpp\
   function_solver.cpp\
   helper.cpp\
   helpers.cpp\
@@ -189,5 +190,9 @@ POINCARE_TREE_LOG ?= 1
 endif
 
 ifdef POINCARE_TREE_LOG
-SFLAGS += -DPOINCARE_TREE_LOG=$(POINCARE_TREE_LOG)
+SFLAGS += -DPOINCARE_TREE_LOG=$(POINCARE_TREE_LOG) 
+endif
+
+ifdef TEST_MODE
+SFLAGS += -DTEST_MODE=$(TEST_MODE)
 endif

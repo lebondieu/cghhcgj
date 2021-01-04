@@ -236,6 +236,14 @@ bool AppsContainer::processEvent(Ion::Events::Event event) {
       int direction = (event == Ion::Events::BrightnessPlus) ? Ion::Backlight::NumberOfStepsPerShortcut*delta : -delta*Ion::Backlight::NumberOfStepsPerShortcut;
       GlobalPreferences::sharedGlobalPreferences()->setBrightnessLevel(GlobalPreferences::sharedGlobalPreferences()->brightnessLevel()+direction);
   }
+  if (event == Ion::Events::shiftfois || event == Ion::Events::shiftdiv)
+  {
+    uint8_t fi = Preferences::sharedPreferences()->numberOfFixedPointDigits();
+    int direction = (event == Ion::Events::shiftfois) ? 1 : -1;
+    Preferences::sharedPreferences()->setNumberOfFixedPointDigits(fi + direction);
+    AppsContainer *container = AppsContainer::sharedAppsContainer();
+    container->refreshPreferences();
+  }
   return false;
 }
 
