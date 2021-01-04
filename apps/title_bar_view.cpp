@@ -1,7 +1,6 @@
 #include "title_bar_view.h"
 #include "exam_icon.h"
 #include "global_preferences.h"
-#include <string>
 extern "C" {
 #include <assert.h>
 }
@@ -174,8 +173,15 @@ void TitleBarView::refreshPreferences() {
       I18n::Message pointsMessage = I18n::Message::Fi;
       numberOfChar += strlcpy(buffer + numberOfChar, I18n::translate(pointsMessage), bufferSize - numberOfChar);
       numberOfChar += strlcpy(buffer + numberOfChar, "(", bufferSize - numberOfChar);
-      std::string s = std::to_string(points);
-      numberOfChar += strlcpy(buffer + numberOfChar, s.c_str(), bufferSize - numberOfChar);
+      //itoa for points number
+      uint8_t val = points;
+      static char buf[3] = {0};
+      int i = val > 9 ? 2 : 1;
+      for (; val && i; --i, val /= 10)
+      {
+        buf[i - 1] = "0123456789abcdef"[val % 10];
+      }
+      numberOfChar += strlcpy(buffer + numberOfChar, buf, bufferSize - numberOfChar);
       numberOfChar += strlcpy(buffer + numberOfChar, ")", bufferSize - numberOfChar);
     }
   }
