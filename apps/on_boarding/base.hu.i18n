@@ -1,7 +1,7 @@
 UpdateAvailable = "Elérhetö Frissítések!"
 UpdateMessage1 = "Fontos frissítések vannak"
 UpdateMessage2 = "a számológépéhez."
-UpdateMessage3 = "Töltje laa weboldalunkról az utolso verziót"
+UpdateMessage3 = "Töltje le a weboldalunkról az utolso verziót"
 UpdateMessage4 = "www.numworks.com/update"
 BetaVersion = "BETA VERZIÓ"
 BetaVersionMessage1 = ""
