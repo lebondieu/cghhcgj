@@ -7,7 +7,7 @@
   <a href="https://discord.gg/X2TWhh9"><img alt="Discord" src="https://img.shields.io/discord/663420259851567114?color=blue&labelColor=292929&label=chat%20-%20discord&logo=discord&style=for-the-badge" /></a>
 </p>
 
-> Vous ne comprenez pas l'anglais ? vous parlez français ? Regardez le [*LISEZ-MOI* français](https://github.com/lapingenieur/Omega/blob/omega-dev/README.fr.md) !
+> Vous ne comprenez pas l'anglais ? vous parlez français ? Regardez le [*LISEZ-MOI* français](./README.fr.md) !
 
 ## About
 
