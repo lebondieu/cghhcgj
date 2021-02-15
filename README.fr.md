@@ -8,7 +8,6 @@
 </p>
 
 > Don't understand french ? speak english ? here's the [english README](./README.md) !
-> Vous ne comprenez pas l'anglais ? vous parlez français ? Regardez le [*LISEZ-MOI* français](./README.fr.md) !
 
 ## À propos
 
@@ -38,14 +37,14 @@ Tout d'abord, suivez **la première étape** [ici](https://www.numworks.com/reso
 <details>
   <summary><b>Modèle n0100</b></summary>
 
-(note : vous pouvez changer `EPSILON_I18N=en` en `fr`, `nl`, `pt`, `it`, `de`, `es` ou `hu`).
+(note : vous pouvez changer `EPSILON_I18N=fr` en `en`, `nl`, `pt`, `it`, `de`, `es` ou `hu`).
 
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
 git checkout omega-master
 make MODEL=n0100 clean
-make MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Votre nom ici, 15 caractères max}" -j4
+make MODEL=n0100 EPSILON_I18N=fr OMEGA_USERNAME="{Votre nom ici, 15 caractères max}" -j4
 make MODEL=n0100 epsilon_flash
 ```
 
