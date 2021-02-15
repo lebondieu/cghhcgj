@@ -150,7 +150,7 @@ Si vous avez besoin d'aide, n'hésitez pas à rejoindre notre serveur discord : 
 
 Pour contribuer, merci de lire le [Wiki](https://github.com/Omega-Numworks/Omega/wiki/Contributing)
 
-## Dépots en lien
+## Nos autres projets
 
 * [Omega Themes](https://github.com/Omega-Numworks/Omega-Themes)
 * [Omega Website](https://github.com/Omega-Numworks/Omega-Website)
