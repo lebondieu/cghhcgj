@@ -171,7 +171,7 @@ Vous pouvez essayer Epsilon depuis votre navigateur sur le [simulateur en ligne]
 
 NumWorks est une marque déposée de NumWorks SAS, 24 Rue Godot de Mauroy, 75009 Paris, France.
 Nintendo est Nintendo 3DS sont des marques déposées de Nintendo of America Inc, 4600 150th Ave NE, Redmond, WA 98052, Etats-Unis.
-NumWorks SAS and Nintendo of America Inc aren't associated in any shape or form with this project.
+NumWorks SAS et Nintendo of America Inc ne sont en aucun cas associés avec ce projet.
 
 * NumWorks Epsilon est disponible sous [Lisense CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 * Omega est disponible sous [Lisense CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
