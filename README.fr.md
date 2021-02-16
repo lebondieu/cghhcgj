@@ -11,7 +11,7 @@
 
 ## À propos
 
-Omega est un fork d'Epsilon, l'OS de Numworks tournant sur les calculatrices du même nom, qui apporte beaucoup de fonctionnalités en plus. Omega est fait pour ceux qui aimeraient ajouter certaines fonctions ayant été rejetées par Numworks à leurs calculatrices (pour des raisons 100% compréhensibles !). [Essayez en ligne](https://getomega.web.app/simulator).
+Omega est un fork d'Epsilon, l'OS de Numworks tournant sur les calculatrices du même nom, qui apporte beaucoup de fonctionnalités en plus. Omega est fait pour ceux qui aimeraient ajouter certaines fonctionnalités ayant été rejetées par Numworks à leurs calculatrices (pour des raisons 100% compréhensibles !). [Essayez en ligne](https://getomega.web.app/simulator).
 
 ### Quelques fonctionnalités supplémentaires
 - Retour du calcul littéral
