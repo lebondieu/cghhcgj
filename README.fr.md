@@ -163,7 +163,7 @@ Pour contribuer, merci de lire le [Wiki](https://github.com/Omega-Numworks/Omega
 
 ## À propos d'Epsilon
 
-Omega est un fork d'Epsilon, une système d'exploitation à grandes performances graphiques pour calculatrices. Ceci inclut huit applications concernant les mathématiques de lycée et d'école supérieure.
+Omega est un fork d'Epsilon, un système d'exploitation performant pour calculatrices graphiques. Il inclut huit applications pour les mathématiques de lycée et d'études supérieurs
 
 Vous pouvez essayer Epsilon depuis votre navigateur sur le [simulateur en ligne](https://www.numworks.com/simulator/).
 
