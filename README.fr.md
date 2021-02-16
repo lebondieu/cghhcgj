@@ -16,7 +16,7 @@ Omega est un fork d'Epsilon, l'OS de Numworks tournant sur les calculatrices du 
 ### Quelques fonctionnalités supplémentaires
 - Retour du calcul littéral
 - Une application RPN
-- D'autres apps externes
+- Application Externes
 - Des thèmes
 - Python amélioré (module os, méthode open...)
 - Un tableau périodique et toutes les masses molaires des éléments dans la toolbox
