@@ -136,7 +136,7 @@ make PLATFORM=simulator TARGET=3ds -j
 Vous pouvez ensuite copier epsilon.3dsx sur une carte SD pour l'exécuter depuis le HBC ou utiliser 3dslink pour le lancer via le réseau :
 
 ```bash
-3dslink output/release/simulator/3ds/epsilon.3dsx -a <3DS' IP ADDRESS>
+3dslink output/release/simulator/3ds/epsilon.3dsx -a <ADRESSE IP 3DS>
 ```
 
 </details>
