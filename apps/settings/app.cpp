@@ -11,6 +11,16 @@ I18n::Message App::Descriptor::name() {
 I18n::Message App::Descriptor::upperName() {
   return I18n::Message::SettingsAppCapital;
 }
+/*
+I18n::Message ???::???(int index) {
+  assert(index >= 0 && index < 2);
+  if (index == 0) {
+    return I18n::Message::ClockWarning1;
+  } else {
+    return I18n::Message::ClockWarning2;
+  }
+}
+*/
 
 App::Descriptor::ExaminationLevel App::Descriptor::examinationLevel() {
   return App::Descriptor::ExaminationLevel::Strict;

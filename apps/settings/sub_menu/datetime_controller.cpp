@@ -29,9 +29,6 @@ bool DateTimeController::handleEvent(Ion::Events::Event event) {
   if (event == Ion::Events::OK || event == Ion::Events::EXE) {
     if (selectedRow() == 0) {
       clockEnabled = !clockEnabled;
-      if (clockEnabled) {
-        Container::activeApp()->displayWarning(I18n::Message::RTCWarning1, I18n::Message::RTCWarning2);
-      }
       Ion::RTC::setMode(clockEnabled ? Ion::RTC::Mode::HSE : Ion::RTC::Mode::Disabled);
     }
   }
