@@ -101,7 +101,6 @@ def write_palette_h(data, file_p):
                                                                     code=sub_value)
 
                     file_p.write(text + "\n")
-
     except KeyError:
         print("THEME   If you are this theme creator, please consider updating the JSON theme file")
         for key in data["colors"].keys():
