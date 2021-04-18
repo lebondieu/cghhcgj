@@ -82,12 +82,34 @@ def write_palette_h(data, file_p):
     file_p.write("class Palette {\n")
     file_p.write("public:\n")
 
-    for key in data["colors"].keys():
-        if type(data["colors"][key]) is str:
-            file_p.write("  constexpr static KDColor " + key + " = KDColor::RGB24(0x" + data["colors"][key] + ");\n")
-        else:
-            for sub_key in data["colors"][key].keys():
-                file_p.write("  constexpr static KDColor " + key + sub_key + " = KDColor::RGB24(0x" + data["colors"][key][sub_key] + ");\n")
+    try:
+        if data["version"] == 2:
+            for key, value in data["colors"].items():
+                for sub_key, sub_value in value.items():
+                    if key == "Main":
+                        text = ("  constexpr static KDColor {} = "
+                                "KDColor::RGB24(0x{code});").format(sub_key,
+                                                                    code=sub_value)
+                    elif sub_key == "Main":
+                        text = ("  constexpr static KDColor {} = "
+                                "KDColor::RGB24(0x{code});").format(key,
+                                                                    code=sub_value)
+                    else:
+                        text = ("  constexpr static KDColor {}{} = "
+                                "KDColor::RGB24(0x{code});").format(key,
+                                                                    sub_key,
+                                                                    code=sub_value)
+
+                    file_p.write(text + "\n")
+
+    except KeyError:
+        print("THEME   Please consider updating the JSON theme file")
+        for key in data["colors"].keys():
+            if type(data["colors"][key]) is str:
+                file_p.write("  constexpr static KDColor " + key + " = KDColor::RGB24(0x" + data["colors"][key] + ");\n")
+            else:
+                for sub_key in data["colors"][key].keys():
+                    file_p.write("  constexpr static KDColor " + key + sub_key + " = KDColor::RGB24(0x" + data["colors"][key][sub_key] + ");\n")
 
     # Default values - Sometimes never used
     file_p.write("  constexpr static KDColor YellowDark = KDColor::RGB24(0xffb734);\n")
