@@ -103,12 +103,19 @@ def write_palette_h(data, file_p):
                     file_p.write(text + "\n")
     except KeyError:
         print("THEME   If you are this theme creator, please consider updating the JSON theme file")
-        for key in data["colors"].keys():
-            if type(data["colors"][key]) is str:
-                file_p.write("  constexpr static KDColor " + key + " = KDColor::RGB24(0x" + data["colors"][key] + ");\n")
+        for key, value in data["colors"].items():
+            if isinstance(key, str):
+                line = ("  constexpr static KDColor {} = "
+                        "KDColor::RGB24(0x{code});").format(key,
+                                                            code=value)
+                file_p.write(line + "\n")
             else:
-                for sub_key in data["colors"][key].keys():
-                    file_p.write("  constexpr static KDColor " + key + sub_key + " = KDColor::RGB24(0x" + data["colors"][key][sub_key] + ");\n")
+                for sub_key, sub_value in data["colors"][key].items():
+                    line = ("  constexpr static KDColor {}{} = "
+                            "KDColor::RGB24(0x{code});").format(key,
+                                                                sub_key,
+                                                                code=sub_value)
+                    file_p.write(line + "\n")
 
     # Default values - Sometimes never used
     file_p.write("  constexpr static KDColor YellowDark = KDColor::RGB24(0xffb734);\n")
