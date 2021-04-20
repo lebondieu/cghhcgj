@@ -67,7 +67,7 @@ def get_icons_list():
     Load icon list from file.
     """
     icon_list_path = (os.path.dirname(os.path.realpath(__file__))
-                      + os.path.se
+                      + os.path.sep
                       + "icons.json")
 
     with open(icon_list_path, "r") as json_file:
@@ -106,7 +106,7 @@ def write_palette_h(data, file_p):
     """
     file_p.write(textwrap.dedent(header))
 
-    line_template = "  constexp static KDColor {name} = KDColor::RGB24(0x{value});"
+    line_template = "  constexpr static KDColor {name} = KDColor::RGB24(0x{value});"
 
     try:
         if data["version"] == 2:
@@ -168,7 +168,7 @@ def write_palette_h(data, file_p):
       constexpr static KDColor BlueishGrey = KDColor::RGB24(0x919ea4);
       constexpr static KDColor Cyan = KDColorBlue;
     """
-    file_p.write(dedent(default_values))
+    file_p.write(textwrap.dedent(default_values))
 
     file_p.write("  constexpr static KDColor DataColor[] = {Red, Blue, Green, YellowDark, Magenta, Turquoise, Pink, Orange};\n")
     file_p.write("  constexpr static KDColor DataColorLight[] = {RedLight, BlueLight, GreenLight, YellowLight};\n")
@@ -215,6 +215,7 @@ def handle_theme(args, path):
         icons = get_icons_list()
 
         icon_path = "{path}{sep}{icons}{sep}{}".format(icons[args.output.replace(args.build_dir, "")],
+                                                       icons=data["icons"],
                                                        path=path,
                                                        sep=os.path.sep)
 
@@ -240,8 +241,8 @@ def main(args):
     if args.list:
         print(" ==== Local themes ====")
 
-        path = "{dir}{sep}themes{sep}local".format(dir=os.path.dirname(os.path.realpath(__file__),
-                                                   sep=os.path.sep))
+        path = "{dir}{sep}themes{sep}local".format(dir=os.path.dirname(os.path.realpath(__file__)),
+                                                   sep=os.path.sep)
 
         for file_info in os.listdir(path):
             if file_info.endswith(".json"):
@@ -256,8 +257,8 @@ def main(args):
             sys.exit(2)
 
     if args.repo == "local":
-        path = "{dir}{sep}themes{sep}local".format(dir=os.path.dirname(os.path.realpath(__file__),
-                                                   sep=os.path.sep))
+        path = "{dir}{sep}themes{sep}local".format(dir=os.path.dirname(os.path.realpath(__file__)),
+                                                   sep=os.path.sep)
 
         handle_theme(args, path)
     else:
