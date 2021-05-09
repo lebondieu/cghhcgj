@@ -54,7 +54,8 @@ bool Toolbox::handleEventForRow(Ion::Events::Event event, int selectedRow) {
     key-=min;
     if (key >= 0 && key <= max) {
       if (key <= numberOfRows()) {
-        return m_selectableTableView.selectCellAtClippedLocation(m_selectableTableView.selectedColumn(), key);
+        m_selectableTableView.selectCellAtClippedLocation(m_selectableTableView.selectedColumn(), key);
+        return NestedMenuController::handleEventForRow(Ion::Events::OK, key);
       }
     }
   }
