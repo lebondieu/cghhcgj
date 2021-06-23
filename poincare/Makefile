@@ -90,6 +90,7 @@ poincare_src += $(addprefix poincare/src/,\
   infinity.cpp \
   integer.cpp \
   integral.cpp \
+  inverse_modulo.cpp \
   inv_binom.cpp \
   inv_norm.cpp \
   layout_helper.cpp \

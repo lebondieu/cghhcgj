@@ -122,6 +122,7 @@ private:
     &GreatCommonDivisor::s_functionHelper,
     &MatrixIdentity::s_functionHelper,
     &ImaginaryPart::s_functionHelper,
+    &InverseModulo::s_functionHelper,    
     &Integral::s_functionHelper,
     &InvBinom::s_functionHelper,
     &MatrixInverse::s_functionHelper,
@@ -131,6 +132,7 @@ private:
     &NaperianLogarithm::s_functionHelper,
     &CommonLogarithm::s_functionHelper,
     &Logarithm::s_functionHelper,
+    &SquareRoot::s_functionHelper,
     &VectorNorm::s_functionHelper,
     &NormCDF::s_functionHelper,
     &NormCDF2::s_functionHelper,
@@ -156,7 +158,6 @@ private:
     &HyperbolicTangent::s_functionHelper,
     &MatrixTrace::s_functionHelper,
     &MatrixTranspose::s_functionHelper,
-    &SquareRoot::s_functionHelper
   };
   static constexpr const Expression::FunctionHelper * const * s_reservedFunctionsUpperBound = s_reservedFunctions + (sizeof(s_reservedFunctions)/sizeof(Expression::FunctionHelper *));
   /* The method GetReservedFunction passes through the successive
