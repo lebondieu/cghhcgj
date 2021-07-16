@@ -2,9 +2,11 @@ extern "C" {
 #include "modkandinsky.h"
 #include <py/runtime.h>
 }
+#include <escher/palette.h>
 #include <kandinsky.h>
 #include <ion.h>
 #include "port.h"
+#include <py/obj.h>
 
 
 static mp_obj_t TupleForKDColor(KDColor c) {
@@ -183,4 +185,13 @@ mp_obj_t modkandinsky_get_keys() {
   }
 
   return result;
+}
+
+mp_obj_t modkandinsky_get_palette() {
+  mp_obj_t modkandinsky_palette_table = mp_obj_new_dict(0);
+  mp_obj_dict_store(modkandinsky_palette_table, MP_ROM_QSTR(MP_QSTR_PrimaryText), TupleForKDColor(Palette::PrimaryText));
+  mp_obj_dict_store(modkandinsky_palette_table, MP_ROM_QSTR(MP_QSTR_SecondaryText), TupleForKDColor(Palette::SecondaryText));
+  mp_obj_dict_store(modkandinsky_palette_table, MP_ROM_QSTR(MP_QSTR_Toolbar), TupleForKDColor(Palette::Toolbar));
+
+  return modkandinsky_palette_table;
 }
