@@ -386,7 +386,9 @@ Q(get_palette)
 
 Q(PrimaryText)
 Q(SecondaryText)
+Q(AccentText)
 Q(Toolbar)
+Q(HomeBackground)
 
 // Keys QSTRs
 Q(left)
