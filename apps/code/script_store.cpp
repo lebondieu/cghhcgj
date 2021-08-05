@@ -13,6 +13,7 @@ ScriptStore::ScriptStore() {
   addScriptFromTemplate(ScriptTemplate::Parabola());
   addScriptFromTemplate(ScriptTemplate::Mandelbrot());
   addScriptFromTemplate(ScriptTemplate::Polynomial());
+  addScriptFromTemplate(ScriptTemplate::MemCheck());
 }
 
 void ScriptStore::deleteAllScripts() {

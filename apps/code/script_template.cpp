@@ -84,6 +84,17 @@ def simulation(v_0=15,alpha=pi/4,h_0=2):
   grid()
   show())");
 
+constexpr ScriptTemplate memCheckScriptTemplate("mem_check.py", "\x01" R"(print("GG 2021 Mem Check")
+m=[]
+stepDone=0
+try:
+  for i in range(4100):
+    m.append(i)
+    stepDone=i
+except MemoryError:
+  print("Failed at "+str(stepDone))
+print (len(m)))");
+
 const ScriptTemplate * ScriptTemplate::Empty() {
   return &emptyScriptTemplate;
 }
@@ -104,4 +115,7 @@ const ScriptTemplate * ScriptTemplate::Parabola() {
   return &parabolaScriptTemplate;
 }
 
+const ScriptTemplate * ScriptTemplate::MemCheck() {
+  return &memCheckScriptTemplate;
+}
 }
