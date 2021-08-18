@@ -88,7 +88,9 @@ int main(int argc, char * argv[]) {
     std::cout << "Usage: " << argv[0] << "[options]" << std::endl;
     std::cout << "Options:" << std::endl;
     std::cout << "  -f, --fullscreen          Starts the emulator in fullscreen" << std::endl;
+#if !(SCREEN_ONLY)
     std::cout << "  -s, --screen-only         Disable the keyboard." << std::endl;
+#endif // SCREEN_ONLY
     std::cout << "  -v, --volatile            Disable saving and loading python scripts from file." << std::endl;
     std::cout << "  -u, --unresizable         Disable resizing the window." << std::endl;
     std::cout << "  -h, --help                Show this help menu." << std::endl;
@@ -97,7 +99,11 @@ int main(int argc, char * argv[]) {
 
   Random::init();
   if (!headless) {
+#if SCREEN_ONLY
+    bool screen_only = true;
+#else
     bool screen_only = args.popFlag("--screen-only") || args.popFlag("-s");
+#endif // SCREEN_ONLY
     bool fullscreen =  args.popFlag("--fullscreen")  || args.popFlag("-f");
     bool unresizable = args.popFlag("--unresizable") || args.popFlag("-u");
     Journal::init();
