@@ -358,6 +358,7 @@ QUIZ_CASE(poincare_parsing_identifiers) {
   assert_parsed_expression_is("acos(1)", ArcCosine::Builder(BasedInteger::Builder(1)));
   assert_parsed_expression_is("acosh(1)", HyperbolicArcCosine::Builder(BasedInteger::Builder(1)));
   assert_parsed_expression_is("abs(1)", AbsoluteValue::Builder(BasedInteger::Builder(1)));
+  assert_parsed_expression_is("arclen(1,x,2,3)", ArcLength::Builder(BasedInteger::Builder(1),Symbol::Builder("x",1),BasedInteger::Builder(2),BasedInteger::Builder(3)));
   assert_parsed_expression_is("arg(1)", ComplexArgument::Builder(BasedInteger::Builder(1)));
   assert_parsed_expression_is("asin(1)", ArcSine::Builder(BasedInteger::Builder(1)));
   assert_parsed_expression_is("asinh(1)", HyperbolicArcSine::Builder(BasedInteger::Builder(1)));
