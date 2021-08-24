@@ -98,6 +98,7 @@ private:
     &AbsoluteValue::s_functionHelper,
     &ArcCosine::s_functionHelper,
     &HyperbolicArcCosine::s_functionHelper,
+    &ArcLength::s_functionHelper,
     &ComplexArgument::s_functionHelper,
     &ArcSine::s_functionHelper,
     &HyperbolicArcSine::s_functionHelper,

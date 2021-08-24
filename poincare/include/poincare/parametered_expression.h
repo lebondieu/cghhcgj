@@ -5,7 +5,7 @@
 
 namespace Poincare {
 
-/* Parametered expressions are Integral, Derivative, Sum and Product. Their
+/* Parametered expressions are Integral, Arc Length, Derivative, Sum and Product. Their
  * child at index 0 is parametered, and the child at index 1 is the parameter
  * symbol. */
 

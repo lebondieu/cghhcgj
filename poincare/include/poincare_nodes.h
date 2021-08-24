@@ -4,6 +4,7 @@
 #include <poincare/absolute_value.h>
 #include <poincare/addition.h>
 #include <poincare/arc_cosine.h>
+#include <poincare/arc_length.h>
 #include <poincare/arc_sine.h>
 #include <poincare/arc_tangent.h>
 #include <poincare/based_integer.h>

@@ -21,6 +21,8 @@ class Expression : public TreeHandle {
   friend class AbsoluteValue;
   friend class Addition;
   friend class ArcCosine;
+  friend class ArcLength;
+  friend class ArcLengthNode;
   friend class ArcSine;
   friend class ArcTangent;
   friend class Arithmetic;

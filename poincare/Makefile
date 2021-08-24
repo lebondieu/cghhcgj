@@ -45,6 +45,7 @@ poincare_src += $(addprefix poincare/src/,\
   addition.cpp \
   approximation_helper.cpp \
   arc_cosine.cpp \
+  arc_length.cpp \
   arc_sine.cpp \
   arc_tangent.cpp \
   arithmetic.cpp \

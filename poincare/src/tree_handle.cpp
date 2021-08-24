@@ -281,6 +281,7 @@ template AbsoluteValue TreeHandle::FixedArityBuilder<AbsoluteValue, AbsoluteValu
 template AbsoluteValueLayout TreeHandle::FixedArityBuilder<AbsoluteValueLayout, AbsoluteValueLayoutNode>(const Tuple &);
 template Addition TreeHandle::NAryBuilder<Addition, AdditionNode>(const Tuple &);
 template ArcCosine TreeHandle::FixedArityBuilder<ArcCosine, ArcCosineNode>(const Tuple &);
+template ArcLength TreeHandle::FixedArityBuilder<ArcLength, ArcLengthNode>(const Tuple &);
 template ArcSine TreeHandle::FixedArityBuilder<ArcSine, ArcSineNode>(const Tuple &);
 template ArcTangent TreeHandle::FixedArityBuilder<ArcTangent, ArcTangentNode>(const Tuple &);
 template BinomCDF TreeHandle::FixedArityBuilder<BinomCDF, BinomCDFNode>(const Tuple &);

@@ -79,6 +79,7 @@ public:
     Integral,
     InvBinom,
     InvNorm,
+    ArcLength,
     KMat,
     LeastCommonMultiple,
     Logarithm,

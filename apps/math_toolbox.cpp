@@ -23,6 +23,7 @@ using namespace Poincare;
 const ToolboxMessageTree calculChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::DiffCommandWithArg, I18n::Message::DerivateNumber, false, I18n::Message::DiffCommand),
   ToolboxMessageTree::Leaf(I18n::Message::IntCommandWithArg, I18n::Message::Integral, false, I18n::Message::IntCommand),
+  ToolboxMessageTree::Leaf(I18n::Message::ArcLengthCommandWithArg, I18n::Message::ArcLength, false, I18n::Message::ArcLengthCommand),
   ToolboxMessageTree::Leaf(I18n::Message::SumCommandWithArg, I18n::Message::Sum, false, I18n::Message::SumCommand),
   ToolboxMessageTree::Leaf(I18n::Message::ProductCommandWithArg, I18n::Message::Product, false, I18n::Message::ProductCommand),
   ToolboxMessageTree::Leaf(I18n::Message::Infinity, I18n::Message::InfinityMessage, false, I18n::Message::Infinity),
