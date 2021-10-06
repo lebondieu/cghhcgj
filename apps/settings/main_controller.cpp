@@ -19,12 +19,8 @@ constexpr SettingsMessageTree s_symbolFunctionChildren[3] = {SettingsMessageTree
 constexpr SettingsMessageTree s_modelMathOptionsChildren[6] = {SettingsMessageTree(I18n::Message::AngleUnit, s_modelAngleChildren), SettingsMessageTree(I18n::Message::DisplayMode, s_modelFloatDisplayModeChildren), SettingsMessageTree(I18n::Message::EditionMode, s_modelEditionModeChildren), SettingsMessageTree(I18n::Message::SymbolFunction, s_symbolFunctionChildren), SettingsMessageTree(I18n::Message::ComplexFormat, s_modelComplexFormatChildren), SettingsMessageTree(I18n::Message::SymbolMultiplication, s_symbolChildren)};
 constexpr SettingsMessageTree s_modelFontChildren[2] = {SettingsMessageTree(I18n::Message::LargeFont), SettingsMessageTree(I18n::Message::SmallFont)};
 constexpr SettingsMessageTree s_accessibilityChildren[6] = {SettingsMessageTree(I18n::Message::AccessibilityInvertColors), SettingsMessageTree(I18n::Message::AccessibilityMagnify),SettingsMessageTree(I18n::Message::AccessibilityGamma),SettingsMessageTree(I18n::Message::AccessibilityGammaRed),SettingsMessageTree(I18n::Message::AccessibilityGammaGreen),SettingsMessageTree(I18n::Message::AccessibilityGammaBlue)};
-constexpr SettingsMessageTree s_contributorsChildren[20] = {SettingsMessageTree(I18n::Message::Developers), SettingsMessageTree(I18n::Message::QuentinGuidee), SettingsMessageTree(I18n::Message::SandraSimmons), SettingsMessageTree(I18n::Message::JoachimLeFournis), SettingsMessageTree(I18n::Message::JeanBaptisteBoric), SettingsMessageTree(I18n::Message::MaximeFriess), SettingsMessageTree(I18n::Message::David), SettingsMessageTree(I18n::Message::DamienNicolet), SettingsMessageTree(I18n::Message::EvannDreumont), SettingsMessageTree(I18n::Message::SzaboLevente), SettingsMessageTree(I18n::Message::VenceslasDuet), SettingsMessageTree(I18n::Message::CharlotteThomas), SettingsMessageTree(I18n::Message::AntoninLoubiere), SettingsMessageTree(I18n::Message::BetaTesters), SettingsMessageTree(I18n::Message::CyprienMejat), SettingsMessageTree(I18n::Message::TimeoArnouts), SettingsMessageTree(I18n::Message::JulieC), SettingsMessageTree(I18n::Message::LelahelHideux), SettingsMessageTree(I18n::Message::Madil), SettingsMessageTree(I18n::Message::HilaireLeRoux)};
-#ifdef OMEGA_USERNAME
+constexpr SettingsMessageTree s_contributorsChildren[23] = {SettingsMessageTree(I18n::Message::Developers), SettingsMessageTree(I18n::Message::QuentinGuidee), SettingsMessageTree(I18n::Message::JoachimLeFournis), SettingsMessageTree(I18n::Message::MaximeFriess), SettingsMessageTree(I18n::Message::JeanBaptisteBoric), SettingsMessageTree(I18n::Message::SandraSimmons), SettingsMessageTree(I18n::Message::David), SettingsMessageTree(I18n::Message::DamienNicolet), SettingsMessageTree(I18n::Message::EvannDreumont), SettingsMessageTree(I18n::Message::SzaboLevente), SettingsMessageTree(I18n::Message::VenceslasDuet), SettingsMessageTree(I18n::Message::CharlotteThomas), SettingsMessageTree(I18n::Message::AntoninLoubiere), SettingsMessageTree(I18n::Message::CyprienMejat), SettingsMessageTree(I18n::Message::BetaTesters), SettingsMessageTree(I18n::Message::TimeoArnouts), SettingsMessageTree(I18n::Message::JulieC), SettingsMessageTree(I18n::Message::LelahelHideux), SettingsMessageTree(I18n::Message::Madil), SettingsMessageTree(I18n::Message::HilaireLeRoux), SettingsMessageTree(I18n::Message::HectorNussbaumer), SettingsMessageTree(I18n::Message::RaphaelDyda), SettingsMessageTree(I18n::Message::ThibautC)};
 constexpr SettingsMessageTree s_modelAboutChildren[8] = {SettingsMessageTree(I18n::Message::Username), SettingsMessageTree(I18n::Message::SoftwareVersion), SettingsMessageTree(I18n::Message::OmegaVersion), SettingsMessageTree(I18n::Message::MicroPythonVersion), SettingsMessageTree(I18n::Message::MemUse), SettingsMessageTree(I18n::Message::SerialNumber), SettingsMessageTree(I18n::Message::FccId), SettingsMessageTree(I18n::Message::Contributors, s_contributorsChildren)};
-#else
-constexpr SettingsMessageTree s_modelAboutChildren[7] = {SettingsMessageTree(I18n::Message::SoftwareVersion), SettingsMessageTree(I18n::Message::OmegaVersion), SettingsMessageTree(I18n::Message::MicroPythonVersion), SettingsMessageTree(I18n::Message::MemUse), SettingsMessageTree(I18n::Message::SerialNumber), SettingsMessageTree(I18n::Message::FccId), SettingsMessageTree(I18n::Message::Contributors, s_contributorsChildren)};
-#endif
 
 MainController::MainController(Responder * parentResponder, InputEventHandlerDelegate * inputEventHandlerDelegate) :
   ViewController(parentResponder),
@@ -32,7 +28,7 @@ MainController::MainController(Responder * parentResponder, InputEventHandlerDel
   m_popUpCell(I18n::Message::Default, KDFont::LargeFont),
   m_selectableTableView(this),
   m_mathOptionsController(this, inputEventHandlerDelegate),
-  m_languageController(this, Metric::CommonTopMargin),
+  m_localizationController(this, Metric::CommonTopMargin, LocalizationController::Mode::Language),
   m_accessibilityController(this),
   m_dateTimeController(this),
   m_examModeController(this),
@@ -83,9 +79,10 @@ bool MainController::handleEvent(Ion::Events::Event event) {
       }
       return false;
     }
-    if (model()->childAtIndex(selectedRow())->label() == I18n::Message::Language) {
+    if (model()->childAtIndex(selectedRow())->label() == I18n::Message::Language || model()->childAtIndex(selectedRow())->label() == I18n::Message::Country) {
       if (event == Ion::Events::OK || event == Ion::Events::EXE || event == Ion::Events::Right) {
-        stackController()->push(&m_languageController);
+        m_localizationController.setMode(model()->childAtIndex(selectedRow())->label() == I18n::Message::Language ? LocalizationController::Mode::Language : LocalizationController::Mode::Country);
+        stackController()->push(&m_localizationController);
         return true;
       }
       return false;
@@ -189,6 +186,11 @@ void MainController::willDisplayCellForIndex(HighlightCell * cell, int index) {
   if (model()->childAtIndex(index)->label() == I18n::Message::Language) {
     int index = (int)(globalPreferences->language());
     static_cast<MessageTableCellWithChevronAndMessage *>(cell)->setSubtitle(I18n::LanguageNames[index]);
+    return;
+  }
+  if (model()->childAtIndex(index)->label() == I18n::Message::Country) {
+    int index = (int)(globalPreferences->country());
+    static_cast<MessageTableCellWithChevronAndMessage *>(cell)->setSubtitle(I18n::CountryNames[index]);
     return;
   }
   if (model()->childAtIndex(index)->label() == I18n::Message::UpdatePopUp || model()->childAtIndex(index)->label() == I18n::Message::BetaPopUp) {

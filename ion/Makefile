@@ -10,6 +10,8 @@ ifndef ION_KEYBOARD_LAYOUT
   $(error platform.mak should define ION_KEYBOARD_LAYOUT)
 endif
 SFLAGS += -Iion/include/ion/keyboard/$(ION_KEYBOARD_LAYOUT)
+SFLAGS += -Iion/include/ion/keyboard/
+ion_src += ion/src/shared/keyboard/$(ION_KEYBOARD_LAYOUT)/layout_events.cpp
 
 include ion/src/$(PLATFORM)/Makefile
 -include ion/test/$(PLATFORM)/Makefile
@@ -23,7 +25,6 @@ initializer_list = $(shell echo $(1) | sed  "s/\(.\)/'\1',/g")0
 $(call object_for,ion/src/shared/platform_info.cpp): SFLAGS += -DPATCH_LEVEL="$(call initializer_list,$(PATCH_LEVEL))" -DEPSILON_VERSION="$(call initializer_list,$(EPSILON_VERSION))" -DOMEGA_VERSION="$(call initializer_list,$(OMEGA_VERSION))" -DOMEGA_USERNAME="$(call initializer_list,$(OMEGA_USERNAME))" 
 
 ion_src += $(addprefix ion/src/shared/, \
-  console_display.cpp:+consoledisplay \
   console_line.cpp \
   crc32_eat_byte.cpp \
   decompress.cpp \
@@ -32,6 +33,7 @@ ion_src += $(addprefix ion/src/shared/, \
   events_modifier.cpp \
   platform_info.cpp \
   rtc.cpp \
+  stack_position.cpp \
   storage.cpp \
   unicode/utf8_decoder.cpp\
   unicode/utf8_helper.cpp\

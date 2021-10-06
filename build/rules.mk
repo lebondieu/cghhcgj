@@ -3,7 +3,7 @@
 $(eval $(call rule_for, \
   AS, %.o, %.s, \
   $$(CC) $$(SFLAGS) -c $$< -o $$@, \
-  global \
+  global local \
 ))
 
 $(eval $(call rule_for, \
@@ -14,7 +14,7 @@ $(eval $(call rule_for, \
 
 $(eval $(call rule_for, \
   CPP, %, %.inc, \
-  $$(CPP) -P $$< $$@, \
+  $$(CPP) $$(addprefix -I,$$(dir $$^)) -P $$< $$@, \
   global \
 ))
 
@@ -56,7 +56,13 @@ $(eval $(call rule_for, \
 
 $(eval $(call rule_for, \
   WINDRES, %.o, %.rc, \
-  $$(WINDRES) $$< -O coff -o $$@, \
+  $$(WINDRES) $$(WRFLAGS) $$< -O coff -o $$@, \
+  global \
+))
+
+$(eval $(call rule_for, \
+  ZIP, %.zip, , \
+  rm -rf $$(basename $$@) && mkdir -p $$(basename $$@) && cp $$^ $$(basename $$@) && zip -r -9 -j $$@ $$(basename $$@) > /dev/null && rm -rf $$(basename $$@), \
   global \
 ))
 

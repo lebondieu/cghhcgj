@@ -7,6 +7,8 @@
   <a href="https://discord.gg/X2TWhh9"><img alt="Discord" src="https://img.shields.io/discord/663420259851567114?color=blue&labelColor=292929&label=chat%20-%20discord&logo=discord&style=for-the-badge" /></a>
 </p>
 
+> Vous ne comprenez pas l'anglais ? vous êtes francophone ? Regardez le [*LISEZ-MOI* français](./README.fr.md) !
+
 ## About
 
 Omega is a fork of Numworks' Epsilon, the OS that runs on their calculator, which brings many features to it. Omega is for the people who want to add features to the calculator, but cannot because they have been rejected by Numworks (for reasons that are 100% understandable!). [Try it online](https://getomega.web.app/simulator).
@@ -35,12 +37,14 @@ First of all, follow **step 1** [here](https://www.numworks.com/resources/engine
 <details>
   <summary><b>Model n0100</b></summary>
 
+(note: you can change the `EPSILON_I18N=en` flag to `fr`, `nl`, `pt`, `it`, `de`, `es` or `hu`).
+
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
 git checkout omega-master
 make MODEL=n0100 clean
-make MODEL=n0100 OMEGA_USERNAME="{Your name, max 15 characters}" -j4
+make MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Your name, max 15 characters}" -j4
 make MODEL=n0100 epsilon_flash
 ```
 
@@ -150,7 +154,7 @@ To contribute, please refer to the [Wiki](https://github.com/Omega-Numworks/Omeg
 * [Omega Themes](https://github.com/Omega-Numworks/Omega-Themes)
 * [Omega Website](https://github.com/Omega-Numworks/Omega-Website)
 * [Omega RPN `APP`](https://github.com/Omega-Numworks/Omega-RPN)
-* [Omega Atom `APP`](https://github.com/Omega-Numworks/Omega-Atom)
+* [Omega Atomic `APP`](https://github.com/Omega-Numworks/Omega-Atomic)
 * [Omega Design](https://github.com/Omega-Numworks/Omega-Design)
 * [Omega Discord Bot](https://github.com/Omega-Numworks/Omega-Discord-Bot)
 * [Omega App Template `BETA`](https://github.com/Omega-Numworks/Omega-App-Template)

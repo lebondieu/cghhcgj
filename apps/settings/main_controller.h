@@ -8,7 +8,7 @@
 #include "sub_menu/accessibility_controller.h"
 #include "sub_menu/datetime_controller.h"
 #include "sub_menu/exam_mode_controller.h"
-#include "sub_menu/language_controller.h"
+#include "sub_menu/localization_controller.h"
 #include "sub_menu/math_options_controller.h"
 #include "sub_menu/preferences_controller.h"
 
@@ -24,12 +24,8 @@ extern const Shared::SettingsMessageTree s_modelMathOptionsChildren[6];
 extern const Shared::SettingsMessageTree s_modelFontChildren[2];
 extern const Shared::SettingsMessageTree s_modelDateTimeChildren[3];
 extern const Shared::SettingsMessageTree s_accessibilityChildren[6];
-extern const Shared::SettingsMessageTree s_contributorsChildren[20];
-#ifdef OMEGA_USERNAME
+extern const Shared::SettingsMessageTree s_contributorsChildren[23];
 extern const Shared::SettingsMessageTree s_modelAboutChildren[8];
-#else
-extern const Shared::SettingsMessageTree s_modelAboutChildren[7];
-#endif
 extern const Shared::SettingsMessageTree s_model;
 
 class MainController : public ViewController, public ListViewDataSource, public SelectableTableViewDataSource {
@@ -71,7 +67,7 @@ private:
   MessageTableCellWithSwitch m_popUpCell;
   SelectableTableView m_selectableTableView;
   MathOptionsController m_mathOptionsController;
-  LanguageController m_languageController;
+  LocalizationController m_localizationController;
   AccessibilityController m_accessibilityController;
   DateTimeController m_dateTimeController;
   ExamModeController m_examModeController;

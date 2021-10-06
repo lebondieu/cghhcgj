@@ -45,6 +45,7 @@
 #include <poincare/integral.h>
 #include <poincare/inv_binom.h>
 #include <poincare/inv_norm.h>
+#include <poincare/kmat.h>
 #include <poincare/least_common_multiple.h>
 #include <poincare/logarithm.h>
 #include <poincare/matrix.h>
@@ -54,6 +55,8 @@
 #include <poincare/matrix_inverse.h>
 #include <poincare/matrix_trace.h>
 #include <poincare/matrix_transpose.h>
+#include <poincare/matrix_row_echelon_form.h>
+#include <poincare/matrix_reduced_row_echelon_form.h>
 #include <poincare/multiplication.h>
 #include <poincare/naperian_logarithm.h>
 #include <poincare/norm_cdf.h>
@@ -74,6 +77,7 @@
 #include <poincare/rational.h>
 #include <poincare/real_part.h>
 #include <poincare/round.h>
+#include <poincare/sequence.h>
 #include <poincare/sign_function.h>
 #include <poincare/sine.h>
 #include <poincare/square_root.h>
@@ -87,5 +91,8 @@
 #include <poincare/unit_convert.h>
 #include <poincare/unreal.h>
 #include <poincare/variable_context.h>
+#include <poincare/vector_cross.h>
+#include <poincare/vector_dot.h>
+#include <poincare/vector_norm.h>
 
 #endif

@@ -22,10 +22,12 @@ endif
 escher_src += $(addprefix escher/src/,\
   alternate_empty_view_controller.cpp \
   app.cpp \
+  background_view.cpp \
   bank_view_controller.cpp \
   bordered.cpp \
   buffer_text_view.cpp \
   button.cpp \
+  button_state.cpp \
   button_row_controller.cpp \
   chevron_view.cpp \
   clipboard.cpp \
@@ -45,6 +47,7 @@ escher_src += $(addprefix escher/src/,\
   expression_view.cpp \
   highlight_cell.cpp \
   gauge_view.cpp \
+  icon_view.cpp \
   image_view.cpp \
   input_event_handler.cpp \
   invocation.cpp \
@@ -70,6 +73,7 @@ escher_src += $(addprefix escher/src/,\
   nested_menu_controller.cpp \
   palette.cpp \
   pointer_text_view.cpp \
+  pop_up_controller.cpp \
   responder.cpp \
   run_loop.cpp \
   scroll_view.cpp \
@@ -99,6 +103,8 @@ escher_src += $(addprefix escher/src/,\
   text_view.cpp \
   tiled_view.cpp \
   timer.cpp \
+  toggleable_dot_view.cpp \
+  toggleable_view.cpp \
   toolbox.cpp \
   transparent_view.cpp \
   view.cpp \
@@ -108,6 +114,7 @@ escher_src += $(addprefix escher/src/,\
 )
 
 tests_src += $(addprefix escher/test/,\
+  clipboard.cpp \
   layout_field.cpp\
 )
 

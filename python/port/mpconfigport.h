@@ -105,6 +105,9 @@
 // Whether to include: randrange, randint, choice, random, uniform
 #define MICROPY_PY_URANDOM_EXTRA_FUNCS (1)
 
+// Whether to support rounding of integers (incl bignum); eg round(123,-1)=120
+#define MICROPY_PY_BUILTINS_ROUND_INT (1)
+
 // Function to seed URANDOM with on init
 #define MICROPY_PY_URANDOM_SEED_INIT_FUNC micropython_port_random()
 
@@ -142,4 +145,11 @@ extern const struct _mp_obj_module_t modturtle_module;
     { MP_ROM_QSTR(MP_QSTR_time), MP_ROM_PTR(&modtime_module) }, \
     { MP_ROM_QSTR(MP_QSTR_os), MP_ROM_PTR(&modos_module) }, \
     { MP_ROM_QSTR(MP_QSTR_turtle), MP_ROM_PTR(&modturtle_module) }, \
+
+// Enable setjmp in debug mode. This is to avoid some optimizations done
+// specifically for x86_64 using inline assembly, which makes the debug binary
+// crash with an illegal instruction
+#ifndef NDEBUG
+  #define MICROPY_NLR_SETJMP 1
+#endif
 

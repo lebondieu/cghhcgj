@@ -19,6 +19,12 @@ void ion_main(int argc, const char * const argv[]) {
 #else
 
 void ion_main(int argc, const char * const argv[]) {
+  /* Lock OTP on older devices to prevent garbage being written where the PCB
+   * version is read. */
+#if 0 // We don't want OTP locked on omega :p
+  Ion::Board::lockUnlockedPCBVersion();
+#endif
+
   // Initialize Poincare::TreePool::sharedPool
   Poincare::Init();
 
@@ -36,8 +42,9 @@ void ion_main(int argc, const char * const argv[]) {
         continue;
       }
       for (int j = 0; j < I18n::NumberOfLanguages; j++) {
-        if (strcmp(requestedLanguageId, I18n::translate(I18n::LanguageISO6391Names[j])) == 0) {
+        if (strcmp(requestedLanguageId, I18n::LanguageISO6391Codes[j]) == 0) {
           GlobalPreferences::sharedGlobalPreferences()->setLanguage((I18n::Language)j);
+          GlobalPreferences::sharedGlobalPreferences()->setCountry(I18n::DefaultCountryForLanguage[j]);
           break;
         }
       }
@@ -52,14 +59,28 @@ void ion_main(int argc, const char * const argv[]) {
     const char * appNames[] = {"home", EPSILON_APPS_NAMES};
     for (int j = 0; j < AppsContainer::sharedAppsContainer()->numberOfApps(); j++) {
       App::Snapshot * snapshot = AppsContainer::sharedAppsContainer()->appSnapshotAtIndex(j);
-      int cmp = strcmp(argv[i]+2, appNames[j]);
-      if (cmp == '-') {
+      // Compare name in order to find if the firsts chars which are different are NULL and '-'
+      // -> check if the app name is in the argv
+      const char * s1 = argv[i]+2;
+      const char * s2 = appNames[j];
+      while (*s1 != '\0' && (*s1 == *s2)) {s1++; s2++;}
+      if (*s2 == '\0' && *s1 == '-') {
         snapshot->setOpt(argv[i]+2+strlen(appNames[j])+1, argv[i+1]);
         break;
       }
     }
   }
 #endif
+
+#if !PLATFORM_DEVICE
+  /* s_stackStart must be defined as early as possible to ensure that there
+   * cannot be allocated memory pointers before. Otherwise, with MicroPython for
+   * example, stack pointer could go backward after initialization and allocated
+   * memory pointers could be overlooked during mark procedure. */
+  volatile int stackTop;
+  Ion::setStackStart((void *)(&stackTop));
+#endif
+
   AppsContainer::sharedAppsContainer()->run();
 }
 

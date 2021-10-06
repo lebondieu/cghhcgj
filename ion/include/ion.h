@@ -3,6 +3,8 @@
 
 #include <ion/backlight.h>
 #include <ion/battery.h>
+#include <ion/board.h>
+#include <ion/clipboard.h>
 #include <ion/console.h>
 #include <ion/display.h>
 #include <ion/events.h>
@@ -31,13 +33,12 @@ void ion_main(int argc, const char * const argv[]);
 namespace Ion {
 
 const char * serialNumber();
-#ifdef OMEGA_USERNAME
-const char * username();
-#endif
+const volatile char * username();
 const char * softwareVersion();
 const char * omegaVersion();
 const char * patchLevel();
 const char * fccId();
+const char * pcbVersion();
 
 // CRC32 : non xor-ed, non reversed, direct, polynomial 4C11DB7
 uint32_t crc32Word(const uint32_t * data, size_t length); // Only accepts whole 32bit values
@@ -51,6 +52,9 @@ uint32_t random();
 // Decompress data
 void decompress(const uint8_t * src, uint8_t * dst, int srcSize, int dstSize);
 
+// Sets and returns address to the first object that can be allocated on stack
+void * stackStart();
+void setStackStart(void *);
 // Tells whether the stack pointer is within acceptable bounds
 bool stackSafe();
 

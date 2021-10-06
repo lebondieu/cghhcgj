@@ -8,6 +8,8 @@
 #include <ion/backlight.h>
 #include <poincare/preferences.h>
 
+#include <algorithm>
+
 extern "C" {
 #include <assert.h>
 }
@@ -59,8 +61,23 @@ AppsContainer::AppsContainer() :
 }
 
 bool AppsContainer::poincareCircuitBreaker() {
+  constexpr uint64_t minimalPressDuration = 20;
+  static uint64_t beginningOfInterruption = 0;
   Ion::Keyboard::State state = Ion::Keyboard::scan();
-  return state.keyDown(Ion::Keyboard::Key::Back);
+  bool interrupt = state.keyDown(Ion::Keyboard::Key::Back) || state.keyDown(Ion::Keyboard::Key::Home) || state.keyDown(Ion::Keyboard::Key::OnOff);
+  if (!interrupt) {
+    beginningOfInterruption = 0;
+    return false;
+  }
+  if (beginningOfInterruption == 0) {
+    beginningOfInterruption = Ion::Timing::millis();
+    return false;
+  }
+  if (Ion::Timing::millis() - beginningOfInterruption > minimalPressDuration) {
+    beginningOfInterruption = 0;
+    return true;
+  }
+  return false;
 }
 
 App::Snapshot * AppsContainer::hardwareTestAppSnapshot() {
@@ -203,6 +220,13 @@ bool AppsContainer::dispatchEvent(Ion::Events::Event event) {
   return didProcessEvent || alphaLockWantsRedraw;
 }
 
+static constexpr Ion::Events::Event switch_events[] = {
+    Ion::Events::ShiftSeven, Ion::Events::ShiftEight, Ion::Events::ShiftNine,
+    Ion::Events::ShiftFour, Ion::Events::ShiftFive, Ion::Events::ShiftSix,
+    Ion::Events::ShiftOne, Ion::Events::ShiftTwo, Ion::Events::ShiftThree,
+    Ion::Events::ShiftZero, Ion::Events::ShiftDot, Ion::Events::ShiftEE
+};
+
 bool AppsContainer::processEvent(Ion::Events::Event event) {
   // Warning: if the window is dirtied, you need to call window()->redraw()
   if (event == Ion::Events::USBPlug) {
@@ -227,6 +251,15 @@ bool AppsContainer::processEvent(Ion::Events::Event event) {
     switchTo(appSnapshotAtIndex(1));
     return true;
   }
+
+  for(int i = 0; i < std::min((int) (sizeof(switch_events) / sizeof(Ion::Events::Event)), APPS_CONTAINER_SNAPSHOT_COUNT); i++) {
+    if (event == switch_events[i]) {
+      m_window.redraw(true);
+      switchTo(appSnapshotAtIndex(i+1));
+      return true;
+    }
+  }
+
   if (event == Ion::Events::OnOff) {
     suspend(true);
     return true;
@@ -341,7 +374,7 @@ void AppsContainer::shutdownDueToLowBattery() {
    * case. */
     return;
   }
-  while (Ion::Battery::level() == Ion::Battery::Charge::EMPTY) {
+  while (Ion::Battery::level() == Ion::Battery::Charge::EMPTY && !Ion::USB::isPlugged()) {
     Ion::Backlight::setBrightness(0);
     if (!GlobalPreferences::sharedGlobalPreferences()->isInExamMode()) {
       /* Unless the LED is lit up for the exam mode, switch off the LED. IF the
@@ -365,7 +398,7 @@ bool AppsContainer::updateAlphaLock() {
   return m_window.updateAlphaLock();
 }
 
-OnBoarding::PopUpController * AppsContainer::promptController() {
+OnBoarding::PromptController * AppsContainer::promptController() {
   if (k_promptNumberOfMessages == 0) {
     return nullptr;
   }

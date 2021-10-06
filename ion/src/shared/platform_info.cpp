@@ -36,7 +36,7 @@ public:
 #ifdef OMEGA_USERNAME
     m_username{OMEGA_USERNAME},
 #else
-    m_username{"\0"},
+    m_username{"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"},
 #endif
     m_ohm_footer(OmegaMagic) { }
   const char * version() const {
@@ -57,8 +57,7 @@ public:
     assert(m_ohm_footer == OmegaMagic);
     return m_omegaVersion;
   }
-#ifdef OMEGA_USERNAME
-  const char * username() const {
+  const volatile char * username() const volatile {
     assert(m_storageAddress != nullptr);
     assert(m_storageSize != 0);
     assert(m_header == Magic);
@@ -67,7 +66,6 @@ public:
     assert(m_ohm_footer == OmegaMagic);
     return m_username;
   }
-#endif
   const char * patchLevel() const {
     assert(m_storageAddress != nullptr);
     assert(m_storageSize != 0);
@@ -88,11 +86,11 @@ private:
   uint32_t m_footer;
   uint32_t m_ohm_header;
   const char m_omegaVersion[16];
-  const char m_username[16];
+  const volatile char m_username[16];
   uint32_t m_ohm_footer;
 };
 
-constexpr PlatformInfo HEADER_SECTION platform_infos;
+const PlatformInfo HEADER_SECTION platform_infos;
 
 const char * Ion::softwareVersion() {
   return platform_infos.version();
@@ -102,11 +100,9 @@ const char * Ion::omegaVersion() {
   return platform_infos.omegaVersion();
 }
 
-#ifdef OMEGA_USERNAME
-const char * Ion::username() {
+const volatile char * Ion::username() {
   return platform_infos.username();
 }
-#endif
 
 const char * Ion::patchLevel() {
   return platform_infos.patchLevel();
