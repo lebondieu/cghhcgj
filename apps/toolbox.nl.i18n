@@ -1,4 +1,5 @@
 Unit = "Eenheden"
+UnitFondMenu = "Fundamental units"
 UnitTimeMenu = "Tijd"
 UnitTimeSecondMenu = "Seconde"
 UnitTimeSecond = "Seconde"

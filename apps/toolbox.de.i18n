@@ -1,4 +1,5 @@
 Unit = "Einheiten"
+UnitFondMenu = "Fundamental units"
 UnitTimeMenu = "Zeit"
 UnitTimeSecondMenu = "Sekunde"
 UnitTimeSecond = "Sekunde"
