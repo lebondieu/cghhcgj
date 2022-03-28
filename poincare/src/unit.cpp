@@ -19,6 +19,8 @@ constexpr const UnitNode::DistanceRepresentative Unit::k_distanceRepresentatives
 constexpr const UnitNode::MassRepresentative Unit::k_massRepresentatives[];
 constexpr const UnitNode::CurrentRepresentative Unit::k_currentRepresentatives[];
 constexpr const UnitNode::TemperatureRepresentative Unit::k_temperatureRepresentatives[];
+constexpr const UnitNode::PlanAngleRepresentative Unit::k_plananglerepresentative[];
+constexpr const UnitNode::SolidAngleRepresentative Unit::k_solidanglerepresentative[];
 constexpr const UnitNode::AmountOfSubstanceRepresentative Unit::k_amountOfSubstanceRepresentatives[];
 constexpr const UnitNode::LuminousIntensityRepresentative Unit::k_luminousIntensityRepresentatives[];
 constexpr const UnitNode::FrequencyRepresentative Unit::k_frequencyRepresentatives[];
@@ -67,8 +69,11 @@ constexpr const int
   Unit::k_cupRepresentativeIndex,
   Unit::k_pintRepresentativeIndex,
   Unit::k_quartRepresentativeIndex,
-  Unit::k_gallonRepresentativeIndex;
+  Unit::k_gallonRepresentativeIndex,
+  Unit::k_hzIndex,
+  Unit::k_bqIndex;
 
+  
 // UnitNode::Prefix
 const UnitNode::Prefix * UnitNode::Prefix::Prefixes() {
   return Unit::k_prefixes;
@@ -199,6 +204,8 @@ const UnitNode::Representative * const * UnitNode::Representative::DefaultRepres
     Unit::k_amountOfSubstanceRepresentatives,
     Unit::k_luminousIntensityRepresentatives,
     Unit::k_frequencyRepresentatives,
+    Unit::k_plananglerepresentative,
+    Unit::k_solidanglerepresentative,
     Unit::k_forceRepresentatives,
     Unit::k_pressureRepresentatives,
     Unit::k_energyRepresentatives,
@@ -407,6 +414,8 @@ const UnitNode::Representative * UnitNode::TemperatureRepresentative::representa
 const UnitNode::Representative * UnitNode::AmountOfSubstanceRepresentative::representativesOfSameDimension() const { return Unit::k_amountOfSubstanceRepresentatives; }
 const UnitNode::Representative * UnitNode::LuminousIntensityRepresentative::representativesOfSameDimension() const { return Unit::k_luminousIntensityRepresentatives; }
 const UnitNode::Representative * UnitNode::FrequencyRepresentative::representativesOfSameDimension() const { return Unit::k_frequencyRepresentatives; }
+const UnitNode::Representative * UnitNode::PlanAngleRepresentative::representativesOfSameDimension() const { return Unit::k_plananglerepresentative; }
+const UnitNode::Representative * UnitNode::SolidAngleRepresentative::representativesOfSameDimension() const { return Unit::k_solidanglerepresentative; }
 const UnitNode::Representative * UnitNode::ForceRepresentative::representativesOfSameDimension() const { return Unit::k_forceRepresentatives; }
 const UnitNode::Representative * UnitNode::PressureRepresentative::representativesOfSameDimension() const { return Unit::k_pressureRepresentatives; }
 const UnitNode::Representative * UnitNode::EnergyRepresentative::representativesOfSameDimension() const { return Unit::k_energyRepresentatives; }

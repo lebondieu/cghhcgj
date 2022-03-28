@@ -94,7 +94,7 @@ public:
       LongScale,
       All,
     };
-    static constexpr int k_numberOfDimensions = 24;
+    static constexpr int k_numberOfDimensions = 26;
     static const Representative * const * DefaultRepresentatives();
     static const Representative * RepresentativeForDimension(Vector<int> vector);
     constexpr Representative(const char * rootSymbol, double ratio, Prefixable inputPrefixable, Prefixable outputPrefixable) :
@@ -228,6 +228,32 @@ public:
     using Representative::Representative;
   };
 
+  class PlanAngleRepresentative : public Representative {
+    friend class Unit;
+  public:
+    constexpr static PlanAngleRepresentative Default() { return PlanAngleRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    int numberOfRepresentatives() const override { return 1; }
+    const Representative * representativesOfSameDimension() const override;
+    bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
+  private:
+    using Representative::Representative;
+  };
+
+
+  class SolidAngleRepresentative : public Representative {
+    friend class Unit;
+  public:
+    constexpr static SolidAngleRepresentative Default() { return SolidAngleRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    int numberOfRepresentatives() const override { return 1; }
+    const Representative * representativesOfSameDimension() const override;
+    bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
+  private:
+    using Representative::Representative;
+  };
+
+
   class LuminousIntensityRepresentative : public Representative {
     friend class Unit;
   public:
@@ -245,7 +271,7 @@ public:
   public:
     constexpr static FrequencyRepresentative Default() { return FrequencyRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
     const Vector<int> dimensionVector() const override { return Vector<int>{.time = -1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
-    int numberOfRepresentatives() const override { return 1; }
+    int numberOfRepresentatives() const override { return 2; }
     const Representative * representativesOfSameDimension() const override;
   private:
     using Representative::Representative;
@@ -528,6 +554,19 @@ public:
     TimeRepresentative("month", 365.25/12.*24.*3600., Prefixable::None, Prefixable::None),
     TimeRepresentative("year", 365.25*24.*3600., Prefixable::None, Prefixable::None),
   };
+
+
+  typedef UnitNode::PlanAngleRepresentative PlanAngleRepresentative;
+  static constexpr const PlanAngleRepresentative k_plananglerepresentative[] = {
+    PlanAngleRepresentative("rad",1.,Prefixable::None,Prefixable::None),
+  };
+
+  typedef UnitNode::SolidAngleRepresentative SolidAngleRepresentative;
+  static constexpr const SolidAngleRepresentative k_solidanglerepresentative[] = {
+    SolidAngleRepresentative("sr",1.,Prefixable::None,Prefixable::None),
+  };
+
+
   typedef UnitNode::DistanceRepresentative DistanceRepresentative;
   static constexpr const DistanceRepresentative k_distanceRepresentatives[] = {
     DistanceRepresentative("m", 1., Prefixable::All, Prefixable::NegativeAndKilo),
@@ -562,7 +601,10 @@ public:
   typedef UnitNode::LuminousIntensityRepresentative LuminousIntensityRepresentative;
   static constexpr const LuminousIntensityRepresentative k_luminousIntensityRepresentatives[] = { LuminousIntensityRepresentative("cd", 1., Prefixable::All, Prefixable::LongScale) };
   typedef UnitNode::FrequencyRepresentative FrequencyRepresentative;
-  static constexpr const FrequencyRepresentative k_frequencyRepresentatives[] = { FrequencyRepresentative("Hz", 1., Prefixable::All, Prefixable::LongScale) };
+  static constexpr const FrequencyRepresentative k_frequencyRepresentatives[] = { 
+    FrequencyRepresentative("Hz", 1., Prefixable::All, Prefixable::LongScale), 
+    FrequencyRepresentative("Bq",1.,Prefixable::None,Prefixable::None), 
+  };
   typedef UnitNode::ForceRepresentative ForceRepresentative;
   static constexpr const ForceRepresentative k_forceRepresentatives[] = { ForceRepresentative("N", 1., Prefixable::All, Prefixable::LongScale) };
   typedef UnitNode::PressureRepresentative PressureRepresentative;
@@ -674,6 +716,9 @@ public:
   static_assert(strings_equal(k_volumeRepresentatives[k_quartRepresentativeIndex].m_rootSymbol, "qt"), "Index for the Quart Representative is incorrect.");
   static constexpr int k_gallonRepresentativeIndex = 7;
   static_assert(strings_equal(k_volumeRepresentatives[k_gallonRepresentativeIndex].m_rootSymbol, "gal"), "Index for the Gallon Representative is incorrect.");
+  static constexpr int k_hzIndex = 0;
+  static constexpr int k_bqIndex = 1;
+
 
   Unit(const UnitNode * node) : Expression(node) {}
   static Unit Builder(const Representative * representative, const Prefix * prefix);
