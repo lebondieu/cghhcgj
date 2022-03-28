@@ -110,6 +110,12 @@ const ToolboxMessageTree supplementaryUnitChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitSolidAngleSteradianSymbol,I18n::Message::UnitSolidAngleSteradian),
 };
 
+const ToolboxMessageTree dosageChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitDosageSievertSymbol, I18n::Message::UnitDosageSievert),
+    ToolboxMessageTree::Leaf(I18n::Message::UnitDosageGraySymbol, I18n::Message::UnitDosageGray),
+
+};
+
 const ToolboxMessageTree unitTimeChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitTimeSecondNanoSymbol, I18n::Message::UnitTimeSecondNano),
   ToolboxMessageTree::Leaf(I18n::Message::UnitTimeSecondMicroSymbol, I18n::Message::UnitTimeSecondMicro),
@@ -362,20 +368,25 @@ const ToolboxMessageTree unitVolumeFork[] = {
 };
 
 
-const ToolboxMessageTree derivedUnit[] = {
+const ToolboxMessageTree electricity[] = {
   ToolboxMessageTree::Node(I18n::Message::UnitCapacitanceMenu, unitCapacitanceFaradChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitConductanceMenu, unitConductanceSiemensChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitElectricChargeMenu, unitElectricChargeCoulombChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitEnergyMenu, unitEnergyChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitConductanceMenu, unitConductanceSiemensChildren),
+  ToolboxMessageTree::Node(I18n::Message::InductanceMenu, unitInductanceChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitPotentialMenu, unitPotentialVoltChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitResistanceMenu, unitResistanceOhmChildren),
+
+};
+
+const ToolboxMessageTree derivedUnit[] = {
+  ToolboxMessageTree::Node(I18n::Message::DosageMenu, dosageChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
+  ToolboxMessageTree::Node(I18n::Message::ElectricityMenu,electricity,true),
   ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitFrequencyMenu, unitFrequencyHertzChildren),
-  ToolboxMessageTree::Node(I18n::Message::InductanceMenu, unitInductanceChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitMagneticFieldMenu, unitMagneticFieldChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitPotentialMenu, unitPotentialVoltChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitResistanceMenu, unitResistanceOhmChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
+  ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeFork, true),
 
 };
