@@ -25,7 +25,7 @@
 
 namespace Poincare {
 
-const int numberOfFondamentalUnits = 10;
+const int numberOfFondamentalUnits = 12;
 /* Multiplication Node */
 
 ExpressionNode::Sign MultiplicationNode::sign(Context * context) const {

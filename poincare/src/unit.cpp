@@ -22,6 +22,8 @@ constexpr const UnitNode::TemperatureRepresentative Unit::k_temperatureRepresent
 constexpr const UnitNode::PlanAngleRepresentative Unit::k_plananglerepresentative[];
 constexpr const UnitNode::SolidAngleRepresentative Unit::k_solidanglerepresentative[];
 constexpr const UnitNode::LuminousFluxRepresentative Unit::k_luminousfluxrepresentatives[];
+constexpr const UnitNode::IlluminanceRepresentative Unit::k_illuminancerepresentative[];
+constexpr const UnitNode::DosageRepresentative Unit::k_dosagerepresentative[];
 constexpr const UnitNode::AmountOfSubstanceRepresentative Unit::k_amountOfSubstanceRepresentatives[];
 constexpr const UnitNode::LuminousIntensityRepresentative Unit::k_luminousIntensityRepresentatives[];
 constexpr const UnitNode::FrequencyRepresentative Unit::k_frequencyRepresentatives[];
@@ -173,7 +175,7 @@ Expression UnitNode::Vector<int>::toBaseUnits() const {
   Expression result = Multiplication::Builder();
   int numberOfChildren = 0;
   for (int i = 0; i < k_numberOfBaseUnits; i++) {
-    // We require the base units to be the first seven in DefaultRepresentatives
+    // We require the base units to be the first nine in DefaultRepresentatives
     const Representative * representative = Representative::DefaultRepresentatives()[i];
     assert(representative);
     const Prefix * prefix = representative->basePrefix();
@@ -206,17 +208,19 @@ const UnitNode::Representative * const * UnitNode::Representative::DefaultRepres
     Unit::k_temperatureRepresentatives,
     Unit::k_amountOfSubstanceRepresentatives,
     Unit::k_luminousIntensityRepresentatives,
-    Unit::k_luminousfluxrepresentatives,
-    Unit::k_frequencyRepresentatives,
     Unit::k_plananglerepresentative,
     Unit::k_solidanglerepresentative,
+    Unit::k_frequencyRepresentatives,
     Unit::k_forceRepresentatives,
     Unit::k_pressureRepresentatives,
     Unit::k_energyRepresentatives,
     Unit::k_powerRepresentatives,
+    Unit::k_luminousfluxrepresentatives,
+    Unit::k_illuminancerepresentative,
     Unit::k_electricChargeRepresentatives,
     Unit::k_electricPotentialRepresentatives,
     Unit::k_electricCapacitanceRepresentatives,
+    Unit::k_dosagerepresentative,
     Unit::k_electricResistanceRepresentatives,
     Unit::k_electricConductanceRepresentatives,
     Unit::k_magneticFluxRepresentatives,
@@ -418,6 +422,8 @@ const UnitNode::Representative * UnitNode::TemperatureRepresentative::representa
 const UnitNode::Representative * UnitNode::AmountOfSubstanceRepresentative::representativesOfSameDimension() const { return Unit::k_amountOfSubstanceRepresentatives; }
 const UnitNode::Representative * UnitNode::LuminousIntensityRepresentative::representativesOfSameDimension() const { return Unit::k_luminousIntensityRepresentatives; }
 const UnitNode::Representative * UnitNode::LuminousFluxRepresentative::representativesOfSameDimension() const { return Unit::k_luminousfluxrepresentatives; }
+const UnitNode::Representative * UnitNode::IlluminanceRepresentative::representativesOfSameDimension() const { return Unit::k_illuminancerepresentative; }
+const UnitNode::Representative * UnitNode::DosageRepresentative::representativesOfSameDimension() const { return Unit::k_dosagerepresentative; }
 const UnitNode::Representative * UnitNode::FrequencyRepresentative::representativesOfSameDimension() const { return Unit::k_frequencyRepresentatives; }
 const UnitNode::Representative * UnitNode::PlanAngleRepresentative::representativesOfSameDimension() const { return Unit::k_plananglerepresentative; }
 const UnitNode::Representative * UnitNode::SolidAngleRepresentative::representativesOfSameDimension() const { return Unit::k_solidanglerepresentative; }
