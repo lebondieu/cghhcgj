@@ -95,14 +95,19 @@ const ToolboxMessageTree listsChildren[] = {
 #endif
 
 const ToolboxMessageTree fondamentalUnitChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitTimeSecondSymbol, I18n::Message::UnitTimeSecond),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitDistanceMeterSymbol, I18n::Message::UnitDistanceMeter),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitMassGramKiloSymbol, I18n::Message::UnitMassGramKilo),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitCurrentAmpereSymbol, I18n::Message::UnitCurrentAmpere),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitTemperatureKelvinSymbol, I18n::Message::UnitTemperatureKelvin),
   ToolboxMessageTree::Leaf(I18n::Message::UnitAmountMoleSymbol, I18n::Message::UnitAmountMole),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitLuminousIntensityCandelaSymbol, I18n::Message::UnitLuminousIntensityCandela)
+  ToolboxMessageTree::Leaf(I18n::Message::UnitDistanceMeterSymbol, I18n::Message::UnitDistanceMeter),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitCurrentAmpereSymbol, I18n::Message::UnitCurrentAmpere),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitLuminousIntensityCandelaSymbol, I18n::Message::UnitLuminousIntensityCandela),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitMassGramKiloSymbol, I18n::Message::UnitMassGramKilo),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitTemperatureKelvinSymbol, I18n::Message::UnitTemperatureKelvin),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitTimeSecondSymbol, I18n::Message::UnitTimeSecond),
+};
 
+
+const ToolboxMessageTree supplementaryUnitChildren[] = {
+    ToolboxMessageTree::Leaf(I18n::Message::UnitPlanAngleRadSymbol,I18n::Message::UnitPlanAngleRad),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitSolidAngleSteradianSymbol,I18n::Message::UnitSolidAngleSteradian),
 };
 
 const ToolboxMessageTree unitTimeChildren[] = {
@@ -219,17 +224,14 @@ const ToolboxMessageTree unitLuminousIntensityChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitLuminousIntensityCandelaSymbol, I18n::Message::UnitLuminousIntensityCandela)};
 
 
-/*const ToolboxMessageTree unitLuminousFluxChildren[] = {
+const ToolboxMessageTree unitLuminousFluxChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitLuminousFluxLumenSymbol, I18n::Message::UnitLuminousFluxLumen),
 };
 
-const ToolboxMessageTree unitSolidAngleChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitSolidAngleSteradianSymbol, I18n::Message::UnitSolidAngleSteradian),
-};
 
 const ToolboxMessageTree unitIlluminanceChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitIlluminanceLuxSymbol, I18n::Message::UnitIlluminanceLux),
-};*/
+};
 
 const ToolboxMessageTree unitFrequencyHertzChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitFrequencyHertzSymbol, I18n::Message::UnitFrequencyHertz),
@@ -359,30 +361,37 @@ const ToolboxMessageTree unitVolumeFork[] = {
   ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeChildrenForImperialToolbox),
 };
 
-const ToolboxMessageTree unitChildren[] = {
-  ToolboxMessageTree::Node(I18n::Message::UnitFondMenu, fondamentalUnitChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitTimeMenu, unitTimeChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitDistanceMenu, unitDistanceFork, true),
+
+const ToolboxMessageTree derivedUnit[] = {
+  ToolboxMessageTree::Node(I18n::Message::UnitCapacitanceMenu, unitCapacitanceFaradChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitConductanceMenu, unitConductanceSiemensChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitElectricChargeMenu, unitElectricChargeCoulombChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitEnergyMenu, unitEnergyChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitFrequencyMenu, unitFrequencyHertzChildren),
+  ToolboxMessageTree::Node(I18n::Message::InductanceMenu, unitInductanceChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitMagneticFieldMenu, unitMagneticFieldChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitPotentialMenu, unitPotentialVoltChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitResistanceMenu, unitResistanceOhmChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
   ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeFork, true),
-  ToolboxMessageTree::Node(I18n::Message::UnitMassMenu, unitMassFork, true),
-  ToolboxMessageTree::Node(I18n::Message::UnitCurrentMenu, unitCurrentAmpereChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitTemperatureMenu, unitTemperatureChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitAmountMenu, unitAmountMoleChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitLuminousIntensityMenu, unitLuminousIntensityChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitFrequencyMenu, unitFrequencyHertzChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitEnergyMenu, unitEnergyChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitElectricChargeMenu, unitElectricChargeCoulombChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitPotentialMenu, unitPotentialVoltChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitCapacitanceMenu, unitCapacitanceFaradChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitResistanceMenu, unitResistanceOhmChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitConductanceMenu, unitConductanceSiemensChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitMagneticFieldMenu, unitMagneticFieldChildren),
-  ToolboxMessageTree::Node(I18n::Message::InductanceMenu, unitInductanceChildren),
+
 };
+
+const ToolboxMessageTree unitChildren[] = {
+  ToolboxMessageTree::Node(I18n::Message::UnitFondMenu, fondamentalUnitChildren),
+  ToolboxMessageTree::Node(I18n::Message::SupplementaryUnitMenu, supplementaryUnitChildren),
+  ToolboxMessageTree::Node(I18n::Message::DerivedUnitMenu, derivedUnit),
+  ToolboxMessageTree::Node(I18n::Message::UnitAmountMenu, unitAmountMoleChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitDistanceMenu, unitDistanceFork, true),
+  ToolboxMessageTree::Node(I18n::Message::UnitCurrentMenu, unitCurrentAmpereChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitLuminousIntensityMenu, unitLuminousIntensityChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitMassMenu, unitMassFork, true),
+  ToolboxMessageTree::Node(I18n::Message::UnitTemperatureMenu, unitTemperatureChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitTimeMenu, unitTimeChildren),
+  };
 
 const ToolboxMessageTree randomAndApproximationChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::RandomCommandWithArg, I18n::Message::RandomFloat),
