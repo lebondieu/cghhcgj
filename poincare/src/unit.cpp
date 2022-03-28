@@ -21,6 +21,7 @@ constexpr const UnitNode::CurrentRepresentative Unit::k_currentRepresentatives[]
 constexpr const UnitNode::TemperatureRepresentative Unit::k_temperatureRepresentatives[];
 constexpr const UnitNode::PlanAngleRepresentative Unit::k_plananglerepresentative[];
 constexpr const UnitNode::SolidAngleRepresentative Unit::k_solidanglerepresentative[];
+constexpr const UnitNode::LuminousFluxRepresentative Unit::k_luminousfluxrepresentatives[];
 constexpr const UnitNode::AmountOfSubstanceRepresentative Unit::k_amountOfSubstanceRepresentatives[];
 constexpr const UnitNode::LuminousIntensityRepresentative Unit::k_luminousIntensityRepresentatives[];
 constexpr const UnitNode::FrequencyRepresentative Unit::k_frequencyRepresentatives[];
@@ -115,6 +116,8 @@ UnitNode::Vector<int> UnitNode::Vector<int>::FromBaseUnits(const Expression base
     .temperature        = 0,
     .amountOfSubstance  = 0,
     .luminuousIntensity = 0,
+    .rad                = 0,
+    .sr                 = 0,
   };
   int numberOfFactors;
   int factorIndex = 0;
@@ -203,6 +206,7 @@ const UnitNode::Representative * const * UnitNode::Representative::DefaultRepres
     Unit::k_temperatureRepresentatives,
     Unit::k_amountOfSubstanceRepresentatives,
     Unit::k_luminousIntensityRepresentatives,
+    Unit::k_luminousfluxrepresentatives,
     Unit::k_frequencyRepresentatives,
     Unit::k_plananglerepresentative,
     Unit::k_solidanglerepresentative,
@@ -413,6 +417,7 @@ const UnitNode::Representative * UnitNode::CurrentRepresentative::representative
 const UnitNode::Representative * UnitNode::TemperatureRepresentative::representativesOfSameDimension() const { return Unit::k_temperatureRepresentatives; }
 const UnitNode::Representative * UnitNode::AmountOfSubstanceRepresentative::representativesOfSameDimension() const { return Unit::k_amountOfSubstanceRepresentatives; }
 const UnitNode::Representative * UnitNode::LuminousIntensityRepresentative::representativesOfSameDimension() const { return Unit::k_luminousIntensityRepresentatives; }
+const UnitNode::Representative * UnitNode::LuminousFluxRepresentative::representativesOfSameDimension() const { return Unit::k_luminousfluxrepresentatives; }
 const UnitNode::Representative * UnitNode::FrequencyRepresentative::representativesOfSameDimension() const { return Unit::k_frequencyRepresentatives; }
 const UnitNode::Representative * UnitNode::PlanAngleRepresentative::representativesOfSameDimension() const { return Unit::k_plananglerepresentative; }
 const UnitNode::Representative * UnitNode::SolidAngleRepresentative::representativesOfSameDimension() const { return Unit::k_solidanglerepresentative; }

@@ -32,7 +32,7 @@ class Unit;
 
 class UnitNode final : public ExpressionNode {
 public:
-  static constexpr int k_numberOfBaseUnits = 7;
+  static constexpr int k_numberOfBaseUnits = 9;
 
   class Prefix {
     friend class Unit;
@@ -60,15 +60,15 @@ public:
     static Vector FromBaseUnits(const Expression baseUnits);
     const T coefficientAtIndex(size_t i) const {
       assert(i < k_numberOfBaseUnits);
-      const T coefficients[k_numberOfBaseUnits] = {time, distance, mass, current, temperature, amountOfSubstance, luminuousIntensity};
+      const T coefficients[k_numberOfBaseUnits] = {time, distance, mass, current, temperature, amountOfSubstance, luminuousIntensity, rad,sr};
       return coefficients[i];
     }
     void setCoefficientAtIndex(size_t i, T c) {
       assert(i < k_numberOfBaseUnits);
-      T * coefficientsAddresses[k_numberOfBaseUnits] = {&time, &distance, &mass, &current, &temperature, &amountOfSubstance, &luminuousIntensity};
+      T * coefficientsAddresses[k_numberOfBaseUnits] = {&time, &distance, &mass, &current, &temperature, &amountOfSubstance, &luminuousIntensity,&rad,&sr};
       *(coefficientsAddresses[i]) = c;
     }
-    bool operator==(const Vector &rhs) const { return time == rhs.time && distance == rhs.distance && mass == rhs.mass && current == rhs.current && temperature == rhs.temperature && amountOfSubstance == rhs.amountOfSubstance && luminuousIntensity == rhs.luminuousIntensity; }
+    bool operator==(const Vector &rhs) const { return time == rhs.time && distance == rhs.distance && mass == rhs.mass && current == rhs.current && temperature == rhs.temperature && amountOfSubstance == rhs.amountOfSubstance && luminuousIntensity == rhs.luminuousIntensity && rad == rhs.rad && sr == rhs.sr; }
     bool operator!=(const Vector &rhs) const { return !(*this == rhs); }
     void addAllCoefficients(const Vector other, int factor);
     Expression toBaseUnits() const;
@@ -79,6 +79,8 @@ public:
     T temperature;
     T amountOfSubstance;
     T luminuousIntensity;
+    T rad;
+    T sr;
   };
 
   class Representative {
@@ -94,7 +96,7 @@ public:
       LongScale,
       All,
     };
-    static constexpr int k_numberOfDimensions = 26;
+    static constexpr int k_numberOfDimensions = 27;
     static const Representative * const * DefaultRepresentatives();
     static const Representative * RepresentativeForDimension(Vector<int> vector);
     constexpr Representative(const char * rootSymbol, double ratio, Prefixable inputPrefixable, Prefixable outputPrefixable) :
@@ -104,7 +106,7 @@ public:
       m_outputPrefixable(outputPrefixable)
     {}
 
-    virtual const Vector<int> dimensionVector() const { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; };
+    virtual const Vector<int> dimensionVector() const { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; };
     virtual int numberOfRepresentatives() const { return 0; };
     /* representativesOfSameDimension returns a pointer to the array containing
      * all representatives for this's dimension. */
@@ -145,7 +147,7 @@ public:
     friend class Unit;
   public:
     constexpr static TimeRepresentative Default() { return TimeRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 7; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -159,7 +161,7 @@ public:
     friend class Unit;
   public:
     constexpr static DistanceRepresentative Default() { return DistanceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 1, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 1, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 8; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -174,7 +176,7 @@ public:
     friend class Unit;
   public:
     constexpr static MassRepresentative Default() { return MassRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 7; }
     const Representative * representativesOfSameDimension() const override;
     const Prefix * basePrefix() const override;
@@ -190,7 +192,7 @@ public:
     friend class Unit;
   public:
     constexpr static CurrentRepresentative Default() { return CurrentRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -203,7 +205,7 @@ public:
   public:
     static double ConvertTemperatures(double value, const Representative * source, const Representative * target);
     constexpr static TemperatureRepresentative Default() { return TemperatureRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 1, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 1, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 3; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -220,7 +222,7 @@ public:
     friend class Unit;
   public:
     constexpr static AmountOfSubstanceRepresentative Default() { return AmountOfSubstanceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 1, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 1, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -232,7 +234,7 @@ public:
     friend class Unit;
   public:
     constexpr static PlanAngleRepresentative Default() { return PlanAngleRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=1,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -245,7 +247,7 @@ public:
     friend class Unit;
   public:
     constexpr static SolidAngleRepresentative Default() { return SolidAngleRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=1}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -258,7 +260,20 @@ public:
     friend class Unit;
   public:
     constexpr static LuminousIntensityRepresentative Default() { return LuminousIntensityRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 1}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 1,.rad=0,.sr=0}; }
+    int numberOfRepresentatives() const override { return 1; }
+    const Representative * representativesOfSameDimension() const override;
+    bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
+  private:
+    using Representative::Representative;
+  };
+
+
+  class LuminousFluxRepresentative : public Representative {
+    friend class Unit;
+  public:
+    constexpr static LuminousFluxRepresentative Default() { return LuminousFluxRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 1,.rad=0,.sr=1}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
@@ -270,7 +285,7 @@ public:
     friend class Unit;
   public:
     constexpr static FrequencyRepresentative Default() { return FrequencyRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 2; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -281,7 +296,7 @@ public:
     friend class Unit;
   public:
     constexpr static ForceRepresentative Default() { return ForceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 1, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 1, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -292,7 +307,7 @@ public:
     friend class Unit;
   public:
     constexpr static PressureRepresentative Default() { return PressureRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = -1, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = -1, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 3; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -303,7 +318,7 @@ public:
     friend class Unit;
   public:
     constexpr static EnergyRepresentative Default() { return EnergyRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 2, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 2, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 2; }
     const Representative * representativesOfSameDimension() const override;
     bool hasSpecialAdditionalExpressions(double value, Preferences::UnitFormat unitFormat) const override { return true; }
@@ -316,7 +331,7 @@ public:
     friend class Unit;
   public:
     constexpr static PowerRepresentative Default() { return PowerRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -3, .distance = 2, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -3, .distance = 2, .mass = 1, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -328,7 +343,7 @@ public:
   public:
     using Representative::Representative;
     constexpr static ElectricChargeRepresentative Default() { return ElectricChargeRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 1, .distance = 0, .mass = 0, .current = 1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 1, .distance = 0, .mass = 0, .current = 1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   };
@@ -337,7 +352,7 @@ public:
     friend class Unit;
   public:
     constexpr static ElectricPotentialRepresentative Default() { return ElectricPotentialRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -3, .distance = 2, .mass = 1, .current = -1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -3, .distance = 2, .mass = 1, .current = -1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -348,7 +363,7 @@ public:
     friend class Unit;
   public:
     constexpr static ElectricCapacitanceRepresentative Default() { return ElectricCapacitanceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 4, .distance = -2, .mass = -1, .current = 2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 4, .distance = -2, .mass = -1, .current = 2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -359,7 +374,7 @@ public:
     friend class Unit;
   public:
     constexpr static ElectricResistanceRepresentative Default() { return ElectricResistanceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -3, .distance = 2, .mass = 1, .current = -2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -3, .distance = 2, .mass = 1, .current = -2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -370,7 +385,7 @@ public:
     friend class Unit;
   public:
     constexpr static ElectricConductanceRepresentative Default() { return ElectricConductanceRepresentative(nullptr, 1., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 3, .distance = -2, .mass = -1, .current = 2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 3, .distance = -2, .mass = -1, .current = 2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -381,7 +396,7 @@ public:
     friend class Unit;
   public:
     constexpr static MagneticFluxRepresentative Default() { return MagneticFluxRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 2, .mass = 1, .current = -1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 2, .mass = 1, .current = -1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -392,7 +407,7 @@ public:
     friend class Unit;
   public:
     constexpr static MagneticFieldRepresentative Default() { return MagneticFieldRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 0, .mass = 1, .current = -1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 0, .mass = 1, .current = -1, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -403,7 +418,7 @@ public:
     friend class Unit;
   public:
     constexpr static InductanceRepresentative Default() { return InductanceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 2, .mass = 1, .current = -2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -2, .distance = 2, .mass = 1, .current = -2, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -414,7 +429,7 @@ public:
     friend class Unit;
   public:
     constexpr static CatalyticActivityRepresentative Default() { return CatalyticActivityRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 1, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = -1, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 1, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 1; }
     const Representative * representativesOfSameDimension() const override;
   private:
@@ -425,7 +440,7 @@ public:
     friend class Unit;
   public:
     constexpr static SurfaceRepresentative Default() { return SurfaceRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 2, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 2, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 2; }
     const Representative * representativesOfSameDimension() const override;
     const Representative * standardRepresentative(double value, double exponent, ExpressionNode::ReductionContext reductionContext, const Prefix * * prefix) const override;
@@ -439,7 +454,7 @@ public:
     friend class Unit;
   public:
     constexpr static VolumeRepresentative Default() { return VolumeRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 3, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 3, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     int numberOfRepresentatives() const override { return 8; }
     const Representative * representativesOfSameDimension() const override;
     const Representative * standardRepresentative(double value, double exponent, ExpressionNode::ReductionContext reductionContext, const Prefix * * prefix) const override;
@@ -453,7 +468,7 @@ public:
     friend class Unit;
   public:
     constexpr static SpeedRepresentative Default() { return SpeedRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
-    const Vector<int>dimensionVector() const override { return Vector<int>{.time = -1, .distance = 1, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0}; }
+    const Vector<int>dimensionVector() const override { return Vector<int>{.time = -1, .distance = 1, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=0,.sr=0}; }
     const Representative * standardRepresentative(double value, double exponent, ExpressionNode::ReductionContext reductionContext, const Prefix * * prefix) const override { return nullptr; }
     bool hasSpecialAdditionalExpressions(double value, Preferences::UnitFormat unitFormat) const override { return true; }
     int setAdditionalExpressions(double value, Expression * dest, int availableLength, ExpressionNode::ReductionContext reductionContext) const override;
@@ -566,6 +581,10 @@ public:
     SolidAngleRepresentative("sr",1.,Prefixable::None,Prefixable::None),
   };
 
+  typedef UnitNode::LuminousFluxRepresentative LuminousFluxRepresentative;
+  static constexpr const LuminousFluxRepresentative k_luminousfluxrepresentatives[] = {
+    LuminousFluxRepresentative("lm",1.,Prefixable::Positive,Prefixable::Positive),
+  };
 
   typedef UnitNode::DistanceRepresentative DistanceRepresentative;
   static constexpr const DistanceRepresentative k_distanceRepresentatives[] = {
