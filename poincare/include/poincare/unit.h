@@ -248,7 +248,7 @@ public:
   public:
     constexpr static PlanAngleRepresentative Default() { return PlanAngleRepresentative(nullptr, 0., Prefixable::None, Prefixable::None); }
     const Vector<int> dimensionVector() const override { return Vector<int>{.time = 0, .distance = 0, .mass = 0, .current = 0, .temperature = 0, .amountOfSubstance = 0, .luminuousIntensity = 0,.rad=1,.sr=0}; }
-    int numberOfRepresentatives() const override { return 1; }
+    int numberOfRepresentatives() const override { return 2; }
     const Representative * representativesOfSameDimension() const override;
     bool isBaseUnit() const override { return this == representativesOfSameDimension(); }
   private:
@@ -597,6 +597,7 @@ public:
   typedef UnitNode::PlanAngleRepresentative PlanAngleRepresentative;
   static constexpr const PlanAngleRepresentative k_plananglerepresentative[] = {
     PlanAngleRepresentative("rad",1.,Prefixable::None,Prefixable::None),
+    PlanAngleRepresentative("rev",2*M_PI,Prefixable::None,Prefixable::None),
   };
 
   typedef UnitNode::SolidAngleRepresentative SolidAngleRepresentative;

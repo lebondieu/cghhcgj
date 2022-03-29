@@ -129,6 +129,24 @@ const ToolboxMessageTree unitTimeChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitTimeYearSymbol, I18n::Message::UnitTimeYear)
 };
 
+const ToolboxMessageTree unitSpeedChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitSpeedSymbol,I18n::Message::UnitSpeed),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitSpeedKMSymbol,I18n::Message::UnitSpeedKMS),
+};
+
+
+const ToolboxMessageTree unitAngularSpeedChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitAngularSpeedSymbol,I18n::Message::UnitAngularSpeed),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitRevSecSymbol,I18n::Message::UnitRevSec),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitRevMinSymbol,I18n::Message::UnitRevMin),
+};
+
+const ToolboxMessageTree totalSpeedChildren[] = {
+  ToolboxMessageTree::Node(I18n::Message::UnitSpeedMenu,unitSpeedChildren),
+  ToolboxMessageTree::Node(I18n::Message::UnitAngularSpeedMenu,unitAngularSpeedChildren),
+};
+
+
 constexpr ToolboxMessageTree unitDistanceMeterPico = ToolboxMessageTree::Leaf(I18n::Message::UnitDistanceMeterPicoSymbol, I18n::Message::UnitDistanceMeterPico);
 constexpr ToolboxMessageTree unitDistanceMeterNano = ToolboxMessageTree::Leaf(I18n::Message::UnitDistanceMeterNanoSymbol, I18n::Message::UnitDistanceMeterNano);
 constexpr ToolboxMessageTree unitDistanceMeterMicro = ToolboxMessageTree::Leaf(I18n::Message::UnitDistanceMeterMicroSymbol, I18n::Message::UnitDistanceMeterMicro);
@@ -402,6 +420,7 @@ const ToolboxMessageTree derivedUnit[] = {
   ToolboxMessageTree::Node(I18n::Message::UnitMagneticFieldMenu, unitMagneticFieldChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
+  ToolboxMessageTree::Node(I18n::Message::SpeedMenu,totalSpeedChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeFork,true),
 
 };
