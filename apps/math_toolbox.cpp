@@ -385,9 +385,16 @@ const ToolboxMessageTree electricity[] = {
 
 };
 
+
+const ToolboxMessageTree catalyticactivitychildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitCatalyticActivitySymbol,I18n::Message::UnitCatalyticActivity),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitCatalyticActivityKiloSymbol,I18n::Message::UnitCatalyticActivityKilo),
+};
+
 const ToolboxMessageTree derivedUnit[] = {
   ToolboxMessageTree::Node(I18n::Message::DosageMenu, dosageChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
+  ToolboxMessageTree::Node(I18n::Message::UnitCatalyticActivityMenu,catalyticactivitychildren),
   ToolboxMessageTree::Node(I18n::Message::ElectricityMenu,electricity),
   ToolboxMessageTree::Node(I18n::Message::UnitEnergyMenu,unitEnergyChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
