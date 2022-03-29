@@ -409,8 +409,13 @@ const ToolboxMessageTree catalyticactivitychildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitCatalyticActivityKiloSymbol,I18n::Message::UnitCatalyticActivityKilo),
 };
 
+const ToolboxMessageTree accelerationChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitAccelerationSymbol,I18n::Message::UnitAcceleration),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitAngularAccelerationSymbol,I18n::Message::UnitAngularAcceleration),
+};
 const ToolboxMessageTree derivedUnit[] = {
   ToolboxMessageTree::Node(I18n::Message::DosageMenu, dosageChildren),
+  ToolboxMessageTree::Node(I18n::Message::AccelerationMenu,accelerationChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
   ToolboxMessageTree::Node(I18n::Message::UnitCatalyticActivityMenu,catalyticactivitychildren),
   ToolboxMessageTree::Node(I18n::Message::ElectricityMenu,electricity),
