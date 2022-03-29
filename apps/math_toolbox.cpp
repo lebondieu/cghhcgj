@@ -263,12 +263,18 @@ const ToolboxMessageTree unitEnergyJouleChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyJouleMilliSymbol, I18n::Message::UnitEnergyJouleMilli),
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyJouleSymbol, I18n::Message::UnitEnergyJoule),
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyJouleKiloSymbol, I18n::Message::UnitEnergyJouleKilo),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyJouleMegaSymbol, I18n::Message::UnitEnergyJouleMega),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyJouleGigaSymbol, I18n::Message::UnitEnergyJouleGiga),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyJouleTeraSymbol, I18n::Message::UnitEnergyJouleTera),
 };
 const ToolboxMessageTree unitEnergyElectronVoltChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyElectronVoltMilliSymbol, I18n::Message::UnitEnergyElectronVoltMilli),
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyElectronVoltSymbol, I18n::Message::UnitEnergyElectronVolt),
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyElectronVoltKiloSymbol, I18n::Message::UnitEnergyElectronVoltKilo),
   ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyElectronVoltMegaSymbol, I18n::Message::UnitEnergyElectronVoltMega),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyElectronVoltGigaSymbol, I18n::Message::UnitEnergyElectronVoltGiga),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitEnergyElectronVoltTeraSymbol, I18n::Message::UnitEnergyElectronVoltTera),
+
 };
 const ToolboxMessageTree unitEnergyChildren[] = {
   ToolboxMessageTree::Node(I18n::Message::UnitEnergyJouleMenu, unitEnergyJouleChildren),
@@ -382,13 +388,14 @@ const ToolboxMessageTree electricity[] = {
 const ToolboxMessageTree derivedUnit[] = {
   ToolboxMessageTree::Node(I18n::Message::DosageMenu, dosageChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
-  ToolboxMessageTree::Node(I18n::Message::ElectricityMenu,electricity,true),
+  ToolboxMessageTree::Node(I18n::Message::ElectricityMenu,electricity),
+  ToolboxMessageTree::Node(I18n::Message::UnitEnergyMenu,unitEnergyChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitFrequencyMenu, unitFrequencyHertzChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitMagneticFieldMenu, unitMagneticFieldChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeFork, true),
+  ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeFork,true),
 
 };
 

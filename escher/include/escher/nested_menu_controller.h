@@ -41,7 +41,8 @@ protected:
     int depth() const;
     void resetStack();
   private:
-    constexpr static int k_maxModelTreeDepth = 3;
+    /*The highest number of children possible, Epsilon is 3*/
+    constexpr static int k_maxModelTreeDepth = 4;
     State m_statesStack[k_maxModelTreeDepth];
   };
 

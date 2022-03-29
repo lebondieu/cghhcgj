@@ -644,7 +644,7 @@ public:
     MassRepresentative("lgtn", 2240*16*0.028349523125, Prefixable::None, Prefixable::None),
   };
   typedef UnitNode::CurrentRepresentative CurrentRepresentative;
-  static constexpr const CursrentRepresentative k_currentRepresentatives[] = { CurrentRepresentative("A", 1., Prefixable::All, Prefixable::LongScale) };
+  static constexpr const CurrentRepresentative k_currentRepresentatives[] = { CurrentRepresentative("A", 1., Prefixable::All, Prefixable::LongScale) };
   typedef UnitNode::TemperatureRepresentative TemperatureRepresentative;
   static constexpr const TemperatureRepresentative k_temperatureRepresentatives[] = {
     TemperatureRepresentative("K", 1., Prefixable::All, Prefixable::None),
@@ -671,10 +671,6 @@ public:
   typedef UnitNode::EnergyRepresentative EnergyRepresentative;
   static constexpr const EnergyRepresentative k_energyRepresentatives[] = {
     EnergyRepresentative("J", 1., Prefixable::All, Prefixable::LongScale),
-    EnergyRepresentative("kJ", 1., Prefixable::All, Prefixable::LongScale),
-    EnergyRepresentative("MJ", 1., Prefixable::All, Prefixable::LongScale),
-    EnergyRepresentative("GJ", 1., Prefixable::All, Prefixable::LongScale),
-    EnergyRepresentative("TJ", 1., Prefixable::All, Prefixable::LongScale),
     EnergyRepresentative("eV", 1.602176634e-19, Prefixable::All, Prefixable::LongScale),
   };
   typedef UnitNode::PowerRepresentative PowerRepresentative;
