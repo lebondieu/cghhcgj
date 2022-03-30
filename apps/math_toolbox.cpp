@@ -94,29 +94,7 @@ const ToolboxMessageTree listsChildren[] = {
 };
 #endif
 
-const ToolboxMessageTree miscChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::AbsorbedDoseRateSymbol,I18n::Message::AbsorbedDoseRate),
-  ToolboxMessageTree::Leaf(I18n::Message::CalyticActivityConcentrationSymbol,I18n::Message::CalyticActivityConcentration),
-  ToolboxMessageTree::Leaf(I18n::Message::DynamicViscositySymbol,I18n::Message::DynamicViscosity),
-  ToolboxMessageTree::Leaf(I18n::Message::ElectricChargeDensitySymbol,I18n::Message::ElectricChargeDensity),
-  ToolboxMessageTree::Leaf(I18n::Message::ElectricFieldStrengthSymbol,I18n::Message::ElectricFieldStrength),
-  ToolboxMessageTree::Leaf(I18n::Message::EnergyDensitySymbol,I18n::Message::EnergyDensity),
-  ToolboxMessageTree::Leaf(I18n::Message::EnergyFluxDensitySymbol,I18n::Message::EnergyFluxDensity),
-  ToolboxMessageTree::Leaf(I18n::Message::ExposureSymbol,I18n::Message::Exposure),
-  ToolboxMessageTree::Leaf(I18n::Message::HeatFluxDensitySymbol,I18n::Message::HeatFluxDensity),
-  ToolboxMessageTree::Leaf(I18n::Message::MolarEnergySymbol,I18n::Message::MolarEnergy),
-  ToolboxMessageTree::Leaf(I18n::Message::MolarEntropySymbol,I18n::Message::MolarEntropy),
-  ToolboxMessageTree::Leaf(I18n::Message::MomentForceSymbol,I18n::Message::MomentForce),
-  ToolboxMessageTree::Leaf(I18n::Message::PermeabilitySymbol,I18n::Message::Permeability),
-  ToolboxMessageTree::Leaf(I18n::Message::PermittivitySymbol,I18n::Message::Permittivity),
-  ToolboxMessageTree::Leaf(I18n::Message::RadianceSymbol,I18n::Message::Radiance),
-  ToolboxMessageTree::Leaf(I18n::Message::RadiantIntensitySymbol,I18n::Message::RadiantIntensity),
-  ToolboxMessageTree::Leaf(I18n::Message::SpecificEnergySymbol,I18n::Message::SpecificEnergy),
-  ToolboxMessageTree::Leaf(I18n::Message::SpecificEntropySymbol,I18n::Message::SpecificEntropy),
-  ToolboxMessageTree::Leaf(I18n::Message::SurfaceChargeDensitySymbol,I18n::Message::SurfaceChargeDensity),
-  ToolboxMessageTree::Leaf(I18n::Message::SurfaceTentionSymbol,I18n::Message::SurfaceTension),
-  ToolboxMessageTree::Leaf(I18n::Message::ThermalConductivitySymbol,I18n::Message::ThermalConductivity),
-};
+
 
 const ToolboxMessageTree fondamentalUnitChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitAmountMoleSymbol, I18n::Message::UnitAmountMole),
@@ -320,7 +298,10 @@ const ToolboxMessageTree unitEnergyElectronVoltChildren[] = {
 };
 const ToolboxMessageTree unitEnergyChildren[] = {
   ToolboxMessageTree::Node(I18n::Message::UnitEnergyJouleMenu, unitEnergyJouleChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitEnergyEletronVoltMenu, unitEnergyElectronVoltChildren)};
+  ToolboxMessageTree::Node(I18n::Message::UnitEnergyEletronVoltMenu, unitEnergyElectronVoltChildren),
+  ToolboxMessageTree::Leaf(I18n::Message::EnergyDensitySymbol,I18n::Message::EnergyDensity),
+  ToolboxMessageTree::Leaf(I18n::Message::EnergyFluxDensitySymbol,I18n::Message::EnergyFluxDensity),
+  };
 
 const ToolboxMessageTree unitPowerWattChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitPowerWattMicroSymbol, I18n::Message::UnitPowerWattMicro),
@@ -330,40 +311,6 @@ const ToolboxMessageTree unitPowerWattChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitPowerWattMegaSymbol, I18n::Message::UnitPowerWattMega),
   ToolboxMessageTree::Leaf(I18n::Message::UnitPowerWattGigaSymbol, I18n::Message::UnitPowerWattGiga),
 };
-
-const ToolboxMessageTree unitElectricChargeCoulombChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitChargeCoulombSymbol, I18n::Message::UnitChargeCoulomb),
-};
-
-
-const ToolboxMessageTree unitPotentialVoltChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltMicroSymbol, I18n::Message::UnitPotentialVoltMicro),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltMilliSymbol, I18n::Message::UnitPotentialVoltMilli),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltSymbol, I18n::Message::UnitPotentialVolt),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltKiloSymbol, I18n::Message::UnitPotentialVoltKilo),
-};
-
-const ToolboxMessageTree unitCapacitanceFaradChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitCapacitanceFaradMicroSymbol, I18n::Message::UnitCapacitanceFaradMicro),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitCapacitanceFaradMilliSymbol, I18n::Message::UnitCapacitanceFaradMilli),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitCapacitanceFaradSymbol, I18n::Message::UnitCapacitanceFarad),
-};
-
-const ToolboxMessageTree unitResistanceOhmChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitResistanceOhmSymbol, I18n::Message::UnitResistanceOhm),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitResistanceOhmKiloSymbol, I18n::Message::UnitResistanceOhmKilo),
-};
-
-const ToolboxMessageTree unitConductanceSiemensChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitConductanceSiemensMilliSymbol, I18n::Message::UnitConductanceSiemensMilli),
-  ToolboxMessageTree::Leaf(I18n::Message::UnitConductanceSiemensSymbol, I18n::Message::UnitConductanceSiemens),
-};
-
-const ToolboxMessageTree unitMagneticFieldChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitMagneticFieldTeslaSymbol, I18n::Message::UnitMagneticFieldTesla)};
-
-const ToolboxMessageTree unitInductanceChildren[] = {
-  ToolboxMessageTree::Leaf(I18n::Message::UnitInductanceHenrySymbol, I18n::Message::UnitInductanceHenry)};
 
 const ToolboxMessageTree unitSurfaceChildrenForMetricToolbox[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitSurfaceHectarSymbol, I18n::Message::UnitSurfaceHectar),
@@ -417,17 +364,6 @@ const ToolboxMessageTree unitVolumeFork[] = {
 };
 
 
-const ToolboxMessageTree electricity[] = {
-  ToolboxMessageTree::Node(I18n::Message::UnitCapacitanceMenu, unitCapacitanceFaradChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitElectricChargeMenu, unitElectricChargeCoulombChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitConductanceMenu, unitConductanceSiemensChildren),
-  ToolboxMessageTree::Node(I18n::Message::InductanceMenu, unitInductanceChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitPotentialMenu, unitPotentialVoltChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitResistanceMenu, unitResistanceOhmChildren),
-
-};
-
-
 const ToolboxMessageTree catalyticactivitychildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitCatalyticActivitySymbol,I18n::Message::UnitCatalyticActivity),
   ToolboxMessageTree::Leaf(I18n::Message::UnitCatalyticActivityKiloSymbol,I18n::Message::UnitCatalyticActivityKilo),
@@ -437,21 +373,104 @@ const ToolboxMessageTree accelerationChildren[] = {
   ToolboxMessageTree::Leaf(I18n::Message::UnitAccelerationSymbol,I18n::Message::UnitAcceleration),
   ToolboxMessageTree::Leaf(I18n::Message::UnitAngularAccelerationSymbol,I18n::Message::UnitAngularAcceleration),
 };
+
+const ToolboxMessageTree kynematicChildren[] = {
+  ToolboxMessageTree::Node(I18n::Message::AccelerationMenu,accelerationChildren),
+  ToolboxMessageTree::Node(I18n::Message::SpeedMenu,totalSpeedChildren),
+  ToolboxMessageTree::Leaf(I18n::Message::JerkSymbol,I18n::Message::Jerk),
+  ToolboxMessageTree::Leaf(I18n::Message::SnapSymbol,I18n::Message::Snap),
+  ToolboxMessageTree::Leaf(I18n::Message::FrequencyDriftSymbol,I18n::Message::FrequencyDrift),
+  ToolboxMessageTree::Leaf(I18n::Message::VolumetricFlowSymbol,I18n::Message::VolumetricFlow),
+};
+
+const ToolboxMessageTree mechanicalChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::AbsorbedDoseRateSymbol,I18n::Message::AbsorbedDoseRate),
+  ToolboxMessageTree::Leaf(I18n::Message::DynamicViscositySymbol,I18n::Message::DynamicViscosity),
+  ToolboxMessageTree::Leaf(I18n::Message::ExposureSymbol,I18n::Message::Exposure),
+  ToolboxMessageTree::Leaf(I18n::Message::MomentForceSymbol,I18n::Message::MomentForce),
+  ToolboxMessageTree::Leaf(I18n::Message::MomentumSymbol,I18n::Message::Momentum),
+  ToolboxMessageTree::Leaf(I18n::Message::WavenumberSymbol,I18n::Message::Wavenumber),
+  ToolboxMessageTree::Leaf(I18n::Message::AreaDensitySymbol,I18n::Message::AreaDensity),
+  ToolboxMessageTree::Leaf(I18n::Message::DensitySymbol,I18n::Message::Density),
+  ToolboxMessageTree::Leaf(I18n::Message::SpecificVolumeSymbol,I18n::Message::SpecificVolume),
+  ToolboxMessageTree::Leaf(I18n::Message::ActionSymbol,I18n::Message::Action),
+  ToolboxMessageTree::Leaf(I18n::Message::KinematicViscositySymbol,I18n::Message::KinematicViscosity),
+  ToolboxMessageTree::Leaf(I18n::Message::LinearMassDensitySymbol,I18n::Message::LinearMassDensity),
+  ToolboxMessageTree::Leaf(I18n::Message::MassFlowRateSymbol,I18n::Message::MassFlowRate),
+  ToolboxMessageTree::Leaf(I18n::Message::CompressibilitySymbol,I18n::Message::Compressibility),
+  ToolboxMessageTree::Leaf(I18n::Message::MomentInertiaSymbol,I18n::Message::MomentInertia),
+  ToolboxMessageTree::Leaf(I18n::Message::RadianceSymbol,I18n::Message::Radiance),  
+  ToolboxMessageTree::Leaf(I18n::Message::RadiantIntensitySymbol,I18n::Message::RadiantIntensity),
+  ToolboxMessageTree::Leaf(I18n::Message::SpecificAngularMomentumSymbol,I18n::Message::SpecificAngularMomentum),
+  ToolboxMessageTree::Leaf(I18n::Message::SpecificEnergySymbol,I18n::Message::SpecificEnergy),
+  ToolboxMessageTree::Leaf(I18n::Message::SurfaceTentionSymbol,I18n::Message::SurfaceTension),
+};
+
+const ToolboxMessageTree molarChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::CalyticActivityConcentrationSymbol,I18n::Message::CalyticActivityConcentration),
+  ToolboxMessageTree::Leaf(I18n::Message::MolaritySymbol,I18n::Message::Molarity),
+  ToolboxMessageTree::Leaf(I18n::Message::MolarVolumeSymbol,I18n::Message::MolarVolume),
+  ToolboxMessageTree::Leaf(I18n::Message::MolarConductivitySymbol,I18n::Message::MolarConductivity),
+  ToolboxMessageTree::Leaf(I18n::Message::MolalitySymbol,I18n::Message::Molality),
+  ToolboxMessageTree::Leaf(I18n::Message::MolarMassSymbol,I18n::Message::MolarMass),
+  ToolboxMessageTree::Leaf(I18n::Message::MolarEnergySymbol,I18n::Message::MolarEnergy),
+  ToolboxMessageTree::Leaf(I18n::Message::MolarEntropySymbol,I18n::Message::MolarEntropy),
+};
+
+const ToolboxMessageTree electricity[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::UnitCapacitanceFaradSymbol, I18n::Message::UnitCapacitanceMenu),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitChargeCoulombSymbol, I18n::Message::UnitElectricChargeMenu),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitConductanceSiemensSymbol, I18n::Message::UnitConductanceMenu),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitInductanceHenrySymbol, I18n::Message::UnitInductanceHenry),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitPotentialVoltSymbol, I18n::Message::UnitPotentialMenu),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitResistanceOhmSymbol, I18n::Message::UnitResistanceMenu),
+  ToolboxMessageTree::Leaf(I18n::Message::ElectricChargeDensitySymbol,I18n::Message::ElectricChargeDensity),
+  ToolboxMessageTree::Leaf(I18n::Message::ElectricFieldStrengthSymbol,I18n::Message::ElectricFieldStrength),
+  ToolboxMessageTree::Leaf(I18n::Message::PermeabilitySymbol,I18n::Message::Permeability),
+  ToolboxMessageTree::Leaf(I18n::Message::PermittivitySymbol,I18n::Message::Permittivity),
+  ToolboxMessageTree::Leaf(I18n::Message::UnitMagneticFieldTeslaSymbol, I18n::Message::UnitMagneticFieldTesla),
+  ToolboxMessageTree::Leaf(I18n::Message::ElectricalConductivitySymbol,I18n::Message::ElectricalConductivity),
+  ToolboxMessageTree::Leaf(I18n::Message::ResistivitySymbol,I18n::Message::Resistivity),
+  ToolboxMessageTree::Leaf(I18n::Message::MagneticReluctanceSymbol,I18n::Message::MagneticReluctance),
+  ToolboxMessageTree::Leaf(I18n::Message::MagneticMomentSymbol,I18n::Message::MagneticMoment),
+  ToolboxMessageTree::Leaf(I18n::Message::MagneticRigiditySymbol,I18n::Message::MagneticRigidity),
+  ToolboxMessageTree::Leaf(I18n::Message::MagnetomotiveForceSymbol,I18n::Message::MagnetomotiveForce),
+  ToolboxMessageTree::Leaf(I18n::Message::MagneticSusceptibilitySymbol,I18n::Message::MagneticSusceptibility),
+  ToolboxMessageTree::Leaf(I18n::Message::SurfaceChargeDensitySymbol,I18n::Message::SurfaceChargeDensity),
+};
+
+const ToolboxMessageTree luminousChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::LuminousEnergySymbol,I18n::Message::LuminousEnergy),
+  ToolboxMessageTree::Leaf(I18n::Message::LuminousExposureSymbol,I18n::Message::LuminousExposure),
+  ToolboxMessageTree::Leaf(I18n::Message::LuminanceSymbol,I18n::Message::Luminance),
+  ToolboxMessageTree::Leaf(I18n::Message::LuminousEfficacySymbol,I18n::Message::LuminousEfficacy),
+};
+
+const ToolboxMessageTree thermodynamicChildren[] = {
+  ToolboxMessageTree::Leaf(I18n::Message::HeatFluxDensitySymbol,I18n::Message::HeatFluxDensity),
+  ToolboxMessageTree::Leaf(I18n::Message::SpecificEntropySymbol,I18n::Message::SpecificEntropy),
+  ToolboxMessageTree::Leaf(I18n::Message::ThermalConductivitySymbol,I18n::Message::ThermalConductivity),
+  ToolboxMessageTree::Leaf(I18n::Message::ThermalConductivitySymbol,I18n::Message::ThermalConductivity),
+  ToolboxMessageTree::Leaf(I18n::Message::ThermalResistanceSymbol,I18n::Message::ThermalResistance),
+};
+
+
 const ToolboxMessageTree derivedUnit[] = {
   ToolboxMessageTree::Node(I18n::Message::DosageMenu, dosageChildren),
-  ToolboxMessageTree::Node(I18n::Message::AccelerationMenu,accelerationChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitSurfaceMenu, unitSurfaceFork, true),
   ToolboxMessageTree::Node(I18n::Message::UnitCatalyticActivityMenu,catalyticactivitychildren),
-  ToolboxMessageTree::Node(I18n::Message::ElectricityMenu,electricity),
+  ToolboxMessageTree::Node(I18n::Message::ElectromagneticMenu,electricity),
   ToolboxMessageTree::Node(I18n::Message::UnitEnergyMenu,unitEnergyChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitForceMenu, unitForceNewtonChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitFrequencyMenu, unitFrequencyHertzChildren),
-  ToolboxMessageTree::Node(I18n::Message::UnitMagneticFieldMenu, unitMagneticFieldChildren),
+  ToolboxMessageTree::Node(I18n::Message::KineticMenu,kynematicChildren),
+  ToolboxMessageTree::Node(I18n::Message::MechanicalMenu,mechanicalChildren),
+  ToolboxMessageTree::Node(I18n::Message::MolarMenu,molarChildren),
+  ToolboxMessageTree::Node(I18n::Message::PhotometricMenu,luminousChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPressureMenu, unitPressureChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitPowerMenu, unitPowerWattChildren),
-  ToolboxMessageTree::Node(I18n::Message::SpeedMenu,totalSpeedChildren),
+  ToolboxMessageTree::Node(I18n::Message::ThermodynamicMenu,thermodynamicChildren),
   ToolboxMessageTree::Node(I18n::Message::UnitVolumeMenu, unitVolumeFork,true),
-  ToolboxMessageTree::Node(I18n::Message::MiscTag,miscChildren),
 };
 
 const ToolboxMessageTree unitChildren[] = {
