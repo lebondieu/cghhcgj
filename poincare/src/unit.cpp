@@ -944,7 +944,6 @@ Expression Unit::removeUnit(Expression * unit) {
 
 void Unit::chooseBestRepresentativeAndPrefix(double * value, double exponent, ExpressionNode::ReductionContext reductionContext, bool optimizePrefix) {
   assert(exponent != 0.f);
-
   if ((std::isinf(*value) || (*value == 0.0 && node()->representative()->dimensionVector() != TemperatureRepresentative::Default().dimensionVector()))) {
     /* Use the base unit to represent an infinite or null value, as all units
      * are equivalent.

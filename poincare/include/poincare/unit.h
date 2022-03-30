@@ -37,7 +37,7 @@ public:
   class Prefix {
     friend class Unit;
   public:
-    static constexpr int k_numberOfPrefixes = 21;
+    static constexpr int k_numberOfPrefixes = 17;
     static const Prefix * Prefixes();
     static const Prefix * EmptyPrefix();
     const char * symbol() const { return m_symbol; }
@@ -566,10 +566,11 @@ public:
    * accessed by their friend class Unit. */
   typedef UnitNode::Prefix Prefix;
   static constexpr const Prefix k_prefixes[Prefix::k_numberOfPrefixes] = {
-    Prefix("y",-24),
+    /**FIXME: having issues between the findBestPrefix algorithm and the four first prefix*/
+    /*Prefix("y",-24),
     Prefix("z",-21),
     Prefix("a",-18),
-    Prefix("f",-15),
+    Prefix("f",-15),*/
     Prefix("p", -12),
     Prefix("n", -9),
     Prefix("μ", -6),
@@ -593,12 +594,12 @@ public:
   typedef UnitNode::TimeRepresentative TimeRepresentative;
   static constexpr const TimeRepresentative k_timeRepresentatives[] = {
     TimeRepresentative("s", 1., Prefixable::All, Prefixable::All),
-    TimeRepresentative("min", 60., Prefixable::All, Prefixable::All),
-    TimeRepresentative("h", 3600., Prefixable::All, Prefixable::All),
-    TimeRepresentative("day", 24.*3600., Prefixable::All, Prefixable::All),
-    TimeRepresentative("week", 7.*24.*3600., Prefixable::All, Prefixable::All),
-    TimeRepresentative("month", 365.25/12.*24.*3600., Prefixable::All, Prefixable::All),
-    TimeRepresentative("year", 365.25*24.*3600., Prefixable::All, Prefixable::All),
+    TimeRepresentative("min", 60., Prefixable::All, Prefixable::None),
+    TimeRepresentative("h", 3600., Prefixable::All, Prefixable::None),
+    TimeRepresentative("day", 24.*3600., Prefixable::All, Prefixable::None),
+    TimeRepresentative("week", 7.*24.*3600., Prefixable::All, Prefixable::None),
+    TimeRepresentative("month", 365.25/12.*24.*3600., Prefixable::All, Prefixable::None),
+    TimeRepresentative("year", 365.25*24.*3600., Prefixable::All, Prefixable::None),
   };
 
 
@@ -644,7 +645,7 @@ public:
   };
   typedef UnitNode::MassRepresentative MassRepresentative;
   static constexpr const MassRepresentative k_massRepresentatives[] = {
-    MassRepresentative("g", 1., Prefixable::All, Prefixable::All),
+    MassRepresentative("g", 1., Prefixable::All, Prefixable::NegativeAndKilo),
     MassRepresentative("t", 1e3, Prefixable::All, Prefixable::All),
     MassRepresentative("Da", 1/(6.02214076e26), Prefixable::All, Prefixable::All),
     MassRepresentative("oz", 0.028349523125, Prefixable::None, Prefixable::None),
@@ -656,8 +657,8 @@ public:
   static constexpr const CurrentRepresentative k_currentRepresentatives[] = { CurrentRepresentative("A", 1., Prefixable::All, Prefixable::LongScale) };
   typedef UnitNode::TemperatureRepresentative TemperatureRepresentative;
   static constexpr const TemperatureRepresentative k_temperatureRepresentatives[] = {
-    TemperatureRepresentative("K", 1., Prefixable::All, Prefixable::All),
-    TemperatureRepresentative("°C", 1., Prefixable::All, Prefixable::All),
+    TemperatureRepresentative("K", 1., Prefixable::All, Prefixable::None),
+    TemperatureRepresentative("°C", 1., Prefixable::All, Prefixable::None),
     TemperatureRepresentative("°F", 5./9., Prefixable::None, Prefixable::None),
   };
   typedef UnitNode::AmountOfSubstanceRepresentative AmountOfSubstanceRepresentative;
@@ -674,13 +675,13 @@ public:
   typedef UnitNode::PressureRepresentative PressureRepresentative;
   static constexpr const PressureRepresentative k_pressureRepresentatives[] = {
     PressureRepresentative("Pa", 1., Prefixable::All, Prefixable::All),
-    PressureRepresentative("bar", 100000, Prefixable::All, Prefixable::All),
-    PressureRepresentative("atm", 101325, Prefixable::All, Prefixable::All),
+    PressureRepresentative("bar", 100000, Prefixable::None, Prefixable::None),
+    PressureRepresentative("atm", 101325, Prefixable::None, Prefixable::None),
   };
   typedef UnitNode::EnergyRepresentative EnergyRepresentative;
   static constexpr const EnergyRepresentative k_energyRepresentatives[] = {
     EnergyRepresentative("J", 1., Prefixable::All, Prefixable::All),
-    EnergyRepresentative("eV", 1.602176634e-19, Prefixable::All, Prefixable::All),
+    EnergyRepresentative("eV", 1.602176634e-19, Prefixable::All, Prefixable::None),
   };
   typedef UnitNode::PowerRepresentative PowerRepresentative;
   static constexpr const PowerRepresentative k_powerRepresentatives[] = { PowerRepresentative("W", 1., Prefixable::All, Prefixable::All) };
@@ -705,7 +706,7 @@ public:
   typedef UnitNode::SurfaceRepresentative SurfaceRepresentative;
   static constexpr const SurfaceRepresentative k_surfaceRepresentatives[] = {
     SurfaceRepresentative("ha", 10000., Prefixable::All, Prefixable::All),
-    SurfaceRepresentative("acre", 4046.8564224, Prefixable::All, Prefixable::All),
+    SurfaceRepresentative("acre", 4046.8564224, Prefixable::None, Prefixable::None),
   };
   typedef UnitNode::VolumeRepresentative VolumeRepresentative;
   static constexpr const VolumeRepresentative k_volumeRepresentatives[] = {
@@ -722,9 +723,11 @@ public:
    * Maybe switch to a rationnal representation with two int. */
 
   /* Define access points to some prefixes and representatives. */
-  static constexpr int k_emptyPrefixIndex = 10;
+  //static constexpr int k_emptyPrefixIndex = 10;
+  static constexpr int k_emptyPrefixIndex = 6;
   static_assert(k_prefixes[k_emptyPrefixIndex].m_exponent == 0, "Index for the Empty Prefix is incorrect.");
-  static constexpr int k_kiloPrefixIndex = 13;
+  //static constexpr int k_kiloPrefixIndex = 13;
+  static constexpr int k_kiloPrefixIndex = 9;
   static_assert(k_prefixes[k_kiloPrefixIndex].m_exponent == 3, "Index for the Kilo Prefix is incorrect.");
   static constexpr int k_secondRepresentativeIndex = 0;
   static_assert(strings_equal(k_timeRepresentatives[k_secondRepresentativeIndex].m_rootSymbol, "s"), "Index for the Second Representative is incorrect.");

@@ -352,7 +352,7 @@ QUIZ_CASE(poincare_simplification_units) {
   assert_parsed_expression_simplify_to("_Hz", "1×_s^\u0012-1\u0013");
   assert_parsed_expression_simplify_to("_S", "1×_Ω^\u0012-1\u0013");
   assert_parsed_expression_simplify_to("_L", "1×_dm^3");
-  assert_parsed_expression_simplify_to("_ha", "10000×_m^2");
+  assert_parsed_expression_simplify_to("_ha", "1×_hm^2");
 
   /* Imperial units */
   assert_parsed_expression_simplify_to("_lgtn", "1016.0469088×_kg");
