@@ -14,6 +14,7 @@ private:
 
 public:
   static void draw();
+  static void drawMessageBox(const char* line1, const char* line2);
 
 };
 
