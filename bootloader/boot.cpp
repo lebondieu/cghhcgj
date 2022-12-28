@@ -39,30 +39,29 @@ __attribute__((noreturn)) void Boot::boot() {
   } else if (!Slot::A().kernelHeader()->isValid()) {
     // If slot A is invalid and B valid, boot B
     setMode(BootMode::SlotB);
-    Slot::B().boot();
+    Slot::B().boot("B");
   } else if (!Slot::B().kernelHeader()->isValid()) {
     // If slot B is invalid and A valid, boot A
     setMode(BootMode::SlotA);
-    Slot::A().boot();
+    Slot::A().boot("A");
   } else {
-    
-    Bootloader::ExamMode::ExamMode SlotAExamMode = (Bootloader::ExamMode::ExamMode)Bootloader::ExamMode::SlotsExamMode::FetchSlotAExamMode(!Bootloader::Slot::A().userlandHeader()->isOmega());
-    if (SlotAExamMode != Bootloader::ExamMode::ExamMode::Off && SlotAExamMode != Bootloader::ExamMode::ExamMode::Unknown) {
-      // We boot the slot in exam_mode
-      Bootloader::Slot::A().boot();
-    }
+      const char* version = Bootloader::Slot::A().kernelHeader()->version();
+      bool isExam = Bootloader::ExamMode::SlotsExamMode::FetchSlotExamMode(version, "A") > 0;
+      if (isExam) {
+          Bootloader::Slot::A().boot("A");
+      }
 
-    Bootloader::ExamMode::ExamMode SlotBExamMode = (Bootloader::ExamMode::ExamMode)Bootloader::ExamMode::SlotsExamMode::FetchSlotBExamMode(!Bootloader::Slot::B().userlandHeader()->isOmega());
-    if (SlotBExamMode != Bootloader::ExamMode::ExamMode::Off && SlotBExamMode != Bootloader::ExamMode::ExamMode::Unknown) {
-      // We boot the slot in exam_mode
-      Bootloader::Slot::B().boot();
-    }
+      version = Bootloader::Slot::B().kernelHeader()->version();
+      isExam = Bootloader::ExamMode::SlotsExamMode::FetchSlotExamMode(version, "B") > 0;
+      if (isExam) {
+          Bootloader::Slot::B().boot("B");
+      }
 
     // Both valid, boot the selected one
     if (mode() == BootMode::SlotA) {
-      Slot::A().boot();
+      Slot::A().boot("A");
     } else if (mode() == BootMode::SlotB) {
-      Slot::B().boot();
+      Slot::B().boot("B");
     }
   }
 
@@ -74,21 +73,59 @@ __attribute__ ((noreturn)) void Boot::bootloader() {
   for(;;) {
     // Draw the interfaces and infos
     Bootloader::Interface::draw();
+    Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
 
-    // Enable USB
-    Ion::USB::enable();
+    bool abortUSB = false;
+    while (1) {
+        uint64_t scan = Ion::Keyboard::scan();
+        if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::OnOff)) {
+                Ion::Device::Reset::core();
+        }
+        //allow to set bootmode with 1 and 2
+        if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::One)) {
+            Bootloader::Boot::setMode(Bootloader::BootMode::SlotA);
+            Bootloader::Interface::draw();
+            Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
+			Ion::Timing::msleep(100);
+        }
+        if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Two)) {
+            Bootloader::Boot::setMode(Bootloader::BootMode::SlotB);
+            Bootloader::Interface::draw();
+            Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
+            Ion::Timing::msleep(100);
+        }
+		
+		if (Ion::USB::isPlugged() && !abortUSB) {
+            // Enable USB
+            Ion::USB::enable();
 
-    // Wait for the device to be enumerated
-    do {
-      // If we pressed back while waiting, reset.
-      uint64_t scan = Ion::Keyboard::scan();
-      if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Back)) {
-        Ion::Device::Reset::core();
-      }
-    } while (!Ion::USB::isEnumerated());
+            Bootloader::Interface::drawMessageBox("USB Enabled", "Press Back to disable USB");
+            // Launch the DFU stack, allowing to press Back to quit and reset
+            Ion::USB::DFU(true);
+			//wait for usb to be unplugged or back to be pressed
+			while (Ion::USB::isPlugged() && scan != Ion::Keyboard::State(Ion::Keyboard::Key::Back)) {
+				scan = Ion::Keyboard::scan();
+				Ion::Timing::msleep(100);
+			}
+			//cehck if usb is plugged
+			if (Ion::USB::isPlugged()) {
+                abortUSB = true;
+			}
+			// Disable USB
+			Ion::USB::disable();
+			Bootloader::Interface::draw();
+			Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
+			
+        }
+		
+		//Prevent USB from launching after Back press
+		if (!Ion::USB::isPlugged() && abortUSB) {
+			abortUSB = false;
+		}
 
-    // Launch the DFU stack, allowing to press Back to quit and reset
-    Ion::USB::DFU(true);
+		Ion::Timing::msleep(100);
+		
+    }
   }
 }
 

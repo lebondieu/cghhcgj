@@ -11,6 +11,19 @@
 
 namespace Bootloader {
 
+	void Interface::drawMessageBox(const char* line1, const char* line2) {
+        KDContext* ctx = KDIonContext::sharedContext();
+		//draw a red box at bottom of screen
+		ctx->fillRect(KDRect(0, 210, 320, 32), KDColorRed);
+		//get lenght of each line
+		int line1Length = strlen(line1);
+		int line2Length = strlen(line2);
+        //draw the message
+		ctx->drawString(line1, KDPoint(160-((line1Length*8)/2), 210), KDFont::SmallFont, KDColorWhite, KDColorRed);
+		ctx->drawString(line2, KDPoint(160 - ((line2Length*8)/ 2), 228), KDFont::SmallFont, KDColorWhite, KDColorRed);
+		
+	}
+	
 void Interface::drawImage(KDContext* ctx, const Image* image, int offset) {
   const uint8_t* data;
   size_t size;
@@ -74,23 +87,32 @@ void Interface::draw() {
       }
       ctx->drawString(slot.kernelHeader()->patchLevel(), KDPoint(168, i*13),  KDFont::SmallFont, KDColorWhite, KDColorBlack);
     } else {
-      ctx->drawString("Invalid", KDPoint(56, i*13),  KDFont::SmallFont, KDColorWhite, KDColorBlack);
+            if (slot.userland2Header()->isValid()) {
+                ctx->drawString("Epsilon", KDPoint(56, i * 13), KDFont::SmallFont, KDColorWhite, KDColorBlack);
+                ctx->drawString(slot.userland2Header()->version(), KDPoint(112, i * 13), KDFont::SmallFont, KDColorWhite, KDColorBlack);
+                ctx->drawString(slot.kernelHeader()->patchLevel(), KDPoint(168, i * 13), KDFont::SmallFont, KDColorWhite, KDColorBlack);
+            }
+            else {
+                ctx->drawString("Invalid", KDPoint(56, i * 13), KDFont::SmallFont, KDColorWhite, KDColorBlack);
+            }
     }
     
   }
 
   if (Bootloader::Slot::A().kernelHeader()->isValid()) {
-    Bootloader::ExamMode::ExamMode SlotAExamMode = (Bootloader::ExamMode::ExamMode)Bootloader::ExamMode::SlotsExamMode::FetchSlotAExamMode(!Bootloader::Slot::A().userlandHeader()->isOmega());
-    if (SlotAExamMode != Bootloader::ExamMode::ExamMode::Off && SlotAExamMode != Bootloader::ExamMode::ExamMode::Unknown) {
-      ctx->drawString("E", KDPoint(238, 0),  KDFont::SmallFont, KDColorWhite, KDColorBlack);
-    }
+	  const char* version = Bootloader::Slot::A().kernelHeader()->version();
+      bool isExam = Bootloader::ExamMode::SlotsExamMode::FetchSlotExamMode(version, "A") > 0;
+      if (isExam) {
+          ctx->drawString("E", KDPoint(238, 0), KDFont::SmallFont, KDColorWhite, KDColorBlack);
+      }
   }
 
   if (Bootloader::Slot::B().kernelHeader()->isValid()) {
-    Bootloader::ExamMode::ExamMode SlotBExamMode = (Bootloader::ExamMode::ExamMode)Bootloader::ExamMode::SlotsExamMode::FetchSlotBExamMode(!Bootloader::Slot::B().userlandHeader()->isOmega());
-    if (SlotBExamMode != Bootloader::ExamMode::ExamMode::Off && SlotBExamMode != Bootloader::ExamMode::ExamMode::Unknown) {
-      ctx->drawString("E", KDPoint(238, 13),  KDFont::SmallFont, KDColorWhite, KDColorBlack);
-    }
+      const char* version = Bootloader::Slot::B().kernelHeader()->version();
+      bool isExam = Bootloader::ExamMode::SlotsExamMode::FetchSlotExamMode(version, "B") > 0;
+      if (isExam) {
+          ctx->drawString("E", KDPoint(238, 13), KDFont::SmallFont, KDColorWhite, KDColorBlack);
+      }
   }
 
 }
