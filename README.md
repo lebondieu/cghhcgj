@@ -16,7 +16,7 @@ Omega is a fork of Numworks' Epsilon, the OS that runs on their calculator, whic
 ### Some new features
 - Adding symbolic calculation back into the calculator
 - An app for RPN
-- Exernal apps
+- External apps
 - A theme engine
 - New python features (os module, open method...)
 - A periodic table app + all of the molar masses for the elements in the toolbox
