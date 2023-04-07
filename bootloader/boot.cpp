@@ -71,10 +71,9 @@ __attribute__((noreturn)) void Boot::boot() {
 
 __attribute__ ((noreturn)) void Boot::bootloader() {
   for(;;) {
+    int modeFlash = 3;
     // Draw the interfaces and infos
-    Bootloader::Interface::draw();
-    Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
-
+    Bootloader::Interface::draw(modeFlash);
     bool abortUSB = false;
     while (1) {
         uint64_t scan = Ion::Keyboard::scan();
@@ -84,16 +83,22 @@ __attribute__ ((noreturn)) void Boot::bootloader() {
         //allow to set bootmode with 1 and 2
         if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::One)) {
             Bootloader::Boot::setMode(Bootloader::BootMode::SlotA);
-            Bootloader::Interface::draw();
-            Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
+            Bootloader::Interface::draw(modeFlash);
 			Ion::Timing::msleep(100);
         }
         if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Two)) {
             Bootloader::Boot::setMode(Bootloader::BootMode::SlotB);
-            Bootloader::Interface::draw();
-            Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
+            Bootloader::Interface::draw(modeFlash);
             Ion::Timing::msleep(100);
         }
+        if (scan == Ion::Keyboard::State(Ion::Keyboard::Key::Plus)) {
+			modeFlash = modeFlash + 1;
+            if (modeFlash > 3) {
+				modeFlash = 1;
+			}
+			Ion::Timing::msleep(100);
+            Bootloader::Interface::draw(modeFlash);
+		}
 		
 		if (Ion::USB::isPlugged() && !abortUSB) {
             // Enable USB
@@ -101,21 +106,14 @@ __attribute__ ((noreturn)) void Boot::bootloader() {
 
             Bootloader::Interface::drawMessageBox("USB Enabled", "Press Back to disable USB");
             // Launch the DFU stack, allowing to press Back to quit and reset
-            Ion::USB::DFU(true);
-			//wait for usb to be unplugged or back to be pressed
-			while (Ion::USB::isPlugged() && scan != Ion::Keyboard::State(Ion::Keyboard::Key::Back)) {
-				scan = Ion::Keyboard::scan();
-				Ion::Timing::msleep(100);
-			}
-			//cehck if usb is plugged
+            Ion::USB::DFU(true, modeFlash);
+			//check if usb is plugged
 			if (Ion::USB::isPlugged()) {
                 abortUSB = true;
 			}
 			// Disable USB
 			Ion::USB::disable();
-			Bootloader::Interface::draw();
-			Bootloader::Interface::drawMessageBox("Press (1)/(2) to select slot", "Press Power to reset");
-			
+			Bootloader::Interface::draw(modeFlash);
         }
 		
 		//Prevent USB from launching after Back press
