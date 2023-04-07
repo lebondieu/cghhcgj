@@ -89,45 +89,46 @@ uint32_t SlotsExamMode::getSlotBEndExamAddress(int ExamVersion) {
 }
 
 uint8_t SlotsExamMode::FetchSlotExamMode(const char* version, const char* Slot) {
-	//get start and end from version and slot
-	uint32_t start = 0;
-	uint32_t end = 0;
-    if (Slot == "A") {
-		//if version under 16 get Old
-		if (version[0] < '1' || (version[0] == '1' && version[1] < '6')) {
-		start = getSlotAStartExamAddress(0);
+//get start and end from version and slot
+uint32_t start = 0;
+uint32_t end = 0;
+if (Slot == "A") {
+    //if version under 16 get Old
+    if (version[0] < '1' || (version[0] == '1' && version[1] < '6')) {
+        start = getSlotAStartExamAddress(0);
         end = getSlotAEndExamAddress(0);
-		}
-		//else get new
-		else {
-            start = getSlotAStartExamAddress(1);
-            end = getSlotAEndExamAddress(1);
-		}
-	}
-	else if (Slot == "B") {
-		//if version under 16 get Old
-		if (version[0] < '1' || (version[0] == '1' && version[1] < '6')) {
+    }
+    //else get new
+    else {
+        start = getSlotAStartExamAddress(1);
+        end = getSlotAEndExamAddress(1);
+    }
+}
+else if (Slot == "B") {
+    //if version under 16 get Old
+    if (version[0] < '1' || (version[0] == '1' && version[1] < '6')) {
         start = getSlotBStartExamAddress(0);
         end = getSlotBEndExamAddress(0);
-		}
-		//else get new
-		else {
-            start = getSlotBStartExamAddress(1);
-			end = getSlotBEndExamAddress(1);
-		}
-	}
-
-	if (strcmp("15.9.0", version) >= 0) {
-        return examFetch15(start, end);
-    } else 	if (strcmp("16.9.0", version) > 0) {
-        return examFetch16(start, end);
     }
-    else if (strcmp("19.0.0", version) > 0) {
-        return examFetch1718(start, end);
-    }
+    //else get new
     else {
-        return examFetch19(start, end);
+        start = getSlotBStartExamAddress(1);
+        end = getSlotBEndExamAddress(1);
     }
+}
+
+if (strcmp("15.9.0", version) >= 0) {
+    return examFetch15(start, end);
+}
+else if (strcmp("16.9.0", version) > 0) {
+    return examFetch16(start, end);
+}
+else if (strcmp("19.0.0", version) > 0) {
+    return examFetch1718(start, end);
+}
+else {
+    return examFetch19(start, end);
+}
 }
 
 uint8_t SlotsExamMode::examFetch15(uint32_t start, uint32_t end) {
@@ -186,11 +187,18 @@ uint8_t SlotsExamMode::examFetch19(uint32_t start, uint32_t end) {
     uint16_t* start16 = (uint16_t*)start;
     uint16_t* end16 = (uint16_t*)end;
 
-    while (start16 + 1 <= end16 && *start16 != 0xFFFF) {
-        start16++;
-    }
-
-    return *(start16 - 1) >> 8;
+    for (uint16_t* i = end16 - 2; i > start16; i--) {
+        if (*i != 0xFFFF)  {
+            uint8_t highByte = *i >> 8;
+            uint8_t lowByte = *i & 0xFF;
+            if (highByte > lowByte) {
+				return highByte;
+			}
+            else {
+				return lowByte;
+            }
+		}
+	}
 }
 
 
