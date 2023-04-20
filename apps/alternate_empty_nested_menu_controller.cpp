@@ -3,6 +3,9 @@
 void AlternateEmptyNestedMenuController::viewDidDisappear() {
   if (isDisplayingEmptyController()) {
     pop();
+    carre();
+    rickroll();
+    lejeu();
   }
   NestedMenuController::viewDidDisappear();
 }
