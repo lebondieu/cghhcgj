@@ -1,0 +1,75 @@
+Oxydant : espèce chimique capable
+de capter un ou plusieurs électrons
+
+Réducteur : espèce chimique capable
+de céder un ou plusieurs électrons
+
+Ex : Cu2+ (oxydant) + 2e- = Cu (réducteur)
+
+Réaction redox : transformation au cours
+de laquelle l'oxydant d'un couple réagit 
+avec un réducteur d'un autre couple.
+
+Ex : Ag+ et Cu
+
+Ag+ + e- = Ag x2
+Cu = Cu2+ + 2e-
+--------------
+2Ag+ + Cu = Ag + Cu2+
+
+Pour écrire une réaction rédox, il faut
+d'abord écrire les demi-équations électroniques
+pour chaque couple en plaçant les réactifs à gauche 
+et ensuite utiliser si nécessaire des coefficients 
+multiplicateurs pour faire disparaître des électrons.
+
+mol = n
+
+Déf : La masse d'une mole d'un élément chimique
+est appelée masse molaire atomique et se note M.
+Elle se trouve dans la classification périodique 
+des éléments.
+
+Ex : M(H) = 1.0 g·mol
+     M(C) = 12.0 g·mol
+     M(Fe) = 55.8 g·mol
+
+Déf : Pour trouver la masse molaire d'une molécule,
+il suffit d'additionner les masses molaires des atomes qui la constituent.
+
+Ex : M(H2O) = 2M(H) + M(O)
+           = 2x1.0 + 16.0 = 18.0 g·mol-1
+
+Déf : La masse molaire d'un ion monoatomique est égale à celle de l'atome
+correspondant.
+
+Ex : M(Ag+) = M(Ag)
+
+n = m/M
+
+Ex : glucose
+    C6H8O6
+    
+    m = 12.0 g --> n ?
+    M(C6H8O6) = 6x12.0 + 8x1.0 + 6x16.0
+               = 176.0 g·mol
+             
+               n = 12/176 ≈ 0.068 mol
+             
+Déf : Une solution est constituée d'un 
+solvant (eau... elle est alors aqueuse) et d'un soluté.
+La concentration en quantité de matière d'une solution s'écrit
+
+C(mol·L-1) = n soluté(mol)
+          -------------
+          V solution(L)
+          
+Ex : On dissout une masse m(CuSO4) = 1.5 g dans V = 50 mL
+
+C = ?       M(CuSO4) = M(Cu) + M(S) + 4M(O)
+                  = 63 + 32 + 4x16
+                  = 159.6 g·mol
+                  
+                  n = m/M = 1.5/159.6 ≈ 0.0094 mol
+C = 0.0094/0.0050
+ ≈ 0.19 mol·L-1
