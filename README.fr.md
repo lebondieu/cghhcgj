@@ -7,7 +7,16 @@
   <a href="https://discord.gg/X2TWhh9"><img alt="Discord" src="https://img.shields.io/discord/663420259851567114?color=blue&labelColor=292929&label=chat%20-%20discord&logo=discord&style=for-the-badge" /></a>
 </p>
 
+> [!NOTE]
 > Don't understand french ? speak english ? here's the [english README](./README.md) !
+
+> [!WARNING]
+> *Mise à jour 02-02-2024*: Le code source d'Omega est en pause jusqu'à ce qu'une nouvelle version de Phi sorte. Pendant ce temps, les contributions ne seront pas acceptées/examinées. Le projet est donc marqué en lecture seule pour éviter toute confusion.
+>
+> - Consultez le [Projet Upsilon ⭐️](https://github.com/UpsilonNumworks/Upsilon/) pour une version maintenue d'Omega;
+> - Omega est et restera disponible. Vous pouvez toujours obtenir du support officiel sur le [Discord](https://discord.gg/JpmjSH3).
+> - Nos projets parallèles sont toujours disponibles et maintenus ([Omega Guide](https://github.com/Omega-Numworks/Omega-Guide), [Omega Website](https://getomega.dev), [Omega Community](https://discord.gg/JpmjSH3), etc)
+
 
 ## À propos
 
