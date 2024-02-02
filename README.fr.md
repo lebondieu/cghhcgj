@@ -42,7 +42,6 @@ Tout d'abord, suivez **la première étape** [ici](https://www.numworks.com/reso
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make MODEL=n0100 clean
 make MODEL=n0100 EPSILON_I18N=fr OMEGA_USERNAME="{Votre nom ici, 15 caractères max}" -j4
 make MODEL=n0100 epsilon_flash
@@ -59,7 +58,6 @@ Vous pouvez aussi changer le nombre de processus parallèles pendant la compilat
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make clean
 make OMEGA_USERNAME="{Votre nom ici, 15 caractères max}" -j4
 make epsilon_flash
@@ -78,7 +76,6 @@ Ces fichiers peuvent être utilisés pour distribuer Omega (pour que tout le mon
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make clean
 make MODEL=n0100 OMEGA_USERNAME="" -j8
 make MODEL=n0100 OMEGA_USERNAME="" binpack -j8
@@ -109,7 +106,6 @@ Puis, compilez Omega :
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make clean
 make PLATFORM=simulator TARGET=web OMEGA_USERNAME="{Votre nom ici, 15 caractères max}" -j4
 ```

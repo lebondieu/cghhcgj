@@ -42,7 +42,6 @@ First of all, follow **step 1** [here](https://www.numworks.com/resources/engine
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make MODEL=n0100 clean
 make MODEL=n0100 EPSILON_I18N=en OMEGA_USERNAME="{Your name, max 15 characters}" -j4
 make MODEL=n0100 epsilon_flash
@@ -59,7 +58,6 @@ Also, you can change the number of processes that run in parallel during the bui
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make clean
 make OMEGA_USERNAME="{Your name, max 15 characters}" -j4
 make epsilon_flash
@@ -78,7 +76,6 @@ These can be used to distribute Omega (so that it can be flashed by anyone with 
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make clean
 make MODEL=n0100 OMEGA_USERNAME="" -j8
 make MODEL=n0100 OMEGA_USERNAME="" binpack -j8
@@ -109,7 +106,6 @@ Then, compile Omega :
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout omega-master
 make clean
 make PLATFORM=simulator TARGET=web OMEGA_USERNAME="{Your name, max 15 characters}" -j4
 ```
